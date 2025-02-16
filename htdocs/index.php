@@ -29,12 +29,9 @@
             </div>
 
             <div>
-                <h2>Tarea 1</h2>
-                <p>Se creará
-                    una página web que contendrá enlaces a las tareas elaboradas para su revisión
-                    (solo páginas web), de tal forma que todas las tareas se encuentren en una sola
-                    página.</p>
-                <p><b>Link: </b><a href="#">Enlace a la tarea 1</a></p>
+                <h2>Gatito</h2>
+                <p>Se a diseñado un juego de tres en raya</p>
+                <p><b>Link: </b><a href="/gatito.html">Enlace a la tarea 1</a></p>
             </div>
         </div>
         <div class="Perfil">
