@@ -1,20 +1,10 @@
 RewriteEngine On
 RewriteBase /
 
-
-RewriteCond %{REQUEST_URI} \/(?:store\.log|store\.dat|store\.json|store_orders\.log|invoice-series\.json|ga_code|data\.json|forms.log|project\.db|[^\.]+\.dat)$ [OR]
+# Excepción para archivos .html (permite acceso directo a archivos .html)
+RewriteCond %{REQUEST_URI} !\.html$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^.*$ index.php [L,QSA]
 
-
 #### PERSISTENT CONTENT ####
-
-RewriteEngine On
-RewriteBase /
-
-#### PERSISTENT CONTENT ####
-RewriteCond %{REQUEST_URI} \/(?:store\.log|store\.dat|store\.json|store_orders\.log|invoice-series\.json|ga_code|data\.json|forms.log|project\.db|[^\.]+\.dat)$ [OR]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^.*$ index.php [L,QSA]
-
-
+# El resto de tus reglas de contenido persistente (si las necesitas)

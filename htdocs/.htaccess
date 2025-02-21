@@ -32,21 +32,23 @@ ErrorDocument 403 "Forbidden"
 <IfModule mod_negotiation.c>
 	#Options -MultiViews
 </IfModule>
+
 RewriteEngine On
 RewriteBase /
+
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 RewriteCond %{HTTP:X-Server-Addr} ^(.*)
 RewriteRule .* - [e=HTTP_X_SERVER_ADDR:%1]
 RewriteRule ^\.well-known/.+ - [L]
 
-
 DirectoryIndex index.php index.cgi index.html
+
+# Excepción para archivos HTML (permite acceso directo)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule \.html$ - [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_URI} ^\/(js\/(main\.js|bootstrap\.min\.js)|css\/([0-9a-f]+\.css|common\.css|site\.css|bootstrap\.min\.css)|sitemap\.xml)$
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ sitepro/$1 [L,QSA]
-
-
-#### PERSISTENT CONTENT ####
-
