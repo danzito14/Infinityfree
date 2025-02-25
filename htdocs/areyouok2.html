@@ -1,0 +1,84 @@
+<?php
+// Almacenar comentarios en un archivo de texto (puedes usar una base de datos en su lugar)
+$commentFile = "comments2.txt";
+
+// Si se ha enviado un comentario por POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['userInput'])) {
+    $comment = $_POST['userInput'];
+
+    // Si el comentario no está vacío
+    if (!empty($comment)) {
+        file_put_contents($commentFile, $comment . PHP_EOL, FILE_APPEND); // Guarda el comentario en el archivo
+    }
+}
+
+// Cargar los comentarios almacenados
+$comments = file_exists($commentFile) ? file($commentFile, FILE_IGNORE_NEW_LINES) : [];
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina de prueba</title>
+    <style>
+        h1{
+            color: #030304;
+        }
+
+        /* Establecer la imagen de fondo */
+        body {
+            background-image: url('/sitepro/gallery/trabajo.png');
+            background-size: cover; /* Ajusta el fondo para cubrir toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Hace que la imagen se quede fija al hacer scroll */
+            color: white; /* Cambiar el color del texto para hacerlo legible sobre el fondo */
+        }
+
+        /* Agregar algo de estilo al formulario y comentarios */
+        form, #commentBox {
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente para mejor legibilidad */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pagina de prueba</h1>
+
+    <!-- Formulario para ingresar texto -->
+    <form action="areyouok2.php" method="POST">
+        <label for="userInput">Ingresa un comentario:</label><br>
+        <input type="text" id="userInput" name="userInput" placeholder="Algo por comentar..." required>
+        <br><br>
+        <button type="submit">Comentar</button>
+    </form>
+
+    <br>
+    <!-- Caja de comentarios -->
+    <div id="commentBox" style="border: 1px solid #ccc; padding: 10px; margin-top: 20px;">
+        <h2>Comentarios:</h2>
+        <?php
+        // Mostrar los comentarios almacenados
+        if (empty($comments)) {
+            echo "<p>No hay comentarios.</p>";
+        } else {
+            foreach ($comments as $comment) {
+                echo "<p>" . htmlspecialchars($comment) . "</p>";
+            }
+        }
+        ?>
+    </div>
+
+    <br>
+    <a href="areyouok2.html" style="color: white;">Back</a>
+</body>
+</html>
