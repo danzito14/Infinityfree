@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form class="inputs">
+        <label for="time">Ingrese la Hora de la Reunión, tomé en cuenta que solo puede de las 13:00 hrs a las 18:00
+            hrs</label><br>
+        <input type="time" name="time" id="time" placeholder="Ingrese la hora" min="13:00" max="18:00" required>
+        <br><br>
+
+        <label for="week">Ingrese la Semana que se haran las reuniones, tomé en cuenta que solo se pueden hacer
+            desde la semana actual a la semana 26 o 29 de Junio</label><br>
+        <input type="week" name="week" id="week" placeholder="Ingrese la semana" max="2025-W26" required>
+        <br><br>
+
+        <label for="url">Ingrese el URL de la Reunión</label><br>
+        <input type="url" name="url" id="url" placeholder="url" required>
+        <br><br>
+
+        <label for="nombre">Favor de ingresar un nombre a la reuinión</label>
+        <br>
+        <input type="text" name="nombre" id="nombre">
+        <br><br>
+        <button type="submit">Boton</button>
+    </form>
+
+    <div>
+        <h2>Tiempo restante para que comience la semana de reuinones</h2>
+        <div id="semanas_faltantes">
+        </div>
+        <img alt="" id="imagen">
+    </div>
+    <script src="../js/html5_js.js"></script>
+</body>
+
+
+</html>
