@@ -1,0 +1,97 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1e1e2f;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+form {
+    background: #2a2a40;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+form:hover {
+    transform: translateY(-5px);
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin-top: 15px;
+    color: #d1d1e0;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #3b3b5f;
+    color: #ffffff;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0px 0px 8px #8a2be2;
+}
+
+button {
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 15px;
+    transition: background 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #6a1bb5;
+}
+
+#semanas_faltantes {
+    margin-top: 20px;
+    background: #3b3b5f;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#div_imagen {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+
+img {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+header {
+    width: max-content;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+}

@@ -37,6 +37,12 @@
                 </p>
             </div>
             <div>
+                <h2>Tarea 4</h2>
+                <p>Se diseñara una pagina web como practica para usar los inputs week, time y url que se nos indico el
+                    profesor. Como equipo diseñamos una pagina que te pide una hora, semana y url para indicar cuanto
+                    falta para ello</p>
+            </div>
+            <div>
                 <h2>Gatito</h2>
                 <p>Se a diseñado un juego de tres en raya</p>
                 <p><b>Link: </b><a href="/gatito.html">Enlace a la tarea 1</a></p>
