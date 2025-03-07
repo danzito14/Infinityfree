@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/perzonalizar.css">
+</head>
+
+<body>
+    <div id="side_bar">
+        <div class="toggle-btn">
+            <span>&#9776;</span>
+        </div>
+        <ul>
+            <a class="enlace" href="blog_personal_inicio.html">Inicio</a>
+            <a class="enlace" href="blog_personal.html">Información Personal</a>
+            <a class="enlace" href="blog_personal_estudios.html">Formación Academica</a>
+            <a class="enlace" href="blog_personal_trabajo.html">Situación Laboral</a>
+            <a class="enlace" href="blog_personal_hobbys.html">Actividades Extraescolares</a>
+            <a class="enlace" href="../index.php">Volver al contenedor</a>
+            <a href="perzonalizar.html">Configuración</a>
+        </ul>
+    </div>
+
+    <header>
+        <ul>
+            <h3>Mi blog Personal</h3>
+            <a class="enlace" href="blog_personal_inicio.html">Inicio</a>
+            <a class="enlace" href="../index.php">Volver al contenedor</a>
+        </ul>
+    </header>
+
+    <main>
+        <div class="colores_background">
+            <label for="color_fondo">Seleccione un color para el fondo</label>
+            <label for="color_fondo_cabecera">Seleccione un color para la cabecera</label>
+            <label for="color_fondo_footer">Seleccione un color para el footer</label>
+            <input type="color" name="color_fondo" id="color_fondo">
+            <input type="color" name="color_fondo_cabecera" id="color_fondo_cabecera">
+            <input type="color" name="color_fondo_footer" id="color_fondo_footer">
+        </div>
+
+        <div class="imagen_estilo">
+            <div class="imagen_mitad">
+                <img src="../gallery/keanu.jpeg" alt="foto">
+            </div>
+            <div class="configurar_estilos">
+                <div id="imagen_tamaño">
+                    <label for="imagen_tamaño">Seleccione un tamaño para la imagen</label>
+                    <div id="imagen_tamaño">
+                        <label for="tamaño_imagen_pequeño">Pequeño</label>
+                        <input type="radio" name="tamaño_imagen" id="tamaño_imagen_pequeño" value="35%">
+
+                        <label for="tamaño_imagen_mediano">Mediano</label>
+                        <input type="radio" name="tamaño_imagen" id="tamaño_imagen_mediano" value="70%">
+
+                        <label for="tamaño_imagen_grande">Grande</label>
+                        <input type="radio" name="tamaño_imagen" id="tamaño_imagen_grande" value="100%">
+                        <br><br>
+                    </div>
+                    <label for="imagen_tamaño_borde">Seleccione un tamaño para el borde de la imagen</label>
+                    <div id="imagen_tamaño_borde">
+                        <label for="tamaño_borde_pequeño">Pequeño</label>
+                        <input type="radio" name="tamaño_borde" id="tamaño_borde_pequeño" value="3px">
+
+                        <label for="tamaño_borde_mediano">Mediano</label>
+                        <input type="radio" name="tamaño_borde" id="tamaño_borde_mediano" value="6px">
+
+                        <label for="tamaño_borde_grande">Grande</label>
+                        <input type="radio" name="tamaño_borde" id="tamaño_borde_grande" value="9px">
+                        <br><br>
+                        <label for="corlor_borde">Seleccione un color para el borde</label><br>
+                        <input type="color" name="color_borde" id="color_borde"> <br>
+                        <br>
+                    </div>
+                    <label for="imagen_sombra">Sombra en la imagen:</label>
+                    <div id="imagen_sombra">
+                        <select name="color_sombra" id="color_sombra">
+                            <option value="10px 10px 20px rgba(0, 0, 0, 0)">No</option>
+                            <option value="10px 10px 20px rgba(0, 0, 0, 0.6)">Sí</option>
+                        </select>
+                        <br>
+                        <br>
+                    </div>
+                    <label for="imagen_tamaño_borde_radius">Seleccione cuanto redondeo quiere hacer a la imagen</label>
+                    <div id="imagen_tamaño_radius">
+
+                        <label for="tamaño_radius_pequeño">Pequeño</label>
+                        <input type="radio" name="tamaño_borde_radius" id="tamaño_radius_pequeño" value="50px">
+
+                        <label for="tamaño_radius_mediano">Mediano</label>
+                        <input type="radio" name="tamaño_borde_radius" id="tamaño_radius_mediano" value="100px">
+
+                        <label for="tamaño_radius_grande">Grande</label>
+                        <input type="radio" name="tamaño_borde_radius" id="tamaño_radius_grande" value="200px">
+                    </div>
+                </div>
+                <br>
+                <a class="enlace" href="#">Link de ejemplo.com</a>
+                <br><br>
+                <label for="color_texto">Seleccione un color para el enlace</label><br>
+                <input type="color" name="color_enlace" id="color_enlace"><br><br>
+                <label for="color_fondo_texto">Color de fondo del enlace</label><br>
+                <input type="color" name="color_fondo_enlace" id="color_fondo_enlace"><br><br>
+
+                <label for="link_tamaño_borde">Seleccione un tamaño para el borde de los enlaces</label>
+                <br> <label for="tamaño_borde_pequeño_enlace">Pequeño</label>
+                <input type="radio" name="tamaño_borde_enlace" id="tamaño_borde_pequeño_enlace" value="3px">
+
+                <label for="tamaño_borde_mediano_enlace">Mediano</label>
+                <input type="radio" name="tamaño_borde_enlace" id="tamaño_borde_mediano_enlace" value="6px">
+                <label for="tamaño_borde_grande_enlace">Grande</label>
+                <input type="radio" name="tamaño_borde_enlace" id="tamaño_borde_grande_enlace" value="9px">
+                <br><br>
+
+                <div>
+                    <div>
+                        <label for="color_texto">Seleccione un color para el texto</label><br>
+                        <input type="color" name="color_texto" id="color_texto"><br><br>
+                        <label for="color_fondo_texto">Color de fondo del texto</label><br>
+                        <input type="color" name="color_fondo_texto" id="color_fondo_texto"><br><br>
+                        <label for="tamaño_texto">Tamaño del Texto</label><br>
+                        <input type="range" name="tamaño_texto" id="tamaño_texto" min="10" max="25" step="1"
+                            value="15"><br>
+                        <p> Valor: <span id="rango_valor">15</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button class="reiniciar_estilo">Reiniciar estilos</button>
+    </main>
+    <footer>
+        <h3>ELABORADO POR CARO DIAZ URIEL ALONSO</h3>
+    </footer>
+
+    <script src="../js/clases.js"></script>
+    <script src="../js/perzonalizar.js"></script>
+</body>
+
+</html>

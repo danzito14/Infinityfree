@@ -43,6 +43,11 @@
                     falta para ello</p>
             </div>
             <div>
+                <h2>Práctica 5 Página web adaptable</h2>
+                <p>Objetivo: Generar una versión de la página personal adaptable a las preferencias del usuario.</p>
+                <p><b>Link: </b><a href="/sitepro/html/perzonalizar.html">Enlace a la tarea 5</a></p>
+            </div>
+            <div>
                 <h2>Gatito</h2>
                 <p>Se a diseñado un juego de tres en raya</p>
                 <p><b>Link: </b><a href="/gatito.html">Enlace a la tarea 1</a></p>
