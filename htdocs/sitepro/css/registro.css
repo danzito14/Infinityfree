@@ -1,0 +1,263 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #F39C12 10%, #E6E6E6 99%);
+    margin: 0;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 450px;
+    padding: 40px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    margin-top: 7%;
+    /* Añadido para posicionar el yeti */
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+.form-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.yeti {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('yeti.png');
+    /* Reemplaza con la imagen de tu yeti */
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.form-group:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.password-group {
+    position: relative;
+}
+
+.show-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007bff;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    display: block;
+    margin-top: 5px;
+}
+
+.error {
+    border-color: #ff4d4d;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 30px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+button {
+    padding: 14px 25px;
+    margin: 0 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+button[type="button"]:first-child {
+    background-color: #F39C12;
+    color: white;
+}
+
+button[type="button"]:last-child {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.resultado {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 96%;
+    color: #fafafa;
+    background-color: #F39C12;
+    justify-content: space-around;
+    padding-left: 5%;
+    padding-right: 5%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 60px;
+
+}
+
+#nombre {
+    width: 70%;
+}
+
+.header a {
+    text-decoration: none;
+    color: #fafafa;
+}
+
+.subrayado {
+    position: relative;
+    display: inline-block;
+    color: black;
+    /* Color del texto */
+    text-decoration: none;
+    /* Quitar subrayado predeterminado */
+    overflow: hidden;
+}
+
+.subrayado::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    /* Grosor del subrayado */
+    background: #fafafa;
+    /* Color del subrayado */
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.3s ease;
+    border-radius: 5px;
+}
+
+.subrayado:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
