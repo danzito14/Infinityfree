@@ -48,10 +48,16 @@
                 <p><b>Link: </b><a href="/sitepro/html/perzonalizar.html">Enlace a la tarea 5</a></p>
             </div>
             <div>
+                <h2>Práctica 6 formulario validado</h2>
+                <p>Generar validación de campos empleando expresiones regulares y JavaScript</p>
+                <p><b>Link: </b><a href="/sitepro/html/registro.html">Enlace a la tarea 1</a></p>
+            </div>
+            <div>
                 <h2>Gatito</h2>
                 <p>Se a diseñado un juego de tres en raya</p>
                 <p><b>Link: </b><a href="/gatito.html">Enlace a la tarea 1</a></p>
             </div>
+
         </div>
         <div class="Perfil">
             <h2> Mis Datos</h2>
