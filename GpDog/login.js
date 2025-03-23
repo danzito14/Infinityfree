@@ -6,82 +6,65 @@ document.addEventListener('DOMContentLoaded', function () {
     const goToRegister = document.getElementById('go-to-register');
     const resetButtons = document.querySelectorAll('.reset-button');
 
-    // Alternar entre formularios de inicio de sesión y registro
+    function switchForm(show, hide) {
+        hide.style.display = 'none';
+        show.style.display = 'block';
+        show.querySelector('form').reset();
+        removeErrorStyles(show);
+    }
+
     showLogin.addEventListener('click', function (event) {
         event.preventDefault();
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
+        switchForm(loginForm, registerForm);
     });
 
     showRegister.addEventListener('click', function (event) {
         event.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
+        switchForm(registerForm, loginForm);
     });
 
     goToRegister.addEventListener('click', function (event) {
         event.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
+        switchForm(registerForm, loginForm);
     });
 
-    // Función para mostrar errores en los campos
-    function showError(input, message) {
-        const formGroup = input.parentElement;
-        const errorMessage = formGroup.querySelector('.error-message');
-
-        if (errorMessage) {
-            errorMessage.textContent = message;
-        }
-    }
-
-    // Función para limpiar errores
-    function clearErrors(form) {
-        const errorMessages = form.querySelectorAll('.error-message');
-        errorMessages.forEach(error => error.textContent = '');
-    }
-
-    // Función para validar la complejidad de la contraseña
     function validatePassword(password) {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return regex.test(password);
     }
 
-    // Validar formulario de inicio de sesión
+    function showError(input, message) {
+        alert(`⚠️ ${message}`);
+        input.classList.add('input-error');
+        input.focus();
+    }
+
+    function removeErrorStyles(form) {
+        if (!form) return;
+        form.querySelectorAll('.input-error').forEach(input => {
+            input.classList.remove('input-error');
+        });
+    }
+
     loginForm.querySelector('form').addEventListener('submit', function (event) {
         event.preventDefault();
-        clearErrors(loginForm); // Limpiar errores anteriores
+        removeErrorStyles(loginForm);
 
         const user = document.getElementById('login-user');
         const password = document.getElementById('login-password');
 
-        let isValid = true;
+        if (user.value.trim() === '') return showError(user, 'Rellena el campo de usuario.');
+        if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
+        if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
+        if (!validatePassword(password.value.trim())) 
+            return showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
 
-        if (user.value.trim() === '') {
-            showError(user, 'Rellena este campo.');
-            isValid = false;
-        } else if (user.value.trim().length < 3) {
-            showError(user, 'El usuario debe tener al menos 3 caracteres.');
-            isValid = false;
-        }
-
-        if (password.value.trim() === '') {
-            showError(password, 'Rellena este campo.');
-            isValid = false;
-        } else if (!validatePassword(password.value.trim())) {
-            showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
-            isValid = false;
-        }
-
-        if (isValid) {
-            alert('Inicio de sesión exitoso (simulado).');
-        }
+        alert('✅ Inicio de sesión exitoso (simulado).');
     });
 
-    // Validar formulario de registro
     registerForm.querySelector('form').addEventListener('submit', function (event) {
         event.preventDefault();
-        clearErrors(registerForm); // Limpiar errores anteriores
+        removeErrorStyles(registerForm);
 
         const name = document.getElementById('register-name');
         const age = document.getElementById('register-age');
@@ -89,53 +72,26 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('register-password');
         const confirmPassword = document.getElementById('register-confirm-password');
 
-        let isValid = true;
+        if (name.value.trim() === '') return showError(name, 'Rellena el campo de nombre.');
+        if (age.value.trim() === '' || isNaN(parseInt(age.value)) || parseInt(age.value) < 18 || parseInt(age.value) > 99) 
+            return showError(age, 'La edad debe ser un número entre 18 y 99 años.');
+        if (user.value.trim() === '') return showError(user, 'Rellena el campo de usuario.');
+        if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
+        if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
+        if (!validatePassword(password.value.trim())) 
+            return showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
+        if (confirmPassword.value.trim() === '') return showError(confirmPassword, 'Rellena el campo de confirmación de contraseña.');
+        if (password.value.trim() !== confirmPassword.value.trim()) 
+            return showError(confirmPassword, 'Las contraseñas no coinciden.');
 
-        if (name.value.trim() === '') {
-            showError(name, 'Rellena este campo.');
-            isValid = false;
-        }
-
-        if (age.value.trim() === '' || isNaN(age.value) || age.value < 18 || age.value > 99) {
-            showError(age, 'La edad debe ser entre 18 y 99 años.');
-            isValid = false;
-        }
-
-        if (user.value.trim() === '') {
-            showError(user, 'Rellena este campo.');
-            isValid = false;
-        } else if (user.value.trim().length < 3) {
-            showError(user, 'El usuario debe tener al menos 3 caracteres.');
-            isValid = false;
-        }
-
-        if (password.value.trim() === '') {
-            showError(password, 'Rellena este campo.');
-            isValid = false;
-        } else if (!validatePassword(password.value.trim())) {
-            showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
-            isValid = false;
-        }
-
-        if (confirmPassword.value.trim() === '') {
-            showError(confirmPassword, 'Rellena este campo.');
-            isValid = false;
-        } else if (password.value !== confirmPassword.value) {
-            showError(confirmPassword, 'Las contraseñas no coinciden.');
-            isValid = false;
-        }
-
-        if (isValid) {
-            alert('Registro exitoso (simulado).');
-        }
+        alert('✅ Registro exitoso (simulado).');
     });
 
-    // Reiniciar campos de los formularios
     resetButtons.forEach(button => {
         button.addEventListener('click', function () {
             const form = button.closest('form');
             form.reset();
-            clearErrors(form); // Limpiar errores al reiniciar
+            removeErrorStyles(form);
         });
     });
 });
