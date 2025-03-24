@@ -12,6 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarMenu.classList.remove('active');
     });
 });
+window.addEventListener("scroll", function () {
+    const sidebar = document.querySelector(".sidebar-menu");
+    const footer = document.querySelector(".footer");
+
+    const sidebarBottom = sidebar.getBoundingClientRect().bottom;
+    const footerTop = footer.getBoundingClientRect().top;
+
+    if (sidebarBottom > footerTop) {
+        sidebar.style.position = "absolute";
+        sidebar.style.bottom = `${footer.clientHeight}px`;
+    } else {
+        sidebar.style.position = "fixed";
+        sidebar.style.bottom = "auto";
+    }
+});
+
 
 // Función para filtrar productos
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,5 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 product.style.display = 'none';
             }
         });
+    });
+});
+
+// CIERRE DE SESIÓN
+document.addEventListener('DOMContentLoaded', function() {
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+
+    btnCerrarSesion.addEventListener('click', function() {
+        const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
+        if (confirmacion) {
+            // Aquí puedes redirigir a la página de inicio de sesión o hacer cualquier otra acción necesaria
+            window.location.href = 'login.html'; // Ajusta la URL según corresponda
+        }
     });
 });

@@ -126,5 +126,42 @@ p a {
 }
 .input-error {
     border: 2px solid red !important;
-    background-color: #ffe6e6;
+    background-color: #fbfbfb;
+}
+/* Footer */
+footer {
+    width: 100%;
+    background: #222; /* Color oscuro */
+    color: white;
+    text-align: left;
+    padding: 15px 0;
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+}
+.footer-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #ffb60c; /* Color amarillo del header */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
