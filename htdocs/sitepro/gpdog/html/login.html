@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Inicio de Sesión / Registro</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <script defer src="../js/login.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <nav>
+            <a href="#" id="show-login">Iniciar Sesión</a>
+            <a href="#" id="show-register">Registrarme</a>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container" id="login-form">
+            <div class="form-header">Iniciar Sesión</div>
+
+            <form action="../phpseclib/Conection-BD/login_registro.php" method="POST">
+                <input type="text" name="username" id="login-user" placeholder="Nombre o Usuario" required>
+                <input type="password" name="password" id="login-password" placeholder="Contraseña" required>
+                <input type="hidden" name="action" value="login">
+                <button type="submit">Iniciar Sesión</button>
+                <button type="button" class="reset-button">Reiniciar campos</button>
+            </form>
+            <p>¿No tienes cuenta aún? <a href="#" id="go-to-register">Regístrate</a></p>
+
+        </div>
+
+
+        <div class="form-container" id="register-form" style="display: none;">
+            <div class="form-header">Registrarse</div>
+            <form action="../php/login_registro.php" method="POST">
+                <input type="text" id="register-name" placeholder="Nombre" name="username" required>
+                <div class="inline-inputs">
+                    <input type="text" id="register-user" placeholder="Usuario" name="nickname" required>
+                </div>
+                <input type="password" id="register-password" placeholder="Contraseña" required>
+                <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña" name="password"
+                    required>
+                <input type="hidden" name="action" value="login">
+                <button type="submit">Registrarme</button>
+                <button type="button" class="reset-button">Reiniciar campos</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p>Contáctanos</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

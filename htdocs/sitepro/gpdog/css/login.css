@@ -1,0 +1,198 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffb60c 10%, #FFFFFF 90%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Encabezado */
+header {
+    width: 100%;
+    background: #ffb60c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    position: fixed;
+    top: 0;
+}
+
+img {
+    filter: invert(1);
+}
+
+.logo {
+    height: 40px;
+    margin-left: 2%;
+}
+
+nav {
+    display: flex;
+    /* Para alinear los enlaces horizontalmente */
+    justify-content: center;
+    /* Centra los enlaces */
+}
+
+nav a {
+    position: relative;
+    /* Necesario para el posicionamiento del pseudo-elemento */
+    text-decoration: none;
+    /* Quita el subrayado del enlace */
+    color: #ffffff;
+    /* Color del texto */
+    padding: 10px 20px;
+    font-size: 19px;
+    /* Espaciado alrededor del texto */
+}
+
+nav a::after {
+    content: '';
+    /* Necesario para el pseudo-elemento */
+    position: absolute;
+    width: 100%;
+    /* Ancho completo */
+    height: 2px;
+    /* Altura de la línea */
+    background: #ffffff;
+    /* Color de la línea */
+    bottom: 0;
+    /* Posiciona la línea en la parte inferior del enlace */
+    left: 50%;
+    /* Comienza en el centro */
+    transform: translateX(-50%) scaleX(0);
+    /* Mueve la línea al centro y la escala a 0 */
+    transition: transform 0.3s ease;
+    /* Suaviza la transición */
+}
+
+nav a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+    /* Escala la línea al 100% al hacer hover */
+}
+
+/* Contenedor de formularios */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.form-container {
+    background: #F8E5CB;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.form-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Inputs y Botones */
+form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.inline-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.inline-inputs input {
+    flex: 1;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button[type="submit"] {
+    background: #A6762A;
+    color: white;
+    font-weight: bold;
+}
+
+.reset-button {
+    background: #5D6D8A;
+    color: white;
+}
+
+/* Enlaces */
+p {
+    margin-top: 15px;
+}
+
+p a {
+    color: #283891;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.input-error {
+    border: 2px solid red !important;
+    background-color: #fbfbfb;
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    background: #222;
+    /* Color oscuro */
+    color: white;
+    text-align: left;
+    padding: 15px 0;
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+}
+
+.footer-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #ffb60c;
+    /* Color amarillo del header */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
