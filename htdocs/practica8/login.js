@@ -71,13 +71,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
         cookies.forEach(cookie => {
             let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
-            cookieObj[nombre] = decodeURIComponent(valor); // Decodifica valores
+            cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
         });
 
         return cookieObj;
     }
 
-    console.log(obtenerTodasLasCookies());
+    // Obtener las cookies en un objeto
+    const info_cookies = obtenerTodasLasCookies();
+
+    // Acceder y procesar las cookies que contienen datos de usuario
+    Object.keys(info_cookies).forEach(nombre => {
+        const valor = info_cookies[nombre];
+
+        // Verificar si el valor es un JSON y parsearlo
+        try {
+            const datosUsuario = JSON.parse(valor);
+
+            // Imprimir los datos del usuario
+            console.log(`Nombre: ${datosUsuario.nombre}, Usuario: ${datosUsuario.usuario}, Contraseña: ${datosUsuario.contra}`);
+        } catch (e) {
+            console.log(`La cookie ${nombre} no contiene un JSON válido.`);
+        }
+    });
+
     // Función de validación de usuario y contraseña
     function validarCredenciales(nombreUsuario, password) {
         const datos_cookies = obtenerTodasLasCookies();
@@ -182,4 +199,59 @@ document.addEventListener('DOMContentLoaded', function () {
             removeErrorStyles(form); // Elimina los estilos de error
         });
     });
+
+
+
+    document.getElementById('mostrarusuarios').addEventListener('click', () => {
+        const info_cookies = obtenerTodasLasCookies();
+        alert("Hola");
+        let resultadosHTML = '';
+        let n = 0;
+
+        // Acceder y procesar las cookies que contienen datos de usuario
+        Object.keys(info_cookies).forEach(nombre => {
+            const valor = info_cookies[nombre];
+            n++;
+            // Verificar si el valor es un JSON y parsearlo
+            try {
+                const datosUsuario = JSON.parse(valor);
+                // Acumular resultados en la variable
+                resultadosHTML += `
+            <div>
+                <h4>Usuario ${n}</h4>
+                <h4>Nombre: ${datosUsuario.nombre} </h4>
+                <h4>Usuario: ${datosUsuario.usuario} </h4>
+                <h4>Contraseña: ${datosUsuario.contra} </h4>
+                <br><br>
+            </div>
+            `;
+                // Imprimir los datos del usuario
+                console.log(`Nombre: ${datosUsuario.nombre}, Usuario: ${datosUsuario.usuario}, Contraseña: ${datosUsuario.contra}`);
+            } catch (e) {
+                console.log(`La cookie ${nombre} no contiene un JSON válido.`);
+            }
+        });
+
+        // Asignar todos los resultados acumulados al innerHTML
+        document.getElementById("resultados").innerHTML = resultadosHTML;
+    });
+
+
+    document.getElementById('borrarusuarios').addEventListener('click', () => {
+        const cookies = document.cookie.split(';');
+        cookies.forEach(cookie => {
+            const nombre = cookie.split('=')[0].trim();
+            if (nombre.includes('datos_usuario')) {
+                borrarCookie(nombre);
+            }
+            location.reload();
+        });
+    });
+
+    function borrarCookie(nombre) {
+        document.cookie = nombre + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    }
+
+
+
 });

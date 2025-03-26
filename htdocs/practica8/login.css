@@ -58,8 +58,9 @@ main {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin-top: 80px;
-    margin-bottom: 10px;
+    margin-top: 12%;
+    height: calc(100vh - 50px);
+    margin-bottom: 10%;
 }
 
 .form-container {
@@ -171,4 +172,14 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+#resultados,
+#cargar_usuarios {
+    margin-top: 10px;
+    max-height: 200px;
+    /* Evita que crezcan sin control */
+    overflow-y: auto;
+    /* Añade scroll si el contenido es demasiado grande */
+    text-align: left;
 }
