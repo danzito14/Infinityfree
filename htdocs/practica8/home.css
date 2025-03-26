@@ -14,18 +14,22 @@ header {
     padding: 10px 20px;
     z-index: 1100;
     position: relative;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .logo {
     height: 40px;
     filter: invert(1);
-    background-color: #004080;
+
 }
 
 #barradebuscar {
     display: flex;
     flex-direction: row;
-    background-color: #333;
+
+    width: 50%;
 }
 
 #buscador {
@@ -53,6 +57,7 @@ header {
     display: flex;
     gap: 15px;
     align-items: center;
+    width: 10%;
 }
 
 .icons .icon {
@@ -64,7 +69,7 @@ header {
 
 /* Estilos del menú lateral */
 .sidebar-menu {
-    position: absolute;
+    position: fixed;
     top: 60px;
     right: 0;
     width: 250px;
@@ -142,6 +147,7 @@ header {
     overflow-y: auto;
     max-height: 100vh;
     align-self: flex-start;
+    width: 15%;
 }
 
 .sidebar h2,
@@ -202,6 +208,7 @@ main {
     overflow: hidden;
     flex-direction: row;
     position: relative;
+    margin-top: 60px;
 }
 
 /* Ajustar el ancho del contenido principal */
@@ -227,8 +234,8 @@ main {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-    overflow-y: auto;
-    max-height: calc(100vh - 80px);
+    height: max-content;
+    width: 75%;
 }
 
 .product {
@@ -259,15 +266,17 @@ button {
 }
 
 /* Footer alineado con la sidebar */
+/* Footer */
 footer {
-    background-color: #222;
+
+    width: 100%;
+    background: #000000;
+    /* Color oscuro */
     color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
-    z-index: 1000;
-    /* Mantiene el footer visible */
+    text-align: left;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: 5%;
 }
 
 .footer-content {
@@ -280,4 +289,20 @@ footer {
 
 .footer-left {
     text-align: left;
+}
+
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+
+    /* Color amarillo del header */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }

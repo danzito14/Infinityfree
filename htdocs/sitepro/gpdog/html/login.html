@@ -21,7 +21,7 @@
         <div class="form-container" id="login-form">
             <div class="form-header">Iniciar Sesión</div>
 
-            <form action="../phpseclib/Conection-BD/login_registro.php" method="POST">
+            <form action="../php/login_registro.php" method="POST">
                 <input type="text" name="username" id="login-user" placeholder="Nombre o Usuario" required>
                 <input type="password" name="password" id="login-password" placeholder="Contraseña" required>
                 <input type="hidden" name="action" value="login">
@@ -41,9 +41,8 @@
                     <input type="text" id="register-user" placeholder="Usuario" name="nickname" required>
                 </div>
                 <input type="password" id="register-password" placeholder="Contraseña" required>
-                <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña" name="password"
-                    required>
-                <input type="hidden" name="action" value="login">
+                <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña" name="password" required>
+                <input type="hidden" name="action" value="register">
                 <button type="submit">Registrarme</button>
                 <button type="button" class="reset-button">Reiniciar campos</button>
             </form>

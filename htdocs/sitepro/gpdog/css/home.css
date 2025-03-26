@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(to bottom, #ffb60c 10%, #FFFFFF 90%);
-    ;
 }
 
 header {
@@ -15,25 +14,50 @@ header {
     padding: 10px 20px;
     z-index: 1100;
     position: relative;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .logo {
     height: 40px;
     filter: invert(1);
+
 }
 
-input[type="text"] {
+#barradebuscar {
+    display: flex;
+    flex-direction: row;
+
+    width: 50%;
+}
+
+#buscador {
     flex-grow: 1;
-    margin: 0 20px;
     padding: 8px;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     border: none;
+}
+
+#buscar {
+    background-color: #ffffff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: max-content;
+    height: auto;
+    border-left: #ccc solid 2px;
+}
+
+#buscar img {
+    width: 20px;
 }
 
 .icons {
     display: flex;
     gap: 15px;
     align-items: center;
+    width: 10%;
 }
 
 .icons .icon {
@@ -45,7 +69,7 @@ input[type="text"] {
 
 /* Estilos del menú lateral */
 .sidebar-menu {
-    position: absolute;
+    position: fixed;
     top: 60px;
     right: 0;
     width: 250px;
@@ -123,6 +147,7 @@ input[type="text"] {
     overflow-y: auto;
     max-height: 100vh;
     align-self: flex-start;
+    width: 15%;
 }
 
 .sidebar h2,
@@ -183,6 +208,7 @@ main {
     overflow: hidden;
     flex-direction: row;
     position: relative;
+    margin-top: 60px;
 }
 
 /* Ajustar el ancho del contenido principal */
@@ -208,8 +234,8 @@ main {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-    overflow-y: auto;
-    max-height: calc(100vh - 80px);
+    height: max-content;
+    width: 75%;
 }
 
 .product {
@@ -240,15 +266,17 @@ button {
 }
 
 /* Footer alineado con la sidebar */
+/* Footer */
 footer {
-    background-color: #222;
+
+    width: 100%;
+    background: #000000;
+    /* Color oscuro */
     color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
-    z-index: 1000;
-    /* Mantiene el footer visible */
+    text-align: left;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: 5%;
 }
 
 .footer-content {
@@ -261,4 +289,20 @@ footer {
 
 .footer-left {
     text-align: left;
+}
+
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+
+    /* Color amarillo del header */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
