@@ -156,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
         if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
 
+
+
         if (validarCredenciales(user.value, password.value)) {
             console.log("Credenciales correctas");
             alert('✅ Inicio de sesión exitoso (simulado).');
