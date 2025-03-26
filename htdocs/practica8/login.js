@@ -116,6 +116,26 @@ document.addEventListener('DOMContentLoaded', function () {
         return credencialesValidas;
     }
 
+    function verificarusuario(nombreUsuario) {
+        const datos_cookies = obtenerTodasLasCookies();
+
+        // Comprobamos si alguna de las cookies tiene las credenciales correctas
+        const credencialesValidas = Object.entries(datos_cookies).some(([nombreCookie, valorCookie]) => {
+            try {
+                // Parseamos el valor JSON de la cookie
+                const datosUsuario = JSON.parse(valorCookie);
+
+                // Comprobamos si el nombre de usuario y la contraseña coinciden
+                return datosUsuario.usuario === nombreUsuario;
+            } catch (error) {
+                // Si la cookie no tiene un formato válido, la ignoramos
+                return false;
+            }
+        });
+
+        return credencialesValidas;
+    }
+
 
 
     // Ejemplo de uso
@@ -174,7 +194,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (confirmPassword.value.trim() === '') return showError(confirmPassword, 'Rellena el campo de confirmación de contraseña.');
         if (password.value.trim() !== confirmPassword.value.trim())
             return showError(confirmPassword, 'Las contraseñas no coinciden.');
-
+        if (verificarusuario(user.value)) return showError(user, "Usuario ya existente");
+        console.log(user.value);
+        console.log(verificarusuario(user));
         const datos_usuario = { nombre: name.value, usuario: user.value, contra: password.value };
         const datosJSON = JSON.stringify(datos_usuario);
         const nombre_cookie = "datos_usuario" + contarCookies();
