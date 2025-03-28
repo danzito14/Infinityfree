@@ -219,15 +219,6 @@ main {
 }
 
 /* Ajustar la grilla de productos */
-.products-container {
-    flex-grow: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 100%;
-    overflow: hidden;
-}
 
 .products {
     display: grid;

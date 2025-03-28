@@ -142,7 +142,7 @@ header {
 /* Sidebar de filtros */
 .sidebar {
     width: 250px;
-    background-color: #fff;
+    background-color: rgb(255, 240, 215);
     padding: 20px;
     overflow-y: auto;
     max-height: 100vh;

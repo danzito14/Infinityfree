@@ -1,14 +1,17 @@
 // Función para abrir y cerrar el menú lateral
-document.addEventListener('DOMContentLoaded', function() {
+
+window.onload = cargardatos;
+
+document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.menu-btn');
     const sidebarMenu = document.querySelector('.sidebar-menu');
     const closeMenuBtn = document.querySelector('.close-menu');
 
-    menuBtn.addEventListener('click', function() {
+    menuBtn.addEventListener('click', function () {
         sidebarMenu.classList.toggle('active');
     });
 
-    closeMenuBtn.addEventListener('click', function() {
+    closeMenuBtn.addEventListener('click', function () {
         sidebarMenu.classList.remove('active');
     });
 });
@@ -30,14 +33,14 @@ window.addEventListener("scroll", function () {
 
 
 // Función para filtrar productos
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const filterButton = document.querySelector('.filter-button');
     const priceMinInput = document.querySelector('input[placeholder="Mínimo"]');
     const priceMaxInput = document.querySelector('input[placeholder="Máximo"]');
     const categoryInputs = document.querySelectorAll('input[name="category"]');
     const products = document.querySelectorAll('.product');
 
-    filterButton.addEventListener('click', function() {
+    filterButton.addEventListener('click', function () {
         const minPrice = parseFloat(priceMinInput.value) || 0;
         const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
         const selectedCategory = Array.from(categoryInputs).find(input => input.checked)?.value;
@@ -59,14 +62,38 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // CIERRE DE SESIÓN
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    btnCerrarSesion.addEventListener('click', function() {
+    btnCerrarSesion.addEventListener('click', function () {
         const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
         if (confirmacion) {
             // Aquí puedes redirigir a la página de inicio de sesión o hacer cualquier otra acción necesaria
-            window.location.href = 'login.html'; // Ajusta la URL según corresponda
+            window.location.href = '../html/login.html'; // Ajusta la URL según corresponda
         }
     });
+
 });
+
+function cargardatos() {
+    fetch("../php/cargar_productos.php") // Verifica la ruta correcta
+        .then(response => response.json()) // Convertimos en JSON
+        .then(data => {
+            let datos = document.getElementById("productos");
+            datos.innerHTML = ""; // Limpiar contenido previo
+
+            data.forEach(dato => {
+                let fila = `
+                    <div class="product">
+                    <img src="${dato.direccion_foto}" alt="Placa mascota">
+                    <p>${dato.nombre}</p>
+                    <p class="price">${dato.precio_venta}</p>
+                    <button>Agregar al carrito</button>
+                 </div>
+                `;
+                datos.innerHTML += fila; // Agregar la fila al contenedor
+            });
+        })
+        .catch(error => console.error("Error al cargar datos:", error));
+}
+
