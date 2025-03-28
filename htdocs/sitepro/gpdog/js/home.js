@@ -87,7 +87,7 @@ function cargardatos() {
                     <div class="product">
                     <img src="${dato.direccion_foto}" alt="Placa mascota">
                     <p>${dato.nombre}</p>
-                    <p class="price">${dato.precio_venta}</p>
+                    <p class="price">$${dato.precio_venta}</p>
                     <button>Agregar al carrito</button>
                  </div>
                 `;
@@ -97,3 +97,78 @@ function cargardatos() {
         .catch(error => console.error("Error al cargar datos:", error));
 }
 
+function enviarclase(valor) {
+    const claseabuscar = document.getElementById('claseabuscar');
+    claseabuscar.value = valor;
+
+    buscarProductosporClase("clase", valor);
+}
+
+
+async function buscarProductosporClase(tipo, valor) {
+    let url = `../php/buscarproductos.php?accion=clase&clase=${encodeURIComponent(valor)}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json(); // Agregar await aquí
+
+        let resultadosDiv = document.getElementById("productos");
+        resultadosDiv.innerHTML = ""; // Limpiar resultados anteriores
+
+        if (data.length > 0) {
+            data.forEach(producto => {
+                let fila = `
+                    <div class="product">
+                        <img src="${producto.direccion_foto}" alt="Placa mascota">
+                        <p>${producto.nombre}</p>
+                        <p class="price">${producto.precio_venta}</p>
+                        <button>Agregar al carrito</button>
+                    </div>
+                `;
+                resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
+            });
+        } else {
+            resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
+        }
+    } catch (e) {
+        console.error("Error en la búsqueda de productos:", e);
+    }
+}
+
+// Evento para búsqueda por texto
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('form.buscarplatillo').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const buscador = document.getElementById("buscador").value.trim();
+        if (buscador === "") return;
+
+        let url = `../php/buscarproductos.php?accion=buscarPorTexto&query=${encodeURIComponent(buscador)}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json(); // Agregar await aquí
+
+            let resultadosDiv = document.getElementById("productos");
+            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
+
+            if (data.length > 0) {
+                data.forEach(producto => {
+                    let fila = `
+                        <div class="product">
+                            <img src="${producto.direccion_foto}" alt="Placa mascota">
+                            <p>${producto.nombre}</p>
+                            <p class="price">${producto.precio_venta}</p>
+                            <button>Agregar al carrito</button>
+                        </div>
+                    `;
+                    resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
+                });
+            } else {
+                resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
+            }
+
+        } catch (e) {
+            console.error("Error en la búsqueda de productos:", e);
+        }
+    });
+});

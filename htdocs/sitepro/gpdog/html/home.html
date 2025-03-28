@@ -14,10 +14,12 @@
     <header>
         <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
         <div id="barradebuscar">
-            <input type="search" id="buscador" placeholder="Buscar...">
-            <button id="buscar">
-                <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-            </button>
+            <form class="buscarplatillo" method="GET">
+                <input type="search" id="buscador" placeholder="Buscar...">
+                <button id="buscar" type="submit">
+                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
+                </button>
+            </form>
         </div>
         <div class="icons">
             <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
@@ -54,13 +56,14 @@
             <input type="number" placeholder="Máximo">
 
             <h3>Categoría</h3>
+            <input type="hidden" id="claseabuscar" name="Buscar">
             <ul>
-                <li><input type="radio" name="category"> GPS</li>
-                <li><input type="radio" name="category"> Collares</li>
-                <li><input type="radio" name="category"> Pecheras</li>
-                <li><input type="radio" name="category"> Juguetes</li>
-                <li><input type="radio" name="category"> Ropa</li>
-                <li><input type="radio" name="category"> Otros</li>
+                <li><input type="radio" name="category" onclick="enviarclase('1')"> GPS</li>
+                <li><input type="radio" name="category" onclick="enviarclase('2')"> Collares</li>
+                <li><input type="radio" name="category" onclick="enviarclase('3')"> Pecheras</li>
+                <li><input type="radio" name="category" onclick="enviarclase('4')"> Juguetes</li>
+                <li><input type="radio" name="category" onclick="enviarclase('5')"> Ropa</li>
+                <li><input type="radio" name="category" onclick="enviarclase('5')"> Otros</li>
             </ul>
 
             <h3>Promociones</h3>
