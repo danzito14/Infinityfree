@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//*******APARTADO DE BOTONES DEL SIDEBAR MENU*******
+
 // CIERRE DE SESIÓN
 document.addEventListener('DOMContentLoaded', function() {
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
@@ -69,4 +71,22 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html'; // Ajusta la URL según corresponda
         }
     });
+});
+//PAGINA DE INICIO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnInicio = document.getElementById('btnInicio');
+
+    btnInicio.addEventListener('click', function() {
+            window.location.href = 'home.html'; // Ajusta la URL según corresponda
+        }
+    );
+});
+//CONTACTO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnContacto = document.getElementById('btnContacto');
+
+    btnContacto.addEventListener('click', function() {
+            window.location.href = 'contacto.html'; // Ajusta la URL según corresponda
+        }
+    );
 });
