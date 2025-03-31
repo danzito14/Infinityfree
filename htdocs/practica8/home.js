@@ -27,6 +27,12 @@ window.addEventListener("scroll", function () {
         sidebar.style.bottom = "auto";
     }
 });
+//CARRITO HEADER
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito2.html";
+    });
+});
 
 
 // Función para filtrar productos
@@ -57,7 +63,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+//*****BOTONES DE SIDEBAR MENU*****
+//INICIO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnInicio = document.getElementById('btnInicio');
 
+    btnInicio.addEventListener('click', function() {
+            window.location.href = 'home.html'; 
+        
+    });
+}); 
+//CARRITO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnCarrito = document.getElementById('btnCarrito');
+
+    btnCarrito.addEventListener('click', function() {
+            window.location.href = 'carrito2.html'; 
+        
+    });
+}); 
 // CIERRE DE SESIÓN
 document.addEventListener('DOMContentLoaded', function() {
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
@@ -65,8 +89,16 @@ document.addEventListener('DOMContentLoaded', function() {
     btnCerrarSesion.addEventListener('click', function() {
         const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
         if (confirmacion) {
-            // Aquí puedes redirigir a la página de inicio de sesión o hacer cualquier otra acción necesaria
-            window.location.href = 'login.html'; // Ajusta la URL según corresponda
+            window.location.href = 'login.html'; 
         }
     });
 });
+//CONTACTO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnContacto = document.getElementById('btnContacto');
+
+    btnContacto.addEventListener('click', function() {
+            window.location.href = 'contacto.html'; 
+        
+    });
+}); 
