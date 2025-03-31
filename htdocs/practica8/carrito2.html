@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Carrito</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="home.js"></script>
+    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <img src="img/GPDog Logos/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <div id="barradebuscar">
+            <input type="search" id="buscador" placeholder="Buscar...">
+            <button id="buscar">
+                <img src="img/GPDog Logos/buscar.svg" alt="">
+            </button>
+        </div>
+        <div class="icons">
+            <img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
+            <img src="img/GPDog Logos/Carro.svg" alt="Carrito" class="icon">
+            <img src="img/GPDog Logos/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+    <nav class="sidebar-menu">
+        <div class="user-info">
+            <img src="img/GPDog Logos/user_icon.svg" alt="Usuario">
+            <span><strong>JJ Juanin</strong></span>
+        </div>
+        <ul>
+            <li id="btnInicio"><img src="img/GPDog Logos/Puro Logo.svg" alt=""> Inicio</li>
+            <li id="btnRastrear"><img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
+            <li id="btnCarrito"><img src="img/GPDog Logos/Carro.svg" alt=""> Ver carrito de compras</li>
+            <li id="btnProductos"><img src="img/GPDog Logos/Productos.svg" alt=""> Productos</li>
+            <li id="btnPerfil"><img src="img/GPDog Logos/perfil.svg" alt=""> Perfil</li>
+            <li id="btnConfig"><img src="img/GPDog Logos/config.svg" alt=""> Configuración</li>
+            <li id="btnCerrarSesion"><img src="img/GPDog Logos/sesion.svg" alt=""> Cerrar sesión</li>
+            <li id="btnContacto"><img src="img/GPDog Logos/contacto.svg" alt=""> Contáctanos</li>
+        </ul>
+    </nav>
+
+    <main class="cart-container">
+
+
+        <!-- Sección de productos del carrito -->
+        <section class="cart-items">
+            <!-- Producto 1 -->
+            <div class="cart-product">
+                <div class="product-text">
+                    <div id="product-text-image">
+                        <div class="product-image">
+                            <img src="img/GPDog Logos/Arnes para perro.jpg" alt="Arnés para perro">
+                        </div>
+                        <div>
+                            <h3>Arnés para perro grande</h3>
+                            <p class="price">$600 MXN</p>
+                            <p class="subtotal"><strong>Subtotal:</strong> $600 MXN</p>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <span class="quantity-label">Cantidad</span>
+                        <div class="quantity-control">
+                            <button class="qty-btn minus">-</button>
+                            <span class="quantity">1</span>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="remove-btn">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Producto 2 -->
+            <div class="cart-product">
+                <div class="product-text">
+                    <div id="product-text-image">
+                        <div class="product-image">
+                            <img src="img/GPDog Logos/Collar con campana para gato.jpeg" alt="Collar para gatos">
+                        </div>
+                        <div>
+                            <h3>Collar para gatos con campana</h3>
+                            <p class="price">$250 MXN</p>
+                            <p class="subtotal"><strong>Subtotal:</strong> $250 MXN</p>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <span class="quantity-label">Cantidad</span>
+                        <div class="quantity-control">
+                            <button class="qty-btn minus">-</button>
+                            <span class="quantity">1</span>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="remove-btn">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de pago -->
+
+        <section class="payment-section">
+            <div class="total-row">
+                <h3>Total a pagar</h3>
+                <span class="total-price">$850 MXN</span>
+            </div>
+            <div class="checkout-btn-container">
+                <button class="checkout-btn">Pagar</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p><a href="contacto.html" class="contact-link">Contáctanos</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
