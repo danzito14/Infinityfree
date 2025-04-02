@@ -10,31 +10,33 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookies.split(';').length; // Cuenta cuántas cookies hay
     }
 
+    let nombredelacookie = '';
     console.log(`Número de cookies en la sesión: ${contarCookies()}`);
+
     function verificarUsuarioLogeado() {
         const datos_cookies = obtenerTodasLasCookies();
 
-        // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
+        // Filtrar solo las cookies que cumplen con el formato "datos_usuarioX"
         Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-            if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+            if (/^datos_usuario\d+$/.test(nombreCookie)) {
                 try {
-                    // Parseamos el valor JSON de la cookie
                     const datosUsuario = JSON.parse(valorCookie);
 
-                    // Comprobamos si el usuario está logeado
                     if (datosUsuario.logeado === "true") {
-                        nombreusuariologeado = datosUsuario.nombre;
-                        nombrelogeado = datosUsuario.usuario;
+                        nombredelacookie = nombreCookie;
                         let resultadosDiv = document.getElementById('nombreusuariologeado');
                         if (resultadosDiv) {
-                            let datosContacto = `
+                            resultadosDiv.innerHTML = `
                             <span><strong>${datosUsuario.nombre}</strong></span>
                         `;
-                            resultadosDiv.innerHTML = datosContacto;
                         }
-                        window.location.href = "home.html";
-                    } else {
 
+                        // Crear la instancia con el nombre de la cookie
+                        const enviarnombreInstancia = new enviarnombre(nombredelacookie);
+                        window.location.href = "home.html";
+
+                        // Guardar la instancia en el almacenamiento local para compartir entre páginas
+                        localStorage.setItem('nombredelacookie', nombredelacookie);
                     }
                 } catch (error) {
                     console.error("Error al procesar la cookie:", nombreCookie, error);
@@ -221,7 +223,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 draggable: true,
                 confirmButtonColor: "#A6762A"
             });
-
+            const enviarnombre = new enviarnombre();
+            enviarnombre.recibirnombrecookie(nombredelacookie);
             window.location.href = "home.html"; // Redirige a la página principal
         } else {
             Swal.fire({

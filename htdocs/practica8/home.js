@@ -1,14 +1,25 @@
 let nombreusuariologeado = '';
 let nombrelogeado = '';
+let nombredelacookie = "";
 document.addEventListener('DOMContentLoaded', function () {
-    verificarusuariologeado();
+    verificarUsuarioLogeado();
 
 });
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const cargarCookies = new CargarCookiesAlIniciar();
-    cargarCookies.cargarEstilosCookies();
+    // Recuperar el nombre de la cookie desde el almacenamiento local
+    const nombredelacookie = localStorage.getItem('nombredelacookie');
+    alert("hola la cookie es" + nombredelacookie);
+    if (nombredelacookie) {
+        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
+        cargarCookies.cargarEstilosCookies(nombredelacookie);
+
+        // Mostrar el nombre del usuario cargado
+        console.log("Nombre de la cookie cargado:", nombredelacookie);
+    } else {
+        console.warn("No se encontró el nombre de la cookie.");
+    }
 });
 
 function borrarCookie(nombre) {
@@ -163,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 function verificarUsuarioLogeado() {
     const datos_cookies = obtenerTodasLasCookies();
-
     // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
         if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
@@ -173,9 +183,12 @@ function verificarUsuarioLogeado() {
 
                 // Comprobamos si el usuario está logeado
                 if (datosUsuario.logeado === "true") {
+                    nombredelacookie = nombreCookie;
                     nombreusuariologeado = datosUsuario.nombre;
+                    alert(nombreusuariologeado);
+                    alert(datosUsuario.logeado);
                     nombrelogeado = datosUsuario.usuario;
-                    let resultadosDiv = document.getElementById('nombreusuariologeado');
+                    let resultadosDiv = document.getElementById('nombreusuarioloegado');
                     if (resultadosDiv) {
                         let datosContacto = `
                             <span><strong>${datosUsuario.nombre}</strong></span>
@@ -210,6 +223,7 @@ function obtenerTodasLasCookies() {
 
 
 function cerrarSesion(nombreusuariologeado) {
+
     const datos_cookies = obtenerTodasLasCookies();
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
         try {
