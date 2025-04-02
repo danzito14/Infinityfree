@@ -93,10 +93,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
     btnCerrarSesion.addEventListener('click', function () {
-        const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
+        Swal.fire({
+            title: "Estas seguro de querer cerrar sesión",
+            text: "",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: " #A6762A",
+            cancelButtonColor: "#004080",
+            confirmButtonText: "Cerrar sesion",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Cerrando Sesión",
+                    text: "Este atento a donde van sus mascotas. Bye!",
+                    icon: "success"
+                });
+                cerrarSesion(nombreusuariologeado);
+                window.location.href = 'login.html';
+            }
+        });
         if (confirmacion) {
-            cerrarSesion(nombreusuariologeado);
-            window.location.href = 'login.html';
+
         }
     });
 });

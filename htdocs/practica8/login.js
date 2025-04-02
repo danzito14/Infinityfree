@@ -48,15 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para validar la contraseña con una expresión regular
     function validatePassword(password) {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const regex = /^.{8,}$/;
         return regex.test(password);
     }
 
     // Función para mostrar un mensaje de error y resaltar el campo con error
     function showError(input, message) {
-        alert(`⚠️ ${message}`); // Muestra una alerta con el mensaje de error
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: message,
+            confirmButtonColor: '#A6762A',
+            confirmButtonText: 'Aceptar'
+        }); // Muestra un SweetAlert con el mensaje de error
+
         input.classList.add('input-error'); // Agrega una clase de error al campo
-        input.focus(); // Enfoca el campo para que el usuario lo corrija
+        input.focus();  // Enfoca el campo para que el usuario lo corrija
     }
 
     // Función para eliminar estilos de error de los campos
@@ -174,11 +181,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (validarCredenciales(user.value, password.value)) {
             console.log("Credenciales correctas");
-            alert('✅ Inicio de sesión exitoso (simulado).');
+            Swal.fire({
+                title: "Accediendo",
+                icon: "success",
+                draggable: true,
+                confirmButtonColor: "#A6762A"
+            });
 
             window.location.href = "home.html"; // Redirige a la página principal
         } else {
-            alert("Credenciales incorrectas");
+            Swal.fire({
+                title: "Usuario o contraseña incorrectos",
+                icon: "error",
+                draggable: true,
+                confirmButtonColor: "#A6762A"
+            });
         }
         // Si las credenciales son válidas, simula un inicio de sesión exitoso y redirige a home.html
 
@@ -207,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
         if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
         if (!validatePassword(password.value.trim()))
-            return showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
+            return showError(password, 'La contraseña debe tener al menos 8 caracteres.');
         if (confirmPassword.value.trim() === '') return showError(confirmPassword, 'Rellena el campo de confirmación de contraseña.');
         if (password.value.trim() !== confirmPassword.value.trim())
             return showError(confirmPassword, 'Las contraseñas no coinciden.');
@@ -227,7 +244,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         `;
         // Si todo está correcto, simula un registro exitoso
-        alert('✅ Registro exitoso (simulado).');
+        Swal.fire({
+            title: "Usuario Registrado existosamente",
+            icon: "success",
+            draggable: true,
+            confirmButtonColor: "#A6762A"
+        });
     });
 
     // Evento para manejar la limpieza de los formularios al presionar los botones de reset
@@ -243,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('mostrarusuarios').addEventListener('click', () => {
         const info_cookies = obtenerTodasLasCookies();
-        alert("Hola");
         let resultadosHTML = '';
         let n = 0;
 
