@@ -61,26 +61,32 @@
                 <form>
                     <div class="input-group">
                         <span class="input-label">Escribe tu nombre</span>
-                        <input type="text" placeholder="Nombre..." required>
+                        <input type="text" name="Nombrequeja" id="Nombrequeja" placeholder="Nombre..." required>
                     </div>
 
                     <div class="input-group">
                         <span class="input-label">Escribe tu correo electrónico</span>
-                        <input type="email" placeholder="example@gmail.com" required>
+                        <input type="email" name="emailqueja" id="emailqueja" placeholder="example@gmail.com" required>
                     </div>
 
                     <div class="input-group">
                         <span class="input-label">Ahora escribe tu queja o duda, sin miedo que no mordemos</span>
-                        <textarea placeholder="Escribe tu queja o duda..." required></textarea>
+                        <textarea name="queja" id="queja" placeholder="Escribe tu queja o duda..." required></textarea>
                     </div>
 
                     <div class="form-actions">
                         <button type="reset" class="clear-btn">Limpiar</button>
-                        <button type="submit" class="submit-btn">Enviar</button>
+                        <button type="submit" id="enviarqueja" class="submit-btn">Enviar</button>
                     </div>
                 </form>
             </div>
+            <div class="contact-header">
+                <div id="datos_enviados">
+
+                </div>
+            </div>
         </section>
+
     </main>
 
     <footer>

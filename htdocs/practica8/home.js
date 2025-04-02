@@ -1,14 +1,14 @@
 // Función para abrir y cerrar el menú lateral
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.menu-btn');
     const sidebarMenu = document.querySelector('.sidebar-menu');
     const closeMenuBtn = document.querySelector('.close-menu');
 
-    menuBtn.addEventListener('click', function() {
+    menuBtn.addEventListener('click', function () {
         sidebarMenu.classList.toggle('active');
     });
 
-    closeMenuBtn.addEventListener('click', function() {
+    closeMenuBtn.addEventListener('click', function () {
         sidebarMenu.classList.remove('active');
     });
 });
@@ -36,14 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Función para filtrar productos
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const filterButton = document.querySelector('.filter-button');
     const priceMinInput = document.querySelector('input[placeholder="Mínimo"]');
     const priceMaxInput = document.querySelector('input[placeholder="Máximo"]');
     const categoryInputs = document.querySelectorAll('input[name="category"]');
     const products = document.querySelectorAll('.product');
 
-    filterButton.addEventListener('click', function() {
+    filterButton.addEventListener('click', function () {
         const minPrice = parseFloat(priceMinInput.value) || 0;
         const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
         const selectedCategory = Array.from(categoryInputs).find(input => input.checked)?.value;
@@ -65,40 +65,62 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 //*****BOTONES DE SIDEBAR MENU*****
 //INICIO
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnInicio = document.getElementById('btnInicio');
 
-    btnInicio.addEventListener('click', function() {
-            window.location.href = 'home.html'; 
-        
+    btnInicio.addEventListener('click', function () {
+        window.location.href = 'home.html';
+
     });
-}); 
+});
 //CARRITO
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnCarrito = document.getElementById('btnCarrito');
 
-    btnCarrito.addEventListener('click', function() {
-            window.location.href = 'carrito2.html'; 
-        
+    btnCarrito.addEventListener('click', function () {
+        window.location.href = 'carrito2.html';
+
     });
-}); 
+});
 // CIERRE DE SESIÓN
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    btnCerrarSesion.addEventListener('click', function() {
+    btnCerrarSesion.addEventListener('click', function () {
         const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
         if (confirmacion) {
-            window.location.href = 'login.html'; 
+            window.location.href = 'login.html';
         }
     });
 });
 //CONTACTO
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const btnContacto = document.getElementById('btnContacto');
 
-    btnContacto.addEventListener('click', function() {
-            window.location.href = 'contacto.html'; 
-        
+    btnContacto.addEventListener('click', function () {
+        window.location.href = 'contacto.html';
+
     });
-}); 
+});
+document.addEventListener('DOMContentLoaded', function (event) {
+
+    const btnEnviarqueja = document.getElementById('enviarqueja');
+    const nombrequeja = document.getElementById('Nombrequeja');
+    const emailqueja = document.getElementById('emailqueja');
+    const queja = document.getElementById('queja');
+
+    btnEnviarqueja.addEventListener('click', function (event) {
+        // Evitar el comportamiento predeterminado del formulario
+        event.preventDefault();
+
+        let resultadosDiv = document.getElementById('datos_enviados');
+
+
+        let datoscontacto = `
+            <h2>${nombrequeja.value}</h2>
+            <h3>${emailqueja.value}</h2>
+            <h3>${queja.value}</h2>
+        `;
+        resultadosDiv.innerHTML = datoscontacto;
+    });
+});
