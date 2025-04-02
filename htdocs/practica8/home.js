@@ -102,3 +102,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 }); 
+//CONFIGURACION
+document.addEventListener('DOMContentLoaded', function() {
+    const btnConfig = document.getElementById('btnConfig');
+
+    btnConfig.addEventListener('click', function() {
+            window.location.href = 'config.html'; 
+        
+    });
+}); 
+//CONTACTO
+document.addEventListener('DOMContentLoaded', function() {
+    const btnContacto = document.getElementById('btnContacto');
+
+    btnContacto.addEventListener('click', function() {
+            window.location.href = 'contacto.html'; 
+        
+    });
+}); 
