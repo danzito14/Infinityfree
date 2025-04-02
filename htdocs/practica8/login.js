@@ -2,7 +2,7 @@
 
 // Espera a que el contenido del DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', function () {
-    window.onload = verificarusuariologeado;
+    window.onload = verificarUsuarioLogeado;
     function contarCookies() {
         const cookies = document.cookie; // Obtiene todas las cookies en un solo string
         if (!cookies) return 0; // Si no hay cookies, retorna 0
@@ -11,7 +11,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     console.log(`Número de cookies en la sesión: ${contarCookies()}`);
+    function verificarUsuarioLogeado() {
+        const datos_cookies = obtenerTodasLasCookies();
 
+        // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
+        Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
+            if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+                try {
+                    // Parseamos el valor JSON de la cookie
+                    const datosUsuario = JSON.parse(valorCookie);
+
+                    // Comprobamos si el usuario está logeado
+                    if (datosUsuario.logeado === "true") {
+                        nombreusuariologeado = datosUsuario.nombre;
+                        nombrelogeado = datosUsuario.usuario;
+                        let resultadosDiv = document.getElementById('nombreusuariologeado');
+                        if (resultadosDiv) {
+                            let datosContacto = `
+                            <span><strong>${datosUsuario.nombre}</strong></span>
+                        `;
+                            resultadosDiv.innerHTML = datosContacto;
+                        }
+                        window.location.href = "home.html";
+                    } else {
+
+                    }
+                } catch (error) {
+                    console.error("Error al procesar la cookie:", nombreCookie, error);
+                }
+            }
+        });
+    }
+
+    function obtenerTodasLasCookies() {
+        const cookies = document.cookie.split('; '); // Divide cada cookie
+        let cookieObj = {};
+
+        cookies.forEach(cookie => {
+            let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
+            if (nombre && valor) {
+                cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
+            }
+        });
+
+        return cookieObj;
+    }
     // Obtiene los elementos del formulario de inicio de sesión y registro
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -74,17 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function obtenerTodasLasCookies() {
-        const cookies = document.cookie.split('; '); // Divide cada cookie
-        let cookieObj = {};
 
-        cookies.forEach(cookie => {
-            let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
-            cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
-        });
-
-        return cookieObj;
-    }
 
     // Obtener las cookies en un objeto
     const info_cookies = obtenerTodasLasCookies();
@@ -314,27 +348,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function verificarusuariologeado() {
-        const datos_cookies = obtenerTodasLasCookies();
 
-        // Comprobamos si alguna de las cookies tiene las credenciales correctas
-        Object.entries(datos_cookies).some(([nombreCookie, valorCookie]) => {
-            try {
-                // Parseamos el valor JSON de la cookie
-                const datosUsuario = JSON.parse(valorCookie);
 
-                // Comprobamos si el nombre de usuario y la contraseña coinciden
-                if (datosUsuario.logeado === "true") {
-                    window.location.href = "home.html";
-                } else {
-                }
-            } catch (error) {
-                // Si la cookie no tiene un formato válido, la ignoramos
-                return false;
-            }
-        });
-
-    }
+    // Llamar a la función al ca
 
 });
 

@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', function () {
     verificarusuariologeado();
 
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cargarCookies = new CargarCookiesAlIniciar();
+    cargarCookies.cargarEstilosCookies();
+});
+
+function borrarCookie(nombre) {
+    document.cookie = nombre + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+}
+
 // Función para abrir y cerrar el menú lateral
 document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.menu-btn');
@@ -150,6 +161,36 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
 });
 
+function verificarUsuarioLogeado() {
+    const datos_cookies = obtenerTodasLasCookies();
+
+    // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
+    Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
+        if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+            try {
+                // Parseamos el valor JSON de la cookie
+                const datosUsuario = JSON.parse(valorCookie);
+
+                // Comprobamos si el usuario está logeado
+                if (datosUsuario.logeado === "true") {
+                    nombreusuariologeado = datosUsuario.nombre;
+                    nombrelogeado = datosUsuario.usuario;
+                    let resultadosDiv = document.getElementById('nombreusuariologeado');
+                    if (resultadosDiv) {
+                        let datosContacto = `
+                            <span><strong>${datosUsuario.nombre}</strong></span>
+                        `;
+                        resultadosDiv.innerHTML = datosContacto;
+                    }
+                } else {
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error("Error al procesar la cookie:", nombreCookie, error);
+            }
+        }
+    });
+}
 
 function obtenerTodasLasCookies() {
     const cookies = document.cookie.split('; '); // Divide cada cookie
@@ -157,40 +198,15 @@ function obtenerTodasLasCookies() {
 
     cookies.forEach(cookie => {
         let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
-        cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
+        if (nombre && valor) {
+            cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
+        }
     });
 
     return cookieObj;
 }
-// Función de validación de usuario y contraseña
-function verificarusuariologeado() {
-    const datos_cookies = obtenerTodasLasCookies();
 
-    // Comprobamos si alguna de las cookies tiene las credenciales correctas
-    Object.entries(datos_cookies).some(([nombreCookie, valorCookie]) => {
-        try {
-            // Parseamos el valor JSON de la cookie
-            const datosUsuario = JSON.parse(valorCookie);
-
-            // Comprobamos si el nombre de usuario y la contraseña coinciden
-            if (datosUsuario.logeado === "true") {
-                nombreusuariologeado = datosUsuario.nombre;
-                nombrelogeado = datosUsuario.usuario;
-                let resultadosDiv = document.getElementById('nombreusuarioloegado');
-                let datoscontacto = `
-                <span><strong>${datosUsuario.nombre}</strong></span>
-            `;
-                resultadosDiv.innerHTML = datoscontacto;
-            } else {
-                window.location.href = "login.html";
-            }
-        } catch (error) {
-            // Si la cookie no tiene un formato válido, la ignoramos
-            return false;
-        }
-    });
-
-}
+// Llamar a la función al ca
 
 
 function cerrarSesion(nombreusuariologeado) {
