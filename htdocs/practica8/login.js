@@ -18,25 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Filtrar solo las cookies que cumplen con el formato "datos_usuarioX"
         Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-            if (/^datos_usuario\d+$/.test(nombreCookie)) {
+            const regex = new RegExp(`^${nombredelacookie}\\d+$`);
+
+            if (regex.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+
                 try {
                     const datosUsuario = JSON.parse(valorCookie);
 
                     if (datosUsuario.logeado === "true") {
                         nombredelacookie = nombreCookie;
-                        let resultadosDiv = document.getElementById('nombreusuariologeado');
-                        if (resultadosDiv) {
-                            resultadosDiv.innerHTML = `
-                            <span><strong>${datosUsuario.nombre}</strong></span>
-                        `;
-                        }
-
-                        // Crear la instancia con el nombre de la cookie
-                        const enviarnombreInstancia = new enviarnombre(nombredelacookie);
                         window.location.href = "home.html";
 
                         // Guardar la instancia en el almacenamiento local para compartir entre páginas
-                        localStorage.setItem('nombredelacookie', nombredelacookie);
                     }
                 } catch (error) {
                     console.error("Error al procesar la cookie:", nombreCookie, error);
@@ -140,11 +133,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
+    let usuarioEncontrado = null;
+    let nombreCookieEncontrada = null;
+
     // Función de validación de usuario y contraseña
     function validarCredenciales(nombreUsuario, password) {
         const datos_cookies = obtenerTodasLasCookies();
-        let usuarioEncontrado = null;
-        let nombreCookieEncontrada = null;
 
         // Buscar si el usuario está en alguna cookie
         Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
@@ -154,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if ((datosUsuario.usuario === nombreUsuario || datosUsuario.nombre === nombreUsuario) && datosUsuario.contra === password) {
                     usuarioEncontrado = datosUsuario;
                     nombreCookieEncontrada = nombreCookie;
+                    alert("mira goku esta tecnica me la enseñaron en tamaulipas" + nombreCookieEncontrada);
                 }
             } catch (error) {
                 console.error("Error al leer la cookie:", error);
@@ -223,8 +219,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 draggable: true,
                 confirmButtonColor: "#A6762A"
             });
-            const enviarnombre = new enviarnombre();
-            enviarnombre.recibirnombrecookie(nombredelacookie);
+            alert(nombreCookieEncontrada);
+            localStorage.setItem('nombredelacookie', nombreCookieEncontrada);
             window.location.href = "home.html"; // Redirige a la página principal
         } else {
             Swal.fire({

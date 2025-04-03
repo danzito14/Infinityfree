@@ -1,26 +1,26 @@
 let nombreusuariologeado = '';
 let nombrelogeado = '';
 let nombredelacookie = "";
-document.addEventListener('DOMContentLoaded', function () {
-    verificarUsuarioLogeado();
 
-});
 
 
 document.addEventListener("DOMContentLoaded", () => {
     // Recuperar el nombre de la cookie desde el almacenamiento local
-    const nombredelacookie = localStorage.getItem('nombredelacookie');
-    alert("hola la cookie es" + nombredelacookie);
+    nombredelacookie = localStorage.getItem('nombredelacookie');
+    alert("hola la cookie es " + nombredelacookie);
     if (nombredelacookie) {
         const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
         cargarCookies.cargarEstilosCookies(nombredelacookie);
 
         // Mostrar el nombre del usuario cargado
         console.log("Nombre de la cookie cargado:", nombredelacookie);
+        alert("sdfsdf" + nombredelacookie);
+        verificarUsuarioLogeado(nombredelacookie);
     } else {
         console.warn("No se encontró el nombre de la cookie.");
     }
 });
+
 
 function borrarCookie(nombre) {
     document.cookie = nombre + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
@@ -28,6 +28,7 @@ function borrarCookie(nombre) {
 
 // Función para abrir y cerrar el menú lateral
 document.addEventListener('DOMContentLoaded', function () {
+    alert("aqui va un texto " + nombredelacookie);
     const menuBtn = document.querySelector('.menu-btn');
     const sidebarMenu = document.querySelector('.sidebar-menu');
     const closeMenuBtn = document.querySelector('.close-menu');
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     text: "Este atento a donde van sus mascotas. Bye!",
                     icon: "success"
                 });
-                cerrarSesion(nombreusuariologeado);
+                cerrarSesion(nombreusuariologeado, nombredelacookie);
                 window.location.href = 'login.html';
             }
         });
@@ -172,38 +173,48 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
 });
 
-function verificarUsuarioLogeado() {
+function verificarUsuarioLogeado(nombredelacookie) {
     const datos_cookies = obtenerTodasLasCookies();
-    // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
+    let usuarioEncontrado = false;
+    alert("dsfdfdsfd" + nombredelacookie);
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-        if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+        const regex = new RegExp(`^${nombredelacookie}\d+$`);
+        alert(nombredelacookie === nombreCookie);
+        if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
             try {
+                alert("jaimito el cartero" + nombredelacookie);
                 // Parseamos el valor JSON de la cookie
                 const datosUsuario = JSON.parse(valorCookie);
 
                 // Comprobamos si el usuario está logeado
                 if (datosUsuario.logeado === "true") {
-                    nombredelacookie = nombreCookie;
+                    nombredelacookie = nombreCookie; // Actualiza la variable global con la cookie válida
                     nombreusuariologeado = datosUsuario.nombre;
-                    alert(nombreusuariologeado);
-                    alert(datosUsuario.logeado);
                     nombrelogeado = datosUsuario.usuario;
+                    usuarioEncontrado = true;
+
+                    console.log("Usuario logeado:", nombreusuariologeado);
+                    console.log("Cookie utilizada:", nombredelacookie);
+
                     let resultadosDiv = document.getElementById('nombreusuarioloegado');
                     if (resultadosDiv) {
                         let datosContacto = `
-                            <span><strong>${datosUsuario.nombre}</strong></span>
+                            <span><strong>${nombreusuariologeado}</strong></span>
                         `;
                         resultadosDiv.innerHTML = datosContacto;
                     }
-                } else {
-                    window.location.href = "login.html";
                 }
             } catch (error) {
                 console.error("Error al procesar la cookie:", nombreCookie, error);
             }
         }
     });
+
+    if (!usuarioEncontrado) {
+        window.location.href = "login.html";
+    }
 }
+
 
 function obtenerTodasLasCookies() {
     const cookies = document.cookie.split('; '); // Divide cada cookie
@@ -221,25 +232,29 @@ function obtenerTodasLasCookies() {
 
 // Llamar a la función al ca
 
-
-function cerrarSesion(nombreusuariologeado) {
+function cerrarSesion(nombreusuariologeado, nombredelacookie) {
 
     const datos_cookies = obtenerTodasLasCookies();
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-        try {
-            let datosUsuario = JSON.parse(valorCookie);
+        alert(nombreusuariologeado);
+        if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
 
-            // ✅ Comparar con los valores correctos
-            if (datosUsuario.usuario === nombreusuariologeado || datosUsuario.nombre === nombreusuariologeado) {
-                datosUsuario.logeado = false; // Usar booleano en lugar de string
 
-                console.log("Actualizando cookie:", nombreCookie, datosUsuario);
+            try {
+                let datosUsuario = JSON.parse(valorCookie);
 
-                // ✅ Guardar la cookie actualizada
-                document.cookie = `${nombreCookie}=${JSON.stringify(datosUsuario)}; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/`;
+                // ✅ Comparar con los valores correctos
+                if (datosUsuario.usuario === nombreusuariologeado || datosUsuario.nombre === nombreusuariologeado) {
+                    datosUsuario.logeado = false; // Usar booleano en lugar de string
+
+                    console.log("Actualizando cookie:", nombreCookie, datosUsuario);
+
+                    // ✅ Guardar la cookie actualizada
+                    document.cookie = `${nombreCookie}=${JSON.stringify(datosUsuario)}; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/`;
+                }
+            } catch (error) {
+                console.error("Error al actualizar la cookie:", error);
             }
-        } catch (error) {
-            console.error("Error al actualizar la cookie:", error);
         }
     });
 }
