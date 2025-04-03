@@ -7,13 +7,11 @@
     <title>GPDog - Carrito</title>
     <link rel="stylesheet" href="home.css">
     <script src="home.js"></script>
-    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <header>
-        <img src="img/GPDog Logos/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <img src="img/GPDog Logos/LogoGP.svg" alt="Logo GPDog" class="logo" onclick="window.location.href='home.html'">
         <div id="barradebuscar">
             <input type="search" id="buscador" placeholder="Buscar...">
             <button id="buscar">
@@ -27,12 +25,11 @@
         </div>
     </header>
 
+
     <nav class="sidebar-menu">
         <div class="user-info">
-            <img src="img/GPDog Logos/user_icon.svg" alt="Usuario">
-            <div id="nombreusuarioloegado">
-                <span><strong>JJ Juanin</strong></span>
-            </div>
+            <img src="img/GPDog Logos/Puro Logo.svg" alt="Usuario">
+            <span><strong>JJ Juanin</strong></span>
         </div>
         <ul>
             <li id="btnInicio"><img src="img/GPDog Logos/Puro Logo.svg" alt=""> Inicio</li>
@@ -46,76 +43,37 @@
         </ul>
     </nav>
 
-    <main class="cart-container">
+    <main class="cart-section">
+        <!-- Columna izquierda: productos -->
+        <div class="cart-left">
+            <!-- Grupo de productos -->
+            <div class="cart-group">
+                <h2 class="group-title">Productos </h2>
 
+            </div>
+        </div>
 
-        <!-- Sección de productos del carrito -->
-        <section class="cart-items">
-            <!-- Producto 1 -->
-            <div class="cart-product">
-                <div class="product-text">
-                    <div id="product-text-image">
-                        <div class="product-image">
-                            <img src="img/GPDog Logos/Arnes para perro.jpg" alt="Arnés para perro">
-                        </div>
-                        <div>
-                            <h3>Arnés para perro grande</h3>
-                            <p class="price">$600 MXN</p>
-                            <p class="subtotal"><strong>Subtotal:</strong> $600 MXN</p>
-                        </div>
-                    </div>
-                    <div class="product-actions">
-                        <span class="quantity-label">Cantidad</span>
-                        <div class="quantity-control">
-                            <button class="qty-btn minus">-</button>
-                            <span class="quantity">1</span>
-                            <button class="qty-btn plus">+</button>
-                        </div>
-                        <button class="remove-btn">Eliminar</button>
-                    </div>
+        <!-- Columna derecha: resumen -->
+        <div class="cart-right">
+            <div class="summary-box">
+                <h3>Resumen de compra</h3>
+                <div class="summary-line">
+                    <span class="product-count">Productos (0)</span>
+                    <span class="total-price2">$0</span>
                 </div>
-            </div>
-
-            <hr class="divider">
-
-            <!-- Producto 2 -->
-            <div class="cart-product">
-                <div class="product-text">
-                    <div id="product-text-image">
-                        <div class="product-image">
-                            <img src="img/GPDog Logos/Collar con campana para gato.jpeg" alt="Collar para gatos">
-                        </div>
-                        <div>
-                            <h3>Collar para gatos con campana</h3>
-                            <p class="price">$250 MXN</p>
-                            <p class="subtotal"><strong>Subtotal:</strong> $250 MXN</p>
-                        </div>
-                    </div>
-                    <div class="product-actions">
-                        <span class="quantity-label">Cantidad</span>
-                        <div class="quantity-control">
-                            <button class="qty-btn minus">-</button>
-                            <span class="quantity">1</span>
-                            <button class="qty-btn plus">+</button>
-                        </div>
-                        <button class="remove-btn">Eliminar</button>
-                    </div>
+                <div class="summary-line">
+                    <span>Envíos</span>
+                    <span style="color: green;">Gratis</span>
                 </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span class="total-price">$0</span>
+                </div>
+                <button class="checkout-btn">Continuar compra</button>
             </div>
-        </section>
-
-        <!-- Sección de pago -->
-
-        <section class="payment-section">
-            <div class="total-row">
-                <h3>Total a pagar</h3>
-                <span class="total-price">$850 MXN</span>
-            </div>
-            <div class="checkout-btn-container">
-                <button class="checkout-btn">Pagar</button>
-            </div>
-        </section>
+        </div>
     </main>
+
     <footer>
         <div class="footer-content">
             <div class="footer-left">
