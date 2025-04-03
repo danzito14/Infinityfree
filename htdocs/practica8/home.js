@@ -267,6 +267,39 @@ function cerrarSesion(nombreusuariologeado, nombredelacookie) {
 }
 
 
+//Para funcionar el carrito en el home
+document.addEventListener('DOMContentLoaded', () => {
+    const botones = document.querySelectorAll('.add-to-cart');
+
+    botones.forEach(boton => {
+        boton.addEventListener('click', () => {
+            alert("guayaba");
+            // Extraer datos del producto del botón
+            const nombre = boton.dataset.name;
+            const precio = parseFloat(boton.dataset.price);
+            const imagen = boton.dataset.image;
+
+            // Obtener el carrito desde localStorage (o crear uno nuevo)
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            // Verificar si el producto ya está en el carrito
+            const index = carrito.findIndex(p => p.nombre === nombre);
+            if (index >= 0) {
+                carrito[index].cantidad += 1;
+            } else {
+                carrito.push({ nombre, precio, imagen, cantidad: 1 });
+            }
+
+            // Guardar el carrito actualizado en localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            // Mostrar notificación sin redirigir
+            alert('Producto agregado al carrito');
+        });
+    });
+});
+
+
 //para que se agregue al carrito en el carrito.html
 //para que se agregue al carrito en el carrito.html
 document.addEventListener('DOMContentLoaded', () => {
@@ -320,13 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalPriceEls = document.querySelectorAll('.total-price, .total-price2');
 
             if (productCountEl) {
-                productCountEl.textContent = `Productos (${totalProductos})`;  // ✅ Corrección
+                productCountEl.textContent = `Productos (${totalProductos})`;
             }
-
             totalPriceEls.forEach(el => {
-                el.textContent = `$${total}`;  // ✅ Corrección
+                el.textContent = `$${total.toFixed(2)}`;
             });
-
 
             // ----------------------------
             // Eventos de eliminar, sumar y restar
