@@ -149,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if ((datosUsuario.usuario === nombreUsuario || datosUsuario.nombre === nombreUsuario) && datosUsuario.contra === password) {
                     usuarioEncontrado = datosUsuario;
                     nombreCookieEncontrada = nombreCookie;
-                    alert("mira goku esta tecnica me la enseñaron en tamaulipas" + nombreCookieEncontrada);
                 }
             } catch (error) {
                 console.error("Error al leer la cookie:", error);
