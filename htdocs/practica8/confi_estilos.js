@@ -2,8 +2,19 @@ let nombreusuariologeado = '';
 let nombrelogeado = '';
 let nombredelacookie = "";
 document.addEventListener('DOMContentLoaded', function () {
-    verificarUsuarioLogeado();
-    alert(nombredelacookie);
+    nombredelacookie = localStorage.getItem('nombredelacookie');
+    alert("hola la cookie es " + nombredelacookie);
+    if (nombredelacookie) {
+        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
+        cargarCookies.cargarEstilosCookies(nombredelacookie);
+
+        // Mostrar el nombre del usuario cargado
+        console.log("Nombre de la cookie cargado:", nombredelacookie);
+        alert("sdfsdf" + nombredelacookie);
+        verificarUsuarioLogeado(nombredelacookie);
+    } else {
+        console.warn("No se encontró el nombre de la cookie.");
+    }
 });
 
 
@@ -103,38 +114,47 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function verificarUsuarioLogeado() {
+function verificarUsuarioLogeado(nombredelacookie) {
     const datos_cookies = obtenerTodasLasCookies();
-    alert("What the mater");
-    // Filtramos solo las cookies que cumplen con el formato "datos_usuarioX"
+    let usuarioEncontrado = false;
+    alert("dsfdfdsfd" + nombredelacookie);
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-        if (/^datos_usuario\d+$/.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+        const regex = new RegExp(`^${nombredelacookie}\d+$`);
+        alert(nombredelacookie === nombreCookie);
+        if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
             try {
+                alert("jaimito el cartero" + nombredelacookie);
                 // Parseamos el valor JSON de la cookie
                 const datosUsuario = JSON.parse(valorCookie);
 
                 // Comprobamos si el usuario está logeado
                 if (datosUsuario.logeado === "true") {
-                    nombredelacookie = nombreCookie;
+                    nombredelacookie = nombreCookie; // Actualiza la variable global con la cookie válida
                     nombreusuariologeado = datosUsuario.nombre;
                     nombrelogeado = datosUsuario.usuario;
+                    usuarioEncontrado = true;
+
+                    console.log("Usuario logeado:", nombreusuariologeado);
+                    console.log("Cookie utilizada:", nombredelacookie);
+
                     let resultadosDiv = document.getElementById('nombreusuarioloegado');
                     if (resultadosDiv) {
                         let datosContacto = `
-                            <span><strong>${datosUsuario.nombre}</strong></span>
+                            <span><strong>${nombreusuariologeado}</strong></span>
                         `;
                         resultadosDiv.innerHTML = datosContacto;
                     }
-                } else {
-                    window.location.href = "login.html";
                 }
             } catch (error) {
                 console.error("Error al procesar la cookie:", nombreCookie, error);
             }
         }
     });
-}
 
+    if (!usuarioEncontrado) {
+        window.location.href = "login.html";
+    }
+}
 function obtenerTodasLasCookies() {
     const cookies = document.cookie.split('; '); // Divide cada cookie
     let cookieObj = {};

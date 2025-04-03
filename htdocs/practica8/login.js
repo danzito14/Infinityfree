@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Filtrar solo las cookies que cumplen con el formato "datos_usuarioX"
         Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-            const regex = new RegExp(`^${nombredelacookie}\\d+$`);
+            nombredelacookie = localStorage.getItem('nombredelacookie');
 
-            if (regex.test(nombreCookie)) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+            if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
 
                 try {
                     const datosUsuario = JSON.parse(valorCookie);

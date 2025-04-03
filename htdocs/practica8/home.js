@@ -7,14 +7,14 @@ let nombredelacookie = "";
 document.addEventListener("DOMContentLoaded", () => {
     // Recuperar el nombre de la cookie desde el almacenamiento local
     nombredelacookie = localStorage.getItem('nombredelacookie');
-    alert("hola la cookie es " + nombredelacookie);
+
     if (nombredelacookie) {
         const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
         cargarCookies.cargarEstilosCookies(nombredelacookie);
 
         // Mostrar el nombre del usuario cargado
         console.log("Nombre de la cookie cargado:", nombredelacookie);
-        alert("sdfsdf" + nombredelacookie);
+
         verificarUsuarioLogeado(nombredelacookie);
     } else {
         console.warn("No se encontró el nombre de la cookie.");
@@ -28,7 +28,7 @@ function borrarCookie(nombre) {
 
 // Función para abrir y cerrar el menú lateral
 document.addEventListener('DOMContentLoaded', function () {
-    alert("aqui va un texto " + nombredelacookie);
+
     const menuBtn = document.querySelector('.menu-btn');
     const sidebarMenu = document.querySelector('.sidebar-menu');
     const closeMenuBtn = document.querySelector('.close-menu');
@@ -46,7 +46,7 @@ window.addEventListener("scroll", function () {
     const footer = document.querySelector(".footer");
 
     const sidebarBottom = sidebar.getBoundingClientRect().bottom;
-    const footerTop = footer.getBoundingClientRect().top;
+
 
     if (sidebarBottom > footerTop) {
         sidebar.style.position = "absolute";
@@ -176,13 +176,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
 function verificarUsuarioLogeado(nombredelacookie) {
     const datos_cookies = obtenerTodasLasCookies();
     let usuarioEncontrado = false;
-    alert("dsfdfdsfd" + nombredelacookie);
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
         const regex = new RegExp(`^${nombredelacookie}\d+$`);
-        alert(nombredelacookie === nombreCookie);
         if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
             try {
-                alert("jaimito el cartero" + nombredelacookie);
+
                 // Parseamos el valor JSON de la cookie
                 const datosUsuario = JSON.parse(valorCookie);
 
@@ -236,7 +234,7 @@ function cerrarSesion(nombreusuariologeado, nombredelacookie) {
 
     const datos_cookies = obtenerTodasLasCookies();
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
-        alert(nombreusuariologeado);
+
         if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
 
 
