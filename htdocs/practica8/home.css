@@ -192,7 +192,7 @@ header {
 }
 
 .filter-button {
-    background-color: #004080;
+    background-color: #0d5297;
     color: white;
     border: none;
     padding: 10px;
@@ -254,6 +254,11 @@ button {
     padding: 10px;
     cursor: pointer;
     width: 100%;
+}
+
+button:hover {
+    background-color: #c2a866;
+    color: white;
 }
 
 /* Footer alineado con la sidebar */

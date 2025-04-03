@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botones.forEach(boton => {
         boton.addEventListener('click', () => {
-            alert("guayaba");
+
             // Extraer datos del producto del botón
             const nombre = boton.dataset.name;
             const precio = parseFloat(boton.dataset.price);
@@ -292,9 +292,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Guardar el carrito actualizado en localStorage
             localStorage.setItem('carrito', JSON.stringify(carrito));
-
-            // Mostrar notificación sin redirigir
-            alert('Producto agregado al carrito');
+            Swal.fire({
+                title: "Producto enviado al carrito",
+                text: "Para ver más detalles vara a su Carrito",
+                icon: "success"
+            });
         });
     });
 });
