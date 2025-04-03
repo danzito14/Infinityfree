@@ -1,17 +1,18 @@
 let nombreusuariologeado = '';
 let nombrelogeado = '';
 let nombredelacookie = "";
+let nombredelacookie2 = "";
 document.addEventListener('DOMContentLoaded', function () {
     nombredelacookie = localStorage.getItem('nombredelacookie');
-    alert("hola la cookie es " + nombredelacookie);
     if (nombredelacookie) {
-        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
-        cargarCookies.cargarEstilosCookies(nombredelacookie);
+        nombredelacookie2 = "estilo_" + nombredelacookie;
+        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+        cargarCookies.cargarEstilosCookies(nombredelacookie2);
 
         // Mostrar el nombre del usuario cargado
         console.log("Nombre de la cookie cargado:", nombredelacookie);
-        alert("sdfsdf" + nombredelacookie);
         verificarUsuarioLogeado(nombredelacookie);
+
     } else {
         console.warn("No se encontró el nombre de la cookie.");
     }
@@ -117,13 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
 function verificarUsuarioLogeado(nombredelacookie) {
     const datos_cookies = obtenerTodasLasCookies();
     let usuarioEncontrado = false;
-    alert("dsfdfdsfd" + nombredelacookie);
     Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
         const regex = new RegExp(`^${nombredelacookie}\d+$`);
-        alert(nombredelacookie === nombreCookie);
         if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
             try {
-                alert("jaimito el cartero" + nombredelacookie);
+
                 // Parseamos el valor JSON de la cookie
                 const datosUsuario = JSON.parse(valorCookie);
 
@@ -205,20 +204,20 @@ const side_bar = document.getElementById('side_bar');
 color.addEventListener('input', function () {
     body.style.backgroundColor = color.value;
     main.style.backgroundColor = color.value;
-    document.cookie = nombredelacookie + "_bondy_backgroundcolor=" + encodeURIComponent(color.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
+    document.cookie = nombredelacookie2 + "_bondy_backgroundcolor=" + encodeURIComponent(color.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
 
 });
 
 color_fondo_cabecera.addEventListener('input', function () {
     header.style.backgroundColor = color_fondo_cabecera.value;
-    side_bar.style.background = color_fondo_cabecera.value;
-    document.cookie = nombredelacookie + "_header_backgroundcolor=" + encodeURIComponent(color_fondo_cabecera.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
+
+    document.cookie = nombredelacookie2 + "_header_backgroundcolor=" + encodeURIComponent(color_fondo_cabecera.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
 
 });
 
 color_fondo_footer.addEventListener('input', function () {
     footer.style.backgroundColor = color_fondo_footer.value;
-    document.cookie = nombredelacookie + "_footer_backgroundcolor=" + encodeURIComponent(color_fondo_footer.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
+    document.cookie = nombredelacookie2 + "_footer_backgroundcolor=" + encodeURIComponent(color_fondo_footer.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
 
 });
 
@@ -228,19 +227,19 @@ const imgs = document.querySelectorAll('img');
 tamaños.addEventListener('change', function () {
     let medidas = "";
     if (tamaños.value === "chico") {
-        medidas = "20%"
+        medidas = "20"
     }
     else if (tamaños.value === "mediano") {
-        medidas = "50%";
+        medidas = "50";
     } else if (tamaños.value === "grande") {
-        medidas = "90%";
+        medidas = "90";
     }
     imgs.forEach(img => {
-        img.style.width = medidas;
-        img.style.height = medidas;
+        img.style.width = medidas + "%";
+        img.style.height = medidas + "%";
     });
 
-    document.cookie = nombredelacookie + "_img_width=" + encodeURIComponent(tamaños.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_img_width=" + encodeURIComponent(medidas) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 
 });
 
@@ -253,7 +252,7 @@ radius.addEventListener('input', function () {
         img.style.borderRadius = porcentaje;
     });
 
-    document.cookie = nombredelacookie + "_img_radius=" + encodeURIComponent(radius.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_img_radius=" + encodeURIComponent(radius.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 });
 
 
@@ -262,7 +261,7 @@ const sombras = document.getElementById('color_sombra');
 sombras.addEventListener('change', function () {
     imgs.forEach(img => {
         img.style.boxShadow = sombras.value;
-        document.cookie = nombredelacookie + "_sombra=" + encodeURIComponent(sombras.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
+        document.cookie = nombredelacookie2 + "_sombra=" + encodeURIComponent(sombras.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
     })
 });
 
@@ -279,8 +278,8 @@ function actualizarBorde() {
     });
 
     // Guardar en cookies
-    document.cookie = nombredelacookie + "_img_border_color=" + encodeURIComponent(color_borde.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
-    document.cookie = nombredelacookie + "_img_border_width=" + encodeURIComponent(bordes.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_img_border_color=" + encodeURIComponent(color_borde.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_img_border_width=" + encodeURIComponent(bordes.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 }
 bordes.addEventListener('change', actualizarBorde);
 color_borde.addEventListener('input', actualizarBorde);
@@ -297,7 +296,7 @@ bordes_enlace.addEventListener('input', function () {
     enlaces.forEach(link => {
         link.style.borderRadius = bordes_enlace.value + 'px';
     });
-    document.cookie = nombredelacookie + "_enlace_border_radius=" + encodeURIComponent(bordes_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_enlace_border_radius=" + encodeURIComponent(bordes_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 });
 
 // Evento para cambiar el color del enlace
@@ -305,7 +304,7 @@ color_enlace.addEventListener('input', function () {
     enlaces.forEach(link => {
         link.style.color = color_enlace.value;
     });
-    document.cookie = nombredelacookie + "_enlace_color=" + encodeURIComponent(color_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_enlace_color=" + encodeURIComponent(color_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 });
 
 // Evento para cambiar el color de fondo del enlace
@@ -313,7 +312,7 @@ color_fondo_enlace.addEventListener('input', function () {
     enlaces.forEach(link => {
         link.style.backgroundColor = color_fondo_enlace.value;
     });
-    document.cookie = nombredelacookie + "_enlace_background=" + encodeURIComponent(color_fondo_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_enlace_background=" + encodeURIComponent(color_fondo_enlace.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 });
 
 const color_texto = document.getElementById("color_texto");
@@ -325,14 +324,23 @@ color_texto.addEventListener('input', function () {
         texto.style.color = color_texto.value;
     });
 
-    document.cookie = nombredelacookie + "_body_color=" + encodeURIComponent(color_texto.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_body_color=" + encodeURIComponent(color_texto.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+});
+
+
+color_fondo_texto.addEventListener('input', function () {
+    const textos = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, label, span');
+    textos.forEach(function (texto) {
+        texto.style.backgroundColor = color_fondo_texto.value;
+        document.cookie = nombredelacookie2 + "_texto_background=" + encodeURIComponent(color_fondo_texto.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/"
+    });
 });
 
 // Cambio de tamaño de texto
 const tamaño_texto = document.getElementById('tamaño_texto');
 tamaño_texto.addEventListener("change", function () {
     document.body.style.fontSize = tamaño_texto.value;
-    document.cookie = nombredelacookie + "_body_font_size=" + encodeURIComponent(tamaño_texto.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
+    document.cookie = nombredelacookie2 + "_body_font_size=" + encodeURIComponent(tamaño_texto.value) + "; expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/";
 });
 // Crear una instancia de la clase
 const cargarCookies = new CargarCookiesAlIniciar();
@@ -342,12 +350,16 @@ function borrarCookie(nombre) {
     document.cookie = nombre + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }
 
-
 document.querySelector('.reiniciar_estilo').addEventListener('click', () => {
     const cookies = document.cookie.split(';');
+
     cookies.forEach(cookie => {
         const nombre = cookie.split('=')[0].trim();
-        borrarCookie(nombre);
-        location.reload();
+        if (nombre.startsWith("estilo_" + nombredelacookie)) {
+            borrarCookie(nombre);
+        }
     });
+
+    location.reload();
 });
+

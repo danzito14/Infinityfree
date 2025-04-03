@@ -9,8 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     nombredelacookie = localStorage.getItem('nombredelacookie');
 
     if (nombredelacookie) {
-        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie);
-        cargarCookies.cargarEstilosCookies(nombredelacookie);
+        let nombredelacookie2 = "estilo_" + nombredelacookie
+        const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+        cargarCookies.cargarEstilosCookies(nombredelacookie2);
 
         // Mostrar el nombre del usuario cargado
         console.log("Nombre de la cookie cargado:", nombredelacookie);

@@ -31,7 +31,7 @@ class CargarCookiesAlIniciar {
         const colorheader = this.obtenerCookie(nombredelacookie + "_header_backgroundcolor");
         const colorfooter = this.obtenerCookie(nombredelacookie + "_footer_backgroundcolor");
 
-        const tamañoFuente = this.obtenerCookie(nombredelacookie + "_bondy_font_size");
+        const tamañoFuente = this.obtenerCookie(nombredelacookie + "_body_font_size");
 
         if (colorFondo) {
             document.body.style.backgroundColor = colorFondo;
@@ -41,6 +41,8 @@ class CargarCookiesAlIniciar {
         if (colorheader) {
             document.querySelector('header').style.backgroundColor = colorheader;
 
+        } else {
+
         }
         if (colorfooter) {
             document.querySelector('footer').style.backgroundColor = colorfooter;
@@ -48,7 +50,7 @@ class CargarCookiesAlIniciar {
         }
 
         if (tamañoFuente) {
-            document.body.style.fontSize = tamañoFuente + 'px';
+            document.body.style.fontSize = tamañoFuente;
         }
 
 
@@ -59,10 +61,19 @@ class CargarCookiesAlIniciar {
             });
         }
 
-        const tamañoImagen = this.obtenerCookie(nombredelacookie + "_img_witdth");
+        const colortexto = this.obtenerCookie(nombredelacookie + "_body_color");
+        if (colortexto) {
+            document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, label, span').forEach(texto => {
+                texto.style.color = colortexto;
+            });
+        }
+
+        const tamañoImagen = this.obtenerCookie(nombredelacookie + "_img_width");
         if (tamañoImagen) {
             document.querySelectorAll("img").forEach(img => {
-                img.style.width = tamañoImagen;
+                img.style.width = tamañoImagen + "%";
+                img.style.height = tamañoImagen + "%";
+
             });
         }
 
@@ -79,7 +90,7 @@ class CargarCookiesAlIniciar {
         const bordeRadioImagen = this.obtenerCookie(nombredelacookie + "_img_radius");
         if (bordeRadioImagen) {
             document.querySelectorAll("img").forEach(img => {
-                img.style.borderRadius = bordeRadioImagen;
+                img.style.borderRadius = bordeRadioImagen + "%";
             });
         }
 
