@@ -1,6 +1,8 @@
+
+
 // Espera a que el contenido del DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', function () {
-
+    window.onload = verificarUsuarioLogeado;
     function contarCookies() {
         const cookies = document.cookie; // Obtiene todas las cookies en un solo string
         if (!cookies) return 0; // Si no hay cookies, retorna 0
@@ -8,8 +10,47 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookies.split(';').length; // Cuenta cuántas cookies hay
     }
 
+    let nombredelacookie = '';
     console.log(`Número de cookies en la sesión: ${contarCookies()}`);
 
+    function verificarUsuarioLogeado() {
+        const datos_cookies = obtenerTodasLasCookies();
+
+        // Filtrar solo las cookies que cumplen con el formato "datos_usuarioX"
+        Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
+            nombredelacookie = localStorage.getItem('nombredelacookie');
+
+            if (nombredelacookie === nombreCookie) { // Verifica que el nombre siga el patrón "datos_usuarioX"
+
+                try {
+                    const datosUsuario = JSON.parse(valorCookie);
+
+                    if (datosUsuario.logeado === "true") {
+                        nombredelacookie = nombreCookie;
+                        window.location.href = "home.html";
+
+                        // Guardar la instancia en el almacenamiento local para compartir entre páginas
+                    }
+                } catch (error) {
+                    console.error("Error al procesar la cookie:", nombreCookie, error);
+                }
+            }
+        });
+    }
+
+    function obtenerTodasLasCookies() {
+        const cookies = document.cookie.split('; '); // Divide cada cookie
+        let cookieObj = {};
+
+        cookies.forEach(cookie => {
+            let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
+            if (nombre && valor) {
+                cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
+            }
+        });
+
+        return cookieObj;
+    }
     // Obtiene los elementos del formulario de inicio de sesión y registro
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -46,15 +87,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para validar la contraseña con una expresión regular
     function validatePassword(password) {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const regex = /^.{8,}$/;
         return regex.test(password);
     }
 
     // Función para mostrar un mensaje de error y resaltar el campo con error
     function showError(input, message) {
-        alert(`⚠️ ${message}`); // Muestra una alerta con el mensaje de error
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: message,
+            confirmButtonColor: '#A6762A',
+            confirmButtonText: 'Aceptar'
+        }); // Muestra un SweetAlert con el mensaje de error
+
         input.classList.add('input-error'); // Agrega una clase de error al campo
-        input.focus(); // Enfoca el campo para que el usuario lo corrija
+        input.focus();  // Enfoca el campo para que el usuario lo corrija
     }
 
     // Función para eliminar estilos de error de los campos
@@ -65,17 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function obtenerTodasLasCookies() {
-        const cookies = document.cookie.split('; '); // Divide cada cookie
-        let cookieObj = {};
 
-        cookies.forEach(cookie => {
-            let [nombre, valor] = cookie.split('='); // Divide en nombre y valor
-            cookieObj[nombre.trim()] = decodeURIComponent(valor); // Decodifica valores y elimina espacios
-        });
-
-        return cookieObj;
-    }
 
     // Obtener las cookies en un objeto
     const info_cookies = obtenerTodasLasCookies();
@@ -89,31 +127,45 @@ document.addEventListener('DOMContentLoaded', function () {
             const datosUsuario = JSON.parse(valor);
 
             // Imprimir los datos del usuario
-            console.log(`Nombre: ${datosUsuario.nombre}, Usuario: ${datosUsuario.usuario}, Contraseña: ${datosUsuario.contra}`);
+            console.log(`Nombre: ${datosUsuario.nombre}, Usuario: ${datosUsuario.usuario}, Contraseña: ${datosUsuario.contra} logeado: ${datosUsuario.logeado}`);
         } catch (e) {
             console.log(`La cookie ${nombre} no contiene un JSON válido.`);
         }
     });
 
+
+    let usuarioEncontrado = null;
+    let nombreCookieEncontrada = null;
+
     // Función de validación de usuario y contraseña
     function validarCredenciales(nombreUsuario, password) {
         const datos_cookies = obtenerTodasLasCookies();
 
-        // Comprobamos si alguna de las cookies tiene las credenciales correctas
-        const credencialesValidas = Object.entries(datos_cookies).some(([nombreCookie, valorCookie]) => {
+        // Buscar si el usuario está en alguna cookie
+        Object.entries(datos_cookies).forEach(([nombreCookie, valorCookie]) => {
             try {
-                // Parseamos el valor JSON de la cookie
-                const datosUsuario = JSON.parse(valorCookie);
+                let datosUsuario = JSON.parse(valorCookie);
 
-                // Comprobamos si el nombre de usuario y la contraseña coinciden
-                return datosUsuario.usuario === nombreUsuario && datosUsuario.contra === password || datosUsuario.nombre === nombreUsuario && datosUsuario.contra === password;
+                if ((datosUsuario.usuario === nombreUsuario || datosUsuario.nombre === nombreUsuario) && datosUsuario.contra === password) {
+                    usuarioEncontrado = datosUsuario;
+                    nombreCookieEncontrada = nombreCookie;
+                }
             } catch (error) {
-                // Si la cookie no tiene un formato válido, la ignoramos
-                return false;
+                console.error("Error al leer la cookie:", error);
             }
         });
 
-        return credencialesValidas;
+        if (usuarioEncontrado && nombreCookieEncontrada) {
+            // ✅ Cambiar estado de "inactivo" a "activo"
+            usuarioEncontrado.logeado = "true";
+
+            // ✅ Guardar nuevamente la cookie con el estado actualizado
+            document.cookie = `${nombreCookieEncontrada}=${JSON.stringify(usuarioEncontrado)};  expires=Fri, 31 Dec 2025 23:59:59 UTC; path=/`;
+
+            return true; // Usuario validado y estado actualizado
+        }
+
+        return false;
     }
 
     function verificarusuario(nombreUsuario) {
@@ -160,10 +212,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (validarCredenciales(user.value, password.value)) {
             console.log("Credenciales correctas");
-            alert('✅ Inicio de sesión exitoso (simulado).');
+            Swal.fire({
+                title: "Accediendo",
+                icon: "success",
+                draggable: true,
+                confirmButtonColor: "#A6762A"
+            });
+            alert(nombreCookieEncontrada);
+            localStorage.setItem('nombredelacookie', nombreCookieEncontrada);
             window.location.href = "home.html"; // Redirige a la página principal
         } else {
-            console.log("Credenciales incorrectas");
+            Swal.fire({
+                title: "Usuario o contraseña incorrectos",
+                icon: "error",
+                draggable: true,
+                confirmButtonColor: "#A6762A"
+            });
         }
         // Si las credenciales son válidas, simula un inicio de sesión exitoso y redirige a home.html
 
@@ -192,14 +256,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
         if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
         if (!validatePassword(password.value.trim()))
-            return showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
+            return showError(password, 'La contraseña debe tener al menos 8 caracteres.');
         if (confirmPassword.value.trim() === '') return showError(confirmPassword, 'Rellena el campo de confirmación de contraseña.');
         if (password.value.trim() !== confirmPassword.value.trim())
             return showError(confirmPassword, 'Las contraseñas no coinciden.');
         if (verificarusuario(user.value)) return showError(user, "Usuario ya existente");
         console.log(user.value);
         console.log(verificarusuario(user));
-        const datos_usuario = { nombre: name.value, usuario: user.value, contra: password.value };
+        const datos_usuario = { nombre: name.value, usuario: user.value, contra: password.value, logeado: "false" };
         const datosJSON = JSON.stringify(datos_usuario);
         const nombre_cookie = "datos_usuario" + contarCookies();
         console.log("Se va a crear  el " + nombre_cookie);
@@ -212,7 +276,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         `;
         // Si todo está correcto, simula un registro exitoso
-        alert('✅ Registro exitoso (simulado).');
+        Swal.fire({
+            title: "Usuario Registrado existosamente",
+            icon: "success",
+            draggable: true,
+            confirmButtonColor: "#A6762A"
+        });
     });
 
     // Evento para manejar la limpieza de los formularios al presionar los botones de reset
@@ -228,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('mostrarusuarios').addEventListener('click', () => {
         const info_cookies = obtenerTodasLasCookies();
-        alert("Hola");
         let resultadosHTML = '';
         let n = 0;
 
@@ -246,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h4>Nombre: ${datosUsuario.nombre} </h4>
                 <h4>Usuario: ${datosUsuario.usuario} </h4>
                 <h4>Contraseña: ${datosUsuario.contra} </h4>
+                <h4>Logeado: ${datosUsuario.logeado} </h4>
                 <br><br>
             </div>
             `;
@@ -278,4 +347,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+    // Llamar a la función al ca
+
 });
+
