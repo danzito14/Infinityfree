@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Tienda</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="clases.js"></script>
+    <script src="home.js"></script>
+    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <header>
+        <img src="img/GPDog Logos/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <div id="barradebuscar">
+            <input type="search" id="buscador" placeholder="Buscar...">
+            <button id="buscar">
+                <img src="img/GPDog Logos/buscar.svg" alt="">
+            </button>
+        </div>
+        <div class="icons">
+            <img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon ubicacion-btn">
+            <img src="img/GPDog Logos/Carro.svg" alt="Carrito" class="icon carrito-btn">
+            <img src="img/GPDog Logos/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+    <nav class="sidebar-menu">
+        <div class="user-info">
+            <img src="img/GPDog Logos/Puro Logo.svg" alt="Usuario">
+            <div id="nombreusuarioloegado">
+                <span><strong>JJ Juanin</strong></span>
+            </div>
+        </div>
+        <ul>
+            <li id="btnInicio"><img src="img/GPDog Logos/Puro Logo.svg" alt=""> Inicio</li>
+            <li id="btnRastrear"><img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
+            <li id="btnCarrito"><img src="img/GPDog Logos/Carro.svg" alt=""> Ver carrito de compras</li>
+            <li id="btnProductos"><img src="img/GPDog Logos/Productos.svg" alt=""> Productos</li>
+            <li id="btnPerfil"><img src="img/GPDog Logos/perfil.svg" alt=""> Perfil</li>
+            <li id="btnConfig"><img src="img/GPDog Logos/config.svg" alt=""> Configuración</li>
+            <li id="btnCerrarSesion"><img src="img/GPDog Logos/sesion.svg" alt=""> Cerrar sesión</li>
+            <li id="btnContacto"><img src="img/GPDog Logos/contacto.svg" alt=""> Contáctanos</li>
+        </ul>
+    </nav>
+
+
+    <main>
+        <aside class="sidebar">
+            <h2>Productos</h2>
+            <h3>Filtrar por:</h3>
+            <label>Precio:</label>
+            <input type="number" placeholder="Mínimo">
+            <input type="number" placeholder="Máximo">
+
+            <h3>Categoría</h3>
+            <ul>
+                <li><input type="radio" name="category"> GPS</li>
+                <li><input type="radio" name="category"> Collares</li>
+                <li><input type="radio" name="category"> Pecheras</li>
+                <li><input type="radio" name="category"> Juguetes</li>
+                <li><input type="radio" name="category"> Ropa</li>
+                <li><input type="radio" name="category"> Otros</li>
+            </ul>
+
+            <h3>Promociones</h3>
+            <button class="filter-button">Borrar filtros</button>
+        </aside>
+
+        <section class="products">
+            <div class="product">
+                <img src="img/GPDog Logos/Collar grueso para perro.jpg" alt="Collar rastreador">
+                <p>Collar rastreador para perro</p>
+                <p class="price">$1200 MXN</p>
+                <button class="add-to-cart" data-name="Collar rastreador para perro" data-price="1200"
+                    data-image="img/GPDog Logos/Collar grueso para perro.jpg">
+                    Agregar al carrito
+                </button>
+            </div>
+            <div class="product">
+                <img src="img/GPDog Logos/Collar tematizado para perro.webp" alt="Collar tematizado">
+                <p>Collar tematizado</p>
+                <p class="price">$250 MXN</p>
+                <button class="add-to-cart" data-name="Collar tematizado" data-price="250"
+                    data-image="img/GPDog Logos/Collar tematizado para perro.webp">
+                    Agregar al carrito
+                </button>
+            </div>
+            <div class="product">
+                <img src="img/GPDog Logos/Arnes para perro.jpg" alt="Arnés para perro grande">
+                <p>Arnés para perro grande</p>
+                <p class="price">$600 MXN</p>
+                <button class="add-to-cart" data-name="Arnés para perro grande" data-price="600"
+                    data-image="img/GPDog Logos/Arnes para perro.jpg">
+                    Agregar al carrito
+                </button>
+            </div>
+            <div class="product">
+                <img src="img/GPDog Logos/Arnes para gato.jpeg" alt="Arnés para gatos">
+                <p>Arnés para gatos</p>
+                <p class="price">$700 MXN</p>
+                <button class="add-to-cart" data-name="Arnés para gatos" data-price="700"
+                    data-image="img/GPDog Logos/Arnes para gato.jpeg">
+                    Agregar al carrito
+                </button>
+            </div>
+            <div class="product">
+                <img src="img/GPDog Logos/Collar con campana para gato.jpeg" alt="Collar para gatos con campana">
+                <p>Collar para gatos con campana</p>
+                <p class="price">$250 MXN</p>
+                <button class="add-to-cart" data-name="Collar para gatos con campana" data-price="250"
+                    data-image="img/GPDog Logos/Collar con campana para gato.jpeg">
+                    Agregar al carrito
+                </button>
+            </div>
+            <div class="product">
+                <img src="img/GPDog Logos/Placa para mascota.jpeg" alt="Placa para mascota personalizada">
+                <p>Placa para mascota personalizada</p>
+                <p class="price">$1000 MXN</p>
+                <button class="add-to-cart" data-name="Placa para mascota personalizada" data-price="1000"
+                    data-image="img/GPDog Logos/Placa para mascota.jpeg">
+                    Agregar al carrito
+                </button>
+            </div>
+
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p><a href="contacto.html" class="contact-link">Contáctanos</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

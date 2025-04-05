@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Carrito</title>
+    <link rel="stylesheet" href="home.css">
+    <script src="clases.js"></script>
+    <script src="home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <header>
+        <img src="img/GPDog Logos/LogoGP.svg" alt="Logo GPDog" class="logo" onclick="window.location.href='home.html'">
+        <div id="barradebuscar">
+            <input type="search" id="buscador" placeholder="Buscar...">
+            <button id="buscar">
+                <img src="img/GPDog Logos/buscar.svg" alt="">
+            </button>
+        </div>
+        <div class="icons">
+            <img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
+            <img src="img/GPDog Logos/Carro.svg" alt="Carrito" class="icon">
+            <img src="img/GPDog Logos/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+
+    <nav class="sidebar-menu">
+        <div class="user-info">
+            <img src="img/GPDog Logos/Puro Logo.svg" alt="Usuario">
+            <span><strong>JJ Juanin</strong></span>
+        </div>
+        <ul>
+            <li id="btnInicio"><img src="img/GPDog Logos/Puro Logo.svg" alt=""> Inicio</li>
+            <li id="btnRastrear"><img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
+            <li id="btnCarrito"><img src="img/GPDog Logos/Carro.svg" alt=""> Ver carrito de compras</li>
+            <li id="btnProductos"><img src="img/GPDog Logos/Productos.svg" alt=""> Productos</li>
+            <li id="btnPerfil"><img src="img/GPDog Logos/perfil.svg" alt=""> Perfil</li>
+            <li id="btnConfig"><img src="img/GPDog Logos/config.svg" alt=""> Configuración</li>
+            <li id="btnCerrarSesion"><img src="img/GPDog Logos/sesion.svg" alt=""> Cerrar sesión</li>
+            <li id="btnContacto"><img src="img/GPDog Logos/contacto.svg" alt=""> Contáctanos</li>
+        </ul>
+    </nav>
+
+    <main class="cart-section">
+        <!-- Columna izquierda: productos -->
+        <div class="cart-left">
+            <!-- Grupo de productos -->
+            <div class="cart-group">
+                <h2 class="group-title">Productos </h2>
+
+            </div>
+        </div>
+
+        <!-- Columna derecha: resumen -->
+        <div class="cart-right">
+            <div class="summary-box">
+                <h3>Resumen de compra</h3>
+                <div class="summary-line">
+                    <span class="product-count">Productos (0)</span>
+                    <span class="total-price2">$0</span>
+                </div>
+                <div class="summary-line">
+                    <span>Envíos</span>
+                    <span style="color: green;">Gratis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span class="total-price">$0</span>
+                </div>
+                <button class="checkout-btn">Continuar compra</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p><a href="contacto.html" class="contact-link">Contáctanos</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
