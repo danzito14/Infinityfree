@@ -1,20 +1,54 @@
-// Función para abrir y cerrar el menú lateral
+const ver_sesion = new Verificar_Inicio_de_Sesion();
 
-window.onload = cargardatos;
+import Sidebar from "./clases/Sidebar.js";
+document.addEventListener("DOMContentLoaded", () => {
+    cargar_categorias();
+    cargardatos();
+    ver_sesion.ver_sesion_actual();
+    Sidebar.cargarSidebar();
+    setTimeout(() => {
 
-document.addEventListener('DOMContentLoaded', function () {
-    const menuBtn = document.querySelector('.menu-btn');
-    const sidebarMenu = document.querySelector('.sidebar-menu');
-    const closeMenuBtn = document.querySelector('.close-menu');
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebarMenu = document.querySelector('.sidebar-menu');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    menuBtn.addEventListener('click', function () {
-        sidebarMenu.classList.toggle('active');
-    });
+        if (menuBtn && sidebarMenu) {
+            menuBtn.addEventListener('click', () => {
+                sidebarMenu.classList.toggle('active');
+            });
+        }
 
-    closeMenuBtn.addEventListener('click', function () {
-        sidebarMenu.classList.remove('active');
-    });
+        if (closeMenuBtn && sidebarMenu) {
+            closeMenuBtn.addEventListener('click', () => {
+                sidebarMenu.classList.remove('active');
+            });
+        }
+
+        if (btnCerrarSesion) {
+            btnCerrarSesion.addEventListener('click', () => {
+                alert("Cerrando sesión...");
+                const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
+                if (confirmacion) {
+                    fetch('../php/cerrar_sesion.php')
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.logueado === false) {
+                                window.location.href = '../html/login.html';
+                            }
+                        })
+                        .catch(err => console.error('Error cerrando sesión:', err));
+                }
+            });
+        } else {
+            console.warn("btnCerrarSesion no encontrado.");
+        }
+
+    }, 0);
 });
+
+
+
 window.addEventListener("scroll", function () {
     const sidebar = document.querySelector(".sidebar-menu");
     const footer = document.querySelector(".footer");
@@ -34,49 +68,18 @@ window.addEventListener("scroll", function () {
 
 // Función para filtrar productos
 document.addEventListener('DOMContentLoaded', function () {
-    const filterButton = document.querySelector('.filter-button');
-    const priceMinInput = document.querySelector('input[placeholder="Mínimo"]');
-    const priceMaxInput = document.querySelector('input[placeholder="Máximo"]');
-    const categoryInputs = document.querySelectorAll('input[name="category"]');
-    const products = document.querySelectorAll('.product');
+    document.getElementById('filter-button').addEventListener('click', function () {
 
-    filterButton.addEventListener('click', function () {
-        const minPrice = parseFloat(priceMinInput.value) || 0;
-        const maxPrice = parseFloat(priceMaxInput.value) || Infinity;
-        const selectedCategory = Array.from(categoryInputs).find(input => input.checked)?.value;
-
-        products.forEach(product => {
-            const productPrice = parseFloat(product.querySelector('.price').textContent.replace('$', '').replace(' MXN', ''));
-            const productCategory = product.querySelector('p').textContent.toLowerCase();
-
-            const priceInRange = productPrice >= minPrice && productPrice <= maxPrice;
-            const categoryMatch = !selectedCategory || productCategory.includes(selectedCategory.toLowerCase());
-
-            if (priceInRange && categoryMatch) {
-                product.style.display = 'block';
-            } else {
-                product.style.display = 'none';
-            }
-        });
+        location.reload();
     });
 });
 
-// CIERRE DE SESIÓN
-document.addEventListener('DOMContentLoaded', function () {
-    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    btnCerrarSesion.addEventListener('click', function () {
-        const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
-        if (confirmacion) {
-            // Aquí puedes redirigir a la página de inicio de sesión o hacer cualquier otra acción necesaria
-            window.location.href = '../html/login.html'; // Ajusta la URL según corresponda
-        }
-    });
-
-});
 
 function cargardatos() {
-    fetch("../php/cargar_productos.php") // Verifica la ruta correcta
+    let url = `../php/cargar_productos.php?accion=cargarproductos`;
+
+    fetch(url) // Verifica la ruta correcta
         .then(response => response.json()) // Convertimos en JSON
         .then(data => {
             let datos = document.getElementById("productos");
@@ -86,16 +89,38 @@ function cargardatos() {
                 let fila = `
                     <div class="product">
                     <img src="${dato.direccion_foto}" alt="Placa mascota">
-                    <p>${dato.nombre}</p>
+                    <p id="nombre_producto">${dato.nombre}</p>
                     <p class="price">$${dato.precio_venta}</p>
-                    <button>Agregar al carrito</button>
+                    <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
                  </div>
+                `;
+                datos.innerHTML += fila; // Agregar la fila al contenedor
+
+            });
+        })
+        .catch(error => console.error("Error al cargar datos:", error));
+}
+
+
+function cargar_categorias() {
+    let url = `../php/cargar_productos.php?accion=cargarcategorias`;
+
+    fetch(url) // Verifica la ruta correcta
+        .then(response => response.json()) // Convertimos en JSON
+        .then(data => {
+            let datos = document.getElementById("categorias");
+            datos.innerHTML = ""; // Limpiar contenido previo
+
+            data.forEach(dato => {
+                let fila = `
+                    <li><input type="radio" name="category" onclick="enviarclase('${dato.id_tipo_producto}')"> ${dato.descripcion}</li>
                 `;
                 datos.innerHTML += fila; // Agregar la fila al contenedor
             });
         })
         .catch(error => console.error("Error al cargar datos:", error));
 }
+
 
 function enviarclase(valor) {
     const claseabuscar = document.getElementById('claseabuscar');
@@ -120,9 +145,9 @@ async function buscarProductosporClase(tipo, valor) {
                 let fila = `
                     <div class="product">
                         <img src="${producto.direccion_foto}" alt="Placa mascota">
-                        <p>${producto.nombre}</p>
-                        <p class="price">${producto.precio_venta}</p>
-                        <button>Agregar al carrito</button>
+                        <p id="nombre_producto">${producto.nombre}</p>
+                        <p class="price">$${producto.precio_venta}</p>
+                        <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
                     </div>
                 `;
                 resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
@@ -134,6 +159,42 @@ async function buscarProductosporClase(tipo, valor) {
         console.error("Error en la búsqueda de productos:", e);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('form.buscarporprecio').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const precio_min = document.getElementById('precio_min').value.trim();
+        const precio_max = document.getElementById('precio_max').value.trim();
+        let url = `../php/buscarproductos.php?accion=buscarporprecio&preciomin=${encodeURIComponent(precio_min)}&preciomax=${encodeURIComponent(precio_max)}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json(); // Agregar await aquí
+
+            let resultadosDiv = document.getElementById("productos");
+            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
+
+            if (data.length > 0) {
+                data.forEach(producto => {
+                    let fila = `
+                        <div class="product">
+                            <img src="${producto.direccion_foto}" alt="Placa mascota">
+                            <p id="nombre_producto">${producto.nombre}</p>
+                            <p class="price">$${producto.precio_venta}</p>
+                            <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
+                        </div>
+                    `;
+                    resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
+                });
+            } else {
+                resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
+            }
+
+        } catch (e) {
+            console.error("Error en la búsqueda de productos:", e);
+        }
+    });
+});
 
 // Evento para búsqueda por texto
 document.addEventListener('DOMContentLoaded', () => {
@@ -156,9 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     let fila = `
                         <div class="product">
                             <img src="${producto.direccion_foto}" alt="Placa mascota">
-                            <p>${producto.nombre}</p>
-                            <p class="price">${producto.precio_venta}</p>
-                            <button>Agregar al carrito</button>
+                            <p id="nombre_producto">${producto.nombre}</p>
+                            <p class="price">$${producto.precio_venta}</p>
+                            <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
                         </div>
                     `;
                     resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
@@ -172,3 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/configuracion.css">
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
     <script type="module" src="../js/home.js"></script>
@@ -34,33 +31,36 @@
     <nav class="sidebar-menu">
     </nav>
 
+    <h2>datos de usuario nombre usuario contra cel</h2>
+    <h2>direccion (cp, calle, colonia, municipio, estado, instrucciones adicionales)</h2>
+
+    <h2>pedido pendiente</h2>
 
     <main>
-        <aside class="sidebar">
-            <h2>Productos</h2>
-            <h3>Filtrar por:</h3>
-            <label>Precio:</label>
-            <form class="buscarporprecio">
-                <input type="number" placeholder="Mínimo" id="precio_min">
-                <input type="number" placeholder="Máximo" id="precio_max">
-                <button type="submit" id="precio-buton">Buscar por precio</button>
-            </form>
-            <h3>Categoría</h3>
-            <input type="hidden" id="claseabuscar" name="Buscar">
-            <ul id="categorias">
-            </ul>
+        <div class="datos_usuario">
+            <label for="nombre_completo">Nombre completo</label>
+            <input type="text" name="nombre_completo" placeholder="Nombre completo" id="nombre_completo">
+            <label for="nombre_usuario">Nombre de usuario</label>
+            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" id="nombre_usuario">
+            <label for="contraseña">Contraseña</label>
+            <input type="password" name="contraseña" id="contraseña">
+        </div>
 
-            <h3>Promociones</h3>
-            <button id="filter-button" class="filter-button">Borrar filtros</button>
-        </aside>
-
-        <section class="products">
-            <div id="productos">
-
+        <div class="direccion_usuario">
+            <label for="cp">Codígo Postal</label>
+            <input type="number" id="cp">
+            <label for="calle">Calle</label>
+            <input type="text" name="calle" id="calle">
+            <label for="municipio">Municipio</label>
+            <input type="text" name="municipio" id="municipio">
+            <label for="estado">Estado</label>
+            <input type="text" name="estado" id="estado">
+            <label for="instrucciones_adicionales">instrucciones adicionales</label>
+            <div class="cuadro-texto" id="cuadro-texto" contenteditable="false">
             </div>
-
-        </section>
+        </div>
     </main>
+
     <footer>
         <div class="footer-content">
             <div class="footer-left">
@@ -74,7 +74,6 @@
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>
