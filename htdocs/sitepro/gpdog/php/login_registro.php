@@ -2,7 +2,7 @@
 session_start();
 include 'conexion_bd.php';
 
-header("Content-Type: application/json"); // Importante para que JS sepa que es JSON
+header("Content-Type: application/json; charset=utf-8");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];

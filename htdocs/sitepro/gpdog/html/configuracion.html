@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../css/configuracion.css">
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/configuracion.js"></script>
     <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -31,34 +31,51 @@
     <nav class="sidebar-menu">
     </nav>
 
-    <h2>datos de usuario nombre usuario contra cel</h2>
-    <h2>direccion (cp, calle, colonia, municipio, estado, instrucciones adicionales)</h2>
-
-    <h2>pedido pendiente</h2>
-
     <main>
-        <div class="datos_usuario">
-            <label for="nombre_completo">Nombre completo</label>
-            <input type="text" name="nombre_completo" placeholder="Nombre completo" id="nombre_completo">
-            <label for="nombre_usuario">Nombre de usuario</label>
-            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" id="nombre_usuario">
-            <label for="contraseña">Contraseña</label>
-            <input type="password" name="contraseña" id="contraseña">
+        <div class="datos_usuario" id="datos_usuario">
+            <h2>Datos usuario</h2>
+            <label for="nombre_completo-usuario">Nombre completo</label>
+            <input type="text" name="nombre_completo" placeholder="Nombre completo" id="nombre_completo-usuario">
+            <label for="nombre_usuario-usuario">Nombre de usuario</label>
+            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" id="nombre_usuario-usuario">
+            <label for="correo-usuario">Correo</label>
+            <input type="email" name="correo" id="correo-usuario">
+            <label for="num_telefono-usuario">Número de telefono</label>
+            <input type="number" name="num_telefono" id="num_telefono-usuario">
+            <div class="botones_editar">
+                <button type="button" id="editar_usuario" onclick="editar('usuario')">Editar</button>
+                <button type="button" id="cancelar_usuario" style="display: none;"
+                    onclick="cancelar('usuario')">Cancelar</button>
+                <button type="button" id="guardar_usuario" style="display: none;"
+                    onclick="guardar('usuario')">Guardar</button>
+            </div>
         </div>
 
         <div class="direccion_usuario">
-            <label for="cp">Codígo Postal</label>
-            <input type="number" id="cp">
-            <label for="calle">Calle</label>
-            <input type="text" name="calle" id="calle">
-            <label for="municipio">Municipio</label>
-            <input type="text" name="municipio" id="municipio">
-            <label for="estado">Estado</label>
-            <input type="text" name="estado" id="estado">
-            <label for="instrucciones_adicionales">instrucciones adicionales</label>
-            <div class="cuadro-texto" id="cuadro-texto" contenteditable="false">
+            <h2>Direccion</h2>
+            <input type="hidden" id="usuario_id" value="">
+            <label for="cp-direccion">Codígo Postal</label>
+            <input type="number" id="cp-direccion">
+            <label for="calle-direccion">Calle</label>
+            <input type="text" name="calle" id="calle-direccion">
+            <label for="colonia-direccion">Colonia</label>
+            <input type="text" name="colonia" id="colonia-direccion">
+            <label for="municipio-direccion">Municipio</label>
+            <input type="text" name="municipio" id="municipio-direccion">
+            <label for="estado-direccion">Estado</label>
+            <input type="text" name="estado" id="estado-direccion">
+            <label for="instrucciones_adicionales-direccion">Instrucciones adicionales</label>
+            <textarea id="instrucciones_adicionales-direccion" name="instrucciones_adicionales" rows="10" cols="50"
+                placeholder="Escribe aquí..."></textarea>
+            <div class="botones_editar">
+                <button type="button" id="editar_direccion" onclick="editar('direccion')">Editar</button>
+                <button type="button" id="cancelar_direccion" style="display: none;"
+                    onclick="cancelar('direccion')">Cancelar</button>
+                <button type="button" id="guardar_direccion" style="display: none;"
+                    onclick="guardar('direccion')">Guardar</button>
             </div>
         </div>
+
     </main>
 
     <footer>
@@ -74,6 +91,7 @@
             </div>
         </div>
     </footer>
+
 </body>
 
 </html>
