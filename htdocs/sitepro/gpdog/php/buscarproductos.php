@@ -7,7 +7,7 @@ function buscar_productos_por_clase($clase)
 {
     global $conn;
 
-    $stmt = $conn->prepare("SELECT * FROM productos WHERE tipo_producto = ?");
+    $stmt = $conn->prepare("SELECT * FROM productos WHERE tipo_producto = ? and estatus = 'A' and  cantidad_act > cantidad_min");
     $stmt->bind_param("s", $clase);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -26,7 +26,7 @@ function buscar_productos_por_texto($texto)
 {
 
     global $conn;
-    $stmt = $conn->prepare("SELECT * FROM productos WHERE nombre LIKE ?");
+    $stmt = $conn->prepare("SELECT * FROM productos WHERE nombre LIKE ? and estatus = 'A' and  cantidad_act > cantidad_min");
     $texto = "%$texto%";
     $stmt->bind_param("s", $texto);
     $stmt->execute();
@@ -47,7 +47,7 @@ function buscar_productos_por_precio($preciomin, $preciomax)
 {
 
     global $conn;
-    $stmt = $conn->prepare("SELECT * FROM productos WHERE precio_venta > ? and precio_venta < ?");
+    $stmt = $conn->prepare("SELECT * FROM productos WHERE precio_venta > ? and precio_venta < ? and estatus = 'A' and  cantidad_act > cantidad_min");
     $stmt->bind_param("ss", $preciomin, $preciomax);
     $stmt->execute();
     $result = $stmt->get_result();

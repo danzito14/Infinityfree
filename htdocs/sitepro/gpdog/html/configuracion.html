@@ -50,6 +50,31 @@
                     onclick="guardar('usuario')">Guardar</button>
             </div>
         </div>
+        <div>
+            <h2>Cambiar contraseña</h2>
+            <button type="button" id="btn_cambiar_contra">Cambiar contraseña</button>
+
+            <div class="ingresar_contra" style="display: none;">
+                <label for="input_contra_actual">Confirme su contraseña actual</label> <br>
+                <input type="password" id="input_contra_actual" placeholder="Contraseña">
+                <div id="botones_de_contra">
+                    <button type="button" id="btn_cancelar_1">Cancelar</button>
+                    <button type="button" id="btn_siguiente">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="nueva_contra" style="display: none;">
+                <label for="nueva_contra">Ingrese su nueva contraseña</label> <br>
+                <input type="password" name="nueva_contra" id="nueva_contra" placeholder="Su nueva contraseña"> <br>
+                <label for="confirmar_contra">Confirmar contraseña</label> <br>
+                <input type="password" name="confirmar_contra" id="confirmar_contra" placeholder="Confirmar contraseña">
+                <div id="botones_de_contra">
+                    <button type="button" id="btn_cancelar_2">Cancelar</button>
+                    <button type="button" id="btn_cambiar_final">Cambiar contraseña</button>
+                </div>
+            </div>
+        </div>
+
 
         <div class="direccion_usuario">
             <h2>Direccion</h2>

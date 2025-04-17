@@ -117,9 +117,83 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    const btnCambiar = document.getElementById("btn_cambiar_contra");
+    const btnSiguiente = document.getElementById("btn_siguiente");
+    const btnCambiarFinal = document.getElementById("btn_cambiar_final");
+    const btnCancelar1 = document.getElementById("btn_cancelar_1");
+    const btnCancelar2 = document.getElementById("btn_cancelar_2");
+
+    // Inputs
+    const inputContraActual = document.getElementById("input_contra_actual");
+    const inputNueva = document.getElementById("nueva_contra");
+    const inputConfirmar = document.getElementById("confirmar_contra");
+
+    // Divs
+    const divIngresarContra = document.querySelector(".ingresar_contra");
+    const divNuevaContra = document.querySelector(".nueva_contra");
+
+    function resetearCampos() {
+        inputContraActual.value = "";
+        inputNueva.value = "";
+        inputConfirmar.value = "";
+        divIngresarContra.style.display = "none";
+        divNuevaContra.style.display = "none";
+        btnCambiar.style.display = "block";
+    }
+
+    btnCambiar.addEventListener("click", () => {
+        resetearCampos(); // por si estaba medio lleno antes
+        divIngresarContra.style.display = "block";
+        btnCambiar.style.display = "none";
+    });
+
+    btnSiguiente.addEventListener("click", () => {
+        if (inputContraActual.value.trim() === "") {
+            Swal.fire({
+                title: "Campo vacío",
+                text: "Por favor ingrese su contraseña actual",
+                icon: "warning",
+                confirmButtonColor: '#a67c00'
+            });
 
 
+            return;
+        }
 
+        if (verificar_contraseña(id_usu1)) {
+            divIngresarContra.style.display = "none";
+            divNuevaContra.style.display = "block";
+
+        }
+
+    });
+
+    btnCambiarFinal.addEventListener("click", () => {
+        const nueva = inputNueva.value.trim();
+        const confirmar = inputConfirmar.value.trim();
+
+        if (nueva === "" || confirmar === "") {
+            Swal.fire({ title: "Campos vacíos", text: "Por favor complete todos los campos", icon: "warning", confirmButtonColor: '#a67c00', });
+            return;
+        }
+
+        if (nueva !== confirmar) {
+            Swal.fire({ title: "No coinciden", text: "Las contraseñas no coinciden", icon: "error", confirmButtonColor: '#a67c00', });
+            return;
+        }
+        actualizar_contraseña(id_usu1);
+        resetearCampos();
+    });
+
+    btnCancelar1.addEventListener("click", () => {
+        resetearCampos();
+
+    });
+
+    btnCancelar2.addEventListener("click", () => {
+        resetearCampos();
+
+    });
 
 });
 
@@ -273,3 +347,81 @@ async function enviar_direccion_editados() {
     }
 }
 
+async function verificar_contraseña(id_usu1) {
+    const formData = new FormData();
+
+    formData.append("contraseña_actual", document.getElementById("input_contra_actual").value);
+    formData.append("id_usu", id_usu1);
+    formData.append("action", "verificar_contra");
+
+    try {
+        const response = await fetch("../php/cambiar_contra.php", {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "Va a cambiar su contraseña",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#a67c00',
+                cancelButtonColor: '#004080'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return true;
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Datos erróneos",
+                icon: "error",
+                confirmButtonColor: "#A6762A"
+            });
+        }
+
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Ocurrió un error al conectar con el servidor.');
+    }
+}
+
+async function actualizar_contraseña(id_usu1) {
+    const formData = new FormData();
+
+    formData.append("nueva_contraseña", document.getElementById('nueva_contra').value);
+    formData.append("id_usu", id_usu1);
+    formData.append("action", "actualizar_contra");
+
+    try {
+        const response = await fetch("../php/cambiar_contra.php", {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        if (result.success) {
+            Swal.fire({
+                title: "¡Listo!",
+                text: "Contraseña cambiada correctamente",
+                icon: "success",
+                confirmButtonColor: '#a67c00',
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Sucedió un error",
+                text: "Sucedió algún error con la conexión a la base de datos",
+                icon: "error",
+                confirmButtonColor: "#A6762A"
+            });
+        }
+
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Ocurrió un error al conectar con el servidor.');
+    }
+}
