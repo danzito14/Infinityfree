@@ -223,12 +223,15 @@ label {
     margin-left: 5px;
 }
 
-#botones_agregar {
+#botones_agregar,
+#botones_agregar2 {
     display: flex;
     gap: 10px;
 }
 
-#botones_agregar button {
+
+#botones_agregar button,
+#botones_agregar2 button {
     width: 90px;
     border-radius: 5px;
     margin-top: 10px;
@@ -237,11 +240,25 @@ label {
     padding: 10px 10px;
 }
 
-#botones_agregar button:hover {
+#botones_agregar button:hover,
+#botones_agregar2 button:hover {
     background-color: white;
     border: #a67c00 solid 1px;
     transition: 300ms;
     color: #a67c00;
+}
+
+.agregar_categoria {
+    width: 80%;
+    margin-left: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    gap: 5px;
 }
 
 .agregar_producto img {

@@ -3,6 +3,7 @@ import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
     cargar_categorias();
     cargardatos();
+    cargar_categorias_para_combobox();
     ver_sesion.ver_sesion_actual();
     Sidebar.cargarSidebar();
     setTimeout(() => {
@@ -395,3 +396,148 @@ async function cambiar_estatus(id_producto, estatus, origen) {
 
 
 }
+
+document.getElementById("foto_producto").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const container = document.getElementById("imagen_a_agregar");
+
+    if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            container.innerHTML = `<img src="${e.target.result}" style="max-width: 200px; max-height: 200px;" />`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        container.innerHTML = "Archivo no válido.";
+    }
+});
+
+document.getElementById("foto_producto").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const container = document.getElementById("imagen_a_agregar");
+
+    if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            container.innerHTML = `<img src="${e.target.result}" style="max-width: 200px; max-height: 200px;" />`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        container.innerHTML = "Archivo no válido.";
+    }
+});
+
+
+
+function cargar_categorias_para_combobox() {
+    let url = `../php/cargar_productos.php?accion=cargarcategorias`;
+
+    fetch(url) // Verifica la ruta correcta
+        .then(response => response.json()) // Convertimos en JSON
+        .then(data => {
+            let datos = document.getElementById("combobox_tipo_producto");
+            datos.innerHTML = ""; // Limpiar contenido previo
+
+            data.forEach(dato => {
+                let fila = `
+                    <option value="opcion1">${dato.descripcion}</option>
+                `;
+                datos.innerHTML += fila; // Agregar la fila al contenedor
+            });
+        })
+        .catch(error => console.error("Error al cargar datos:", error));
+}
+document.querySelector("#botones_agregar-agregar").addEventListener("click", async function () {
+    const tipo = document.getElementById("combobox_tipo_producto").value;
+    const nombre = document.getElementById("nombre_producto").value;
+    const descripcion = document.getElementById("descripcion_producto").value;
+    const foto = document.getElementById("foto_producto").files[0];
+    const cant_actual = document.getElementById("cantidad_actual").value;
+    const cant_min = document.getElementById("cantidad_minima").value;
+    const cant_max = document.getElementById("cantidad_maxima").value;
+    const precio_compra = document.getElementById("precio_compra").value;
+    const precio_venta = document.getElementById("precio_venta").value;
+
+    if (
+        !tipo || !nombre || !descripcion || !foto || !cant_actual ||
+        !cant_min || !cant_max || !precio_compra || !precio_venta
+    ) {
+        alert("Por favor completa todos los campos antes de agregar el producto.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("tipo_producto", tipo);
+    formData.append("nombre_producto", nombre);
+    formData.append("descripcion_producto", descripcion);
+    formData.append("foto_producto", foto);
+    formData.append("cantidad_actual", cant_actual);
+    formData.append("cantidad_minima", cant_min);
+    formData.append("cantidad_maxima", cant_max);
+    formData.append("precio_compra", precio_compra);
+    formData.append("precio_venta", precio_venta);
+    formData.append("action", "producto");
+
+    try {
+        const response = await fetch("../php/agregar_producto.php", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.text(); // o usa .json() si tu PHP devuelve JSON
+        alert("Producto agregado con éxito: " + data);
+        document.querySelector(".agregar_producto").reset();
+        document.getElementById("imagen_a_agregar").innerHTML = "";
+    } catch (err) {
+        console.error('Error al enviar el formulario:', err);
+        alert('Ocurrió un error al conectar con el servidor.');
+    }
+});
+
+document.querySelector("#botones_agregar-clase").addEventListener("click", async function () {
+    const nombre = document.getElementById("nombre_clase").value;
+
+    if (!nombre) {
+        alert("Por favor completa todos los campos antes de agregar la categoría.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("nombre_clase", nombre);
+
+    try {
+        const response = await fetch("../php/agregar_categoria.php", {
+            method: "POST",
+            body: formData,
+        });
+
+        const responseText = await response.text();  // en vez de .json()
+        console.log("Respuesta cruda:", responseText);
+        try {
+            const data = JSON.parse(responseText);
+            alert("Categoria agregada con éxito: " + JSON.stringify(data));
+        } catch (e) {
+            console.error("Error al parsear JSON:", e, "\nTexto recibido:", responseText);
+        }
+
+        // document.querySelector(".agregar_categoria").reset();
+    } catch (err) {
+        console.error('Error al enviar el formulario:', err);
+        alert('Ocurrió un error al conectar con el servidor.', err);
+    }
+});
+
+// Botón Cancelar: limpia todos los campos
+document.querySelector("#botones_agregar button:first-of-type").addEventListener("click", function () {
+    if (confirm("¿Estás seguro de que deseas cancelar y limpiar el formulario?")) {
+        document.querySelector(".agregar_producto").reset();
+        document.getElementById("imagen_a_agregar").innerHTML = "";
+    }
+});
+
+document.querySelector("#botones_agregar2 button:first-of-type").addEventListener("click", function () {
+    if (confirm("¿Estás seguro de que deseas cancelar y limpiar el formulario?")) {
+        document.querySelector(".agregar_producto").reset();
+        document.getElementById("imagen_a_agregar").innerHTML = "";
+    }
+});

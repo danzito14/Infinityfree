@@ -44,7 +44,7 @@
                 <div id="seleccion_producto">
                     <label for="tipo_producto">Tipo producto</label>
                     <select id="combobox_tipo_producto">
-                        <option value="opcion1">Opción 1</option>
+
                     </select>
                 </div>
                 <div id="nombre_del_producto">
@@ -53,7 +53,8 @@
                 </div>
             </div>
             <label for="descripcion_producto">Descripción del producto</label>
-            <input type="text" id="nombre_producto" placeholder="Descripcion del producto">
+            <input type="text" id="descripcion_producto" name="descripcion_producto"
+                placeholder="Descripcion del producto">
             <label for="foto_producto">Foto del producto</label>
             <input type="file" id="foto_producto" accept=".jpg, .jpeg, .png" />
 
@@ -85,7 +86,16 @@
 
             <div id="botones_agregar">
                 <button type="button">Cancelar</button>
-                <button type="button">Agregar</button>
+                <button type="button" id="botones_agregar-agregar">Agregar</button>
+            </div>
+        </form>
+
+        <form class="agregar_categoria">
+            <label for="nombre_clase">Ingrese el nombre de la clase</label>
+            <input type="text" name="nombre_clase" id="nombre_clase">
+            <div id="botones_agregar2">
+                <button type="button">Cancelar</button>
+                <button type=" button" id="botones_agregar-clase">Agregar</button>
             </div>
         </form>
 
