@@ -18,7 +18,9 @@ function cargarproductos()
         precio_compra AS 'Precio de Compra',
         precio_venta AS 'Precio de Venta'
     FROM 
-        productos;"; // No se debe usar una coma después de la última columna
+        productos
+    ORDER BY 
+        id_producto ASC;";
 
     $result = $conn->query($sql);
 

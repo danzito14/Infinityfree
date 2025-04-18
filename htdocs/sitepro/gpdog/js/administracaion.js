@@ -106,7 +106,10 @@ function cargardatos() {
                 const btnEditar = document.createElement("button");
                 btnEditar.id = "btn_editar";
                 btnEditar.textContent = "Editar";
-                btnEditar.onclick = () => editarProducto(item.id_producto);
+                //  btnEditar.onclick = () => editarProducto(item.id_producto);
+                btnEditar.onclick = () => {
+                    seleccionarId(item.ID);
+                }
                 let estatus_actual = item.Estatus;
                 let boton = '';
 
@@ -212,7 +215,7 @@ function cargar_categorias() {
                 const btnEditar = document.createElement("button");
                 btnEditar.id = "btn_editar";
                 btnEditar.textContent = "Editar";
-                btnEditar.onclick = () => editarCategoria(item.id_categoria); // Asegúrate de tener esta función
+                btnEditar.onclick = () => seleccionarIdcategoria(item.ID);
                 tdAcciones.appendChild(btnEditar);
 
                 let estatus_actual = item.Estatus;
@@ -309,13 +312,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btnEditar = document.createElement("button");
                 btnEditar.textContent = "Editar";
                 btnEditar.id = "btn_editar";
-                btnEditar.onclick = () => editarProducto(item.id_producto);
+                btnEditar.onclick = () => {
+                    seleccionarId(item.ID);
+                }
 
                 // Botón Eliminar
                 const btnEliminar = document.createElement("button");
-                btnEliminar.textContent = "Eliminar";
                 btnEliminar.id = "btn_eliminar";
-                btnEliminar.onclick = () => alert("guayaba");
+                btnEliminar.textContent = boton;
+                btnEliminar.onclick = () => {
+                    let mensaje = estatus_actual === 'A'
+                        ? "Va a cambiar el estado a inactivo y no se mostrará en la ventana de compra"
+                        : "Va a cambiar el estado a activo y se podrá ver en la página de compras";
+
+                    Swal.fire({
+                        title: '¿Está seguro?',
+                        text: mensaje,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, continuar',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonColor: '#a67c00',
+                        cancelButtonColor: '#004080'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            cambiar_estatus(item.ID, item.Estatus, "producto");
+                        }
+                    });
+                };
 
                 tdAcciones.appendChild(btnEditar);
                 tdAcciones.appendChild(btnEliminar);
@@ -440,7 +464,7 @@ function cargar_categorias_para_combobox() {
 
             data.forEach(dato => {
                 let fila = `
-                    <option value="opcion1">${dato.descripcion}</option>
+                    <option value="${dato.id_tipo_producto}">${dato.descripcion}</option>
                 `;
                 datos.innerHTML += fila; // Agregar la fila al contenedor
             });
@@ -541,3 +565,15 @@ document.querySelector("#botones_agregar2 button:first-of-type").addEventListene
         document.getElementById("imagen_a_agregar").innerHTML = "";
     }
 });
+
+
+function seleccionarId(id) {
+    sessionStorage.setItem('idSeleccionado', id);
+    window.location.href = 'administracion_producto.html'; // te vas a la otra página
+}
+
+function seleccionarIdcategoria(id) {
+    sessionStorage.setItem('idSeleccionadoCategoria', id);
+    window.location.href = 'administracion_categoria.html'; // te vas a la otra página
+}
+

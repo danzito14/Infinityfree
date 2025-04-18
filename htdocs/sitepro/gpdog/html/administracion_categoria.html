@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Tienda</title>
+    <link rel="stylesheet" href="../css/administracion_producto.css">
+    <script src="../js/clases/clase_sesion.js"></script>
+    <script type="module" src="../js/clases/Sidebar.js"></script>
+    <script type="module" src="../js/administracaion_categoria.js"></script>
+    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <header>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <div id="barradebuscar">
+
+        </div>
+        <div class="icons">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+    <nav class="sidebar-menu">
+    </nav>
+
+
+    <main>
+        <form class="agregar_producto">
+            <div id="datos">
+                <h2>Agregar productos</h2>
+                <div id="primeros_datos">
+                    <div id="id_productos">
+                        <label for="id_producto">ID de la categoria</label>
+                        <label type="text" id="id_producto"></label>
+                    </div>
+                    <div id="estatus_producto">
+                        <label for="estatus_producto">Estatus</label>
+                        <select name="estatus_producto" id="estatus_producto">
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="nombre_del_producto">
+                    <label for="nombre_producto">Nombre de la categoria</label>
+                    <input type="text" id="nombre_producto" placeholder="Nombre del producto">
+                </div>
+                <div id="botones_agregar">
+                    <button type="button" id="boton_regresar">Regresar</button>
+                    <button type="button" id="cancelar">Cancelar</button>
+                    <button type="button" id="botones_agregar-agregar">Guardar cambios</button>
+                </div>
+            </div>
+            <div id="foto">
+            </div>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p>Contáctanos</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

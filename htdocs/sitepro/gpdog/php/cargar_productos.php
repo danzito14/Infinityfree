@@ -5,7 +5,8 @@ include 'conexion_bd.php';
 function cargarproductos()
 {
     global $conn;
-    $sql = "SELECT * FROM productos WHERE estatus = 'A' and cantidad_act > cantidad_min";
+    $sql = "SELECT * FROM productos WHERE estatus = 'A' and cantidad_act > cantidad_min ORDER BY 
+        id_producto ASC;";
     $result = $conn->query($sql);
 
     $datos = array();

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     obtener_id_usuario()
         .then(id_usu => {
             id_usu1 = id_usu;
-            return cargar_datos_usuarios(id_usu); // 👈 esperamos a que se cargue
+            return cargar_datos_usuarios(id_usu); //esperamos a que se cargue
         })
         .then(() => {
             setInputsReadonly('usuario', true);
