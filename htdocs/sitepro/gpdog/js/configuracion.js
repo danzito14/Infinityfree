@@ -2,7 +2,7 @@ const ver_sesion = new Verificar_Inicio_de_Sesion();
 
 import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
-    ver_sesion.ver_sesion_actual();
+    ver_sesion.ver_sesion_actual("usuario");
     let id_usu1 = null;
     obtener_id_usuario()
         .then(id_usu => {

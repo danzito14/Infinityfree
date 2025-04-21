@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargar_categorias();
     cargardatos();
     cargar_categorias_para_combobox();
-    ver_sesion.ver_sesion_actual();
+    ver_sesion.ver_sesion_actual("administracion");
     Sidebar.cargarSidebar();
     setTimeout(() => {
 
@@ -49,21 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-window.addEventListener("scroll", function () {
-    const sidebar = document.querySelector(".sidebar-menu");
-    const footer = document.querySelector(".footer");
-
-    const sidebarBottom = sidebar.getBoundingClientRect().bottom;
-    const footerTop = footer.getBoundingClientRect().top;
-
-    if (sidebarBottom > footerTop) {
-        sidebar.style.position = "absolute";
-        sidebar.style.bottom = `${footer.clientHeight}px`;
-    } else {
-        sidebar.style.position = "fixed";
-        sidebar.style.bottom = "auto";
-    }
-});
 function cargardatos() {
     let url = `../php/administracion_cargar_productos.php?accion=cargarproductos`;
 
@@ -314,6 +299,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnEditar.id = "btn_editar";
                 btnEditar.onclick = () => {
                     seleccionarId(item.ID);
+                }
+                let estatus_actual = item.Estatus;
+                let boton = '';
+
+                if (estatus_actual == 'A') {
+                    boton = "Dar de baja"
+                } else {
+                    boton = "Dar de alta"
                 }
 
                 // Botón Eliminar

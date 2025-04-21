@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/carrito.css">
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/carrito.js"></script>
     <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -17,12 +17,7 @@
     <header>
         <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
         <div id="barradebuscar">
-            <form class="buscarplatillo" method="GET">
-                <input type="search" id="buscador" placeholder="Buscar...">
-                <button id="buscar" type="submit">
-                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-                </button>
-            </form>
+
         </div>
         <div class="icons">
             <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
@@ -34,34 +29,39 @@
     <nav class="sidebar-menu">
     </nav>
 
-
-    <main>
-        <aside class="sidebar">
-            <h2>Productos</h2>
-            <h3>Filtrar por:</h3>
-            <label>Precio:</label>
-            <form class="buscarporprecio">
-                <input type="number" placeholder="Mínimo" id="precio_min">
-                <input type="number" placeholder="Máximo" id="precio_max">
-                <button type="submit" id="precio-buton">Buscar por precio</button>
-            </form>
-            <h3>Categoría</h3>
-            <input type="hidden" id="claseabuscar" name="Buscar">
-            <ul id="categorias">
-            </ul>
-
-            <h3>Promociones</h3>
-            <button id="filter-button" class="filter-button">Borrar filtros</button>
-        </aside>
-
-        <section class="products">
-            <div id="productos">
+    <main class="cart-section">
+        <!-- Columna izquierda: productos -->
+        <div class="cart-left">
+            <!-- Grupo de productos -->
+            <div class="cart-group">
+                <h2 class="group-title">Productos </h2>
 
             </div>
-            <div id="paginacion"></div>
+        </div>
 
-        </section>
+        <!-- Columna derecha: resumen -->
+        <div class="cart-right">
+            <div class="summary-box">
+                <h3>Resumen de compra</h3>
+                <div class="summary-line">
+                    <span class="product-count">Productos (0)</span>
+                    <span class="total-price2">$0</span>
+                </div>
+                <div class="summary-line">
+                    <span>Envíos</span>
+                    <span style="color: green;">Gratis</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span class="total-price">$0</span>
+                </div>
+                <button class="checkout-btn">Continuar compra</button>
+                <button onclick="window.location.href='home.html'">Ver más productos</button>
+
+            </div>
+        </div>
     </main>
+
     <footer>
         <div class="footer-content">
             <div class="footer-left">
@@ -71,11 +71,10 @@
             </div>
             <div class="footer-right">
                 <p><strong>¿Tienes alguna sugerencia?</strong></p>
-                <p>Contáctanos</p>
+                <p><a href="contacto.html" class="contact-link">Contáctanos</a></p>
             </div>
         </div>
     </footer>
-
 </body>
 
 </html>

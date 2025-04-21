@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $user['contra'])) {
                 $_SESSION['user_id'] = $user['id_usu'];
                 $_SESSION['username'] = $user['nombre'];
+                $_SESSION['nvl_usuario'] = $user['nvl_usuario'];
                 echo json_encode(["success" => true]);
                 exit;
             } else {

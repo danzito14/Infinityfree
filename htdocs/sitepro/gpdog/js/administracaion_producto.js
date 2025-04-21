@@ -2,7 +2,7 @@ const ver_sesion = new Verificar_Inicio_de_Sesion();
 import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
     inicializar();
-    ver_sesion.ver_sesion_actual();
+    ver_sesion.ver_sesion_actual("administracion");
     Sidebar.cargarSidebar();
     setTimeout(() => {
 
