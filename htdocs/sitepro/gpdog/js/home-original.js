@@ -4,8 +4,7 @@ import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
     cargar_categorias();
     cargardatos();
-    const ver_sesion = new Verificar_Inicio_de_Sesion();
-    ver_sesion.ver_sesion_actual("usuario");
+    ver_sesion.ver_sesion_actual();
     Sidebar.cargarSidebar();
     setTimeout(() => {
 
@@ -26,28 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        if (btnCerrarSesion) {
+            btnCerrarSesion.addEventListener('click', () => {
+                alert("Cerrando sesión...");
+                const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
+                if (confirmacion) {
+                    fetch('../php/cerrar_sesion.php')
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.logueado === false) {
+                                window.location.href = '../html/login.html';
+                            }
+                        })
+                        .catch(err => console.error('Error cerrando sesión:', err));
+                }
+            });
+        } else {
+            console.warn("btnCerrarSesion no encontrado.");
+        }
+
     }, 0);
-
-    fetch('../php/sesion.php')
-        .then(res => res.json())
-        .then(data => {
-            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
-
-            console.log(nombredelacookie);
-            console.log("asasas");
-
-            if (nombredelacookie) {
-                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
-
-                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
-                cargarCookies.cargarEstilosCookies(nombredelacookie2);
-
-                // Mostrar el nombre del usuario cargado
-                console.log("Nombre de la cookie cargado:", nombredelacookie);
-            } else {
-                console.warn("No se encontró el nombre de la cookie.");
-            }
-        })
 });
 
 
@@ -78,9 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-let productos = []; //Array donde vamos a guardar los datos
-let pagina_actual = 1;
-const productos_por_pagina = 6;
 
 function cargardatos() {
     let url = `../php/cargar_productos.php?accion=cargarproductos`;
@@ -88,62 +82,25 @@ function cargardatos() {
     fetch(url) // Verifica la ruta correcta
         .then(response => response.json()) // Convertimos en JSON
         .then(data => {
-            productos = data; //pasamos el json que tiene los datos al array productos
-            pagina_actual = 1;
-            mostrar_productos();
-            crear_paginacion();
+            let datos = document.getElementById("productos");
+            datos.innerHTML = ""; // Limpiar contenido previo
+
+            data.forEach(dato => {
+                let fila = `
+                    <div class="product">
+                    <img src="${dato.direccion_foto}" alt="Placa mascota">
+                    <p id="nombre_producto">${dato.nombre}</p>
+                    <p class="price">$${dato.precio_venta}</p>
+                    <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
+                 </div>
+                `;
+                datos.innerHTML += fila; // Agregar la fila al contenedor
+
+            });
         })
         .catch(error => console.error("Error al cargar datos:", error));
 }
 
-
-function mostrar_productos() {
-    let datos = document.getElementById("productos");
-    datos.innerHTML = ""; // Limpiar contenido previo
-
-    let inicio = (pagina_actual - 1) * productos_por_pagina;
-    let fin = inicio + productos_por_pagina;
-    //slice es una funcion que copea los datos de un array
-    // pero solo del rango que le indiquemos, si le ponemos array.slice(1,3)
-    // y el array contiene [1,2,3,4,5], el slice copeara de la posicion 1 a la 3
-    // por lo que si imprimimos ese slice nos dara [2,3,4]
-    let productos_en_pagina = productos.slice(inicio, fin);
-
-    productos_en_pagina.forEach(dato => {
-        let fila = `
-                <div class="product" data-id="${dato.id_producto}">
-                    <img src="${dato.direccion_foto}" alt="Placa mascota">
-                    <p id="nombre_producto">${dato.nombre}</p>
-                    <p class="price">$${dato.precio_venta}</p>
-                    <button type="submit" id="agregar_al_carrito">Agregar al carrito</button>
-                </div>
-                `;
-        datos.innerHTML += fila; // Agregar la fila al contenedor
-    });
-}
-
-function crear_paginacion() {
-    const paginacion = document.getElementById("paginacion");
-    paginacion.innerHTML = ""; //Limpiamos el html para que  no se carguen los datos
-
-    let totalPaginas = Math.ceil(productos.length / productos_por_pagina);
-
-    //Borramos la pagina anterior
-    if (pagina_actual > 1) {
-        paginacion.innerHTML += `<button onclick="cambiarPagina(${pagina_actual - 1})">Anterior</button>`;
-
-    }
-    //Botones numericos
-    for (let i = 1; i <= totalPaginas; i++) {
-        paginacion.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
-    }
-}
-
-window.cambiarPagina = function cambiarPagina(pagina) {
-    pagina_actual = pagina;
-    mostrar_productos();
-    crear_Paginacion();
-}
 
 function cargar_categorias() {
     let url = `../php/cargar_productos.php?accion=cargarcategorias`;
@@ -165,7 +122,7 @@ function cargar_categorias() {
 }
 
 
-window.enviarclase = function enviarclase(valor) {
+function enviarclase(valor) {
     const claseabuscar = document.getElementById('claseabuscar');
     claseabuscar.value = valor;
 
@@ -186,8 +143,7 @@ async function buscarProductosporClase(tipo, valor) {
         if (data.length > 0) {
             data.forEach(producto => {
                 let fila = `
-                    <div class="product" data-id="${producto.id_producto}>
-                        <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
+                    <div class="product">
                         <img src="${producto.direccion_foto}" alt="Placa mascota">
                         <p id="nombre_producto">${producto.nombre}</p>
                         <p class="price">$${producto.precio_venta}</p>
@@ -202,30 +158,6 @@ async function buscarProductosporClase(tipo, valor) {
     } catch (e) {
         console.error("Error en la búsqueda de productos:", e);
     }
-} document.addEventListener('DOMContentLoaded', () => {
-    const contenedor = document.getElementById("productos");
-
-    contenedor.addEventListener("click", (e) => {
-        const producto = e.target.closest(".product");
-
-        if (e.target.tagName === "BUTTON" && e.target.id === "agregar_al_carrito") {
-            if (producto) {
-                let id_producto = producto.getAttribute("data-id");
-                agregar_al_carrito(id_producto);
-            }
-        } else {
-            if (producto && !e.target.closest("button")) {
-                let id_producto = producto.getAttribute("data-id");
-                seleccionarId_producto(id_producto);
-            }
-        }
-    });
-});
-
-
-function seleccionarId_producto(id) {
-    sessionStorage.setItem('id_producto_seleccionado', id);
-    window.location.href = 'producto_informacion.html'; // te vas a la otra página
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -245,8 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.length > 0) {
                 data.forEach(producto => {
                     let fila = `
-                        <div class="product" data-id="${producto.id_producto}>
-                            <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
+                        <div class="product">
                             <img src="${producto.direccion_foto}" alt="Placa mascota">
                             <p id="nombre_producto">${producto.nombre}</p>
                             <p class="price">$${producto.precio_venta}</p>
@@ -284,8 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.length > 0) {
                 data.forEach(producto => {
                     let fila = `
-                        <div class="product" data-id="${producto.id_producto}>
-                            <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
+                        <div class="product">
                             <img src="${producto.direccion_foto}" alt="Placa mascota">
                             <p id="nombre_producto">${producto.nombre}</p>
                             <p class="price">$${producto.precio_venta}</p>
@@ -303,51 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-async function agregar_al_carrito(id_producto) {
-    try {
-        const res = await fetch('../php/sesion.php');
-        const data = await res.json();
 
-        if (!data.logueado) {
-            alert("Debes iniciar sesión primero");
-            return;
-        }
 
-        const user_id = data.user_id;
-        console.log("usuario", user_id);
 
-        const formData = new FormData();
-        formData.append("id_producto", id_producto);
-        formData.append("id_usuario", user_id);
-        formData.append("action", 'agregar_al_carrito');
-
-        const response = await fetch("../php/carrito.php", {
-            method: 'POST',
-            body: formData
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            Swal.fire({
-                title: "Producto enviado al carrito",
-                text: "Se ha agregado a tu carrito de compras, si quieres puedes ir a verlo ya.",
-                icon: "success",
-                showCancelButton: true,
-                cancelButtonText: "Ver más productos",
-                confirmButtonColor: "#A6762A",
-                cancelButtonColor: "#004080",
-                confirmButtonText: "Ir a mi carrito"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "../html/carrito.html";
-                }
-            });
-        } else {
-
-        }
-    } catch (err) {
-        console.error('Error:', err);
-        alert('Ocurrió un error al conectar con el servidor.');
-    }
-}

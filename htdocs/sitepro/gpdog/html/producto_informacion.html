@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/administracion_producto.css">
     <script src="../js/clases/cargar_estilos.js"></script>
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/producto_informacion.js"></script>
     <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -18,12 +18,7 @@
     <header>
         <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
         <div id="barradebuscar">
-            <form class="buscarplatillo" method="GET">
-                <input type="search" id="buscador" placeholder="Buscar...">
-                <button id="buscar" type="submit">
-                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-                </button>
-            </form>
+
         </div>
         <div class="icons">
             <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
@@ -37,31 +32,42 @@
 
 
     <main>
-        <aside class="sidebar">
-            <h2>Productos</h2>
-            <h3>Filtrar por:</h3>
-            <label>Precio:</label>
-            <form class="buscarporprecio">
-                <input type="number" placeholder="Mínimo" id="precio_min">
-                <input type="number" placeholder="Máximo" id="precio_max">
-                <button type="submit" id="precio-buton">Buscar por precio</button>
-            </form>
-            <h3>Categoría</h3>
-            <input type="hidden" id="claseabuscar" name="Buscar">
-            <ul id="categorias">
-            </ul>
-
-            <h3>Promociones</h3>
-            <button id="filter-button" class="filter-button">Borrar filtros</button>
-        </aside>
-
-        <section class="products">
-            <div id="productos">
-
+        <form class="agregar_producto">
+            <div id="foto">
+                <div id="imagen_a_agregar"></div>
             </div>
-            <div id="paginacion"></div>
+            </div>
+            <div id="datos">
+                <h2 id="nombre_producto">Hueso de bambú</h2>
+                <div id="primeros_datos">
+                    <div class="input-group">
+                        <h2 id="precio_venta">$500 MXN</h2>
+                    </div>
+                </div>
+                <div id="descripcion_p">
 
-        </section>
+                    <label for="descripcion_producto"> <strong> Descripción del producto</strong></label>
+                    <label id="descripcion_producto">La flindesmender es aca un juguete bien chido te lo aseguro me
+                        lo
+                        dijo un primo</label>
+                </div>
+
+                <div id="numeros">
+                    <div class="input-group">
+                        <label id="cantidad_actual">10</label>
+                    </div>
+
+                </div>
+
+
+                <div id="botones_agregar">
+                    <button type="button" id="boton_regresar">Regresar</button>
+                    <button type="button" id="boton_agregar_al_carrito">Agregar al carrito</button>
+                    <button type="button" id="comprar">Comprar Ahora</button>
+                </div>
+            </div>
+
+        </form>
     </main>
     <footer>
         <div class="footer-content">

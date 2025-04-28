@@ -1,0 +1,123 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Tienda</title>
+    <link rel="stylesheet" href="../css/configuracion.css">
+    <script src="../js/clases/cargar_estilos.js"></script>
+    <script src="../js/clases/clase_sesion.js"></script>
+    <script type="module" src="../js/clases/Sidebar.js"></script>
+    <script type="module" src="../js/configuracion.js"></script>
+    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <header>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <div id="barradebuscar">
+            <form class="buscarplatillo" method="GET">
+                <input type="search" id="buscador" placeholder="Buscar...">
+                <button id="buscar" type="submit">
+                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <div class="icons">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+    <nav class="sidebar-menu">
+    </nav>
+
+    <main>
+        <div class="datos_usuario" id="datos_usuario">
+            <h2>Datos usuario</h2>
+            <label for="nombre_completo-usuario">Nombre completo</label>
+            <input type="text" name="nombre_completo" placeholder="Nombre completo" id="nombre_completo-usuario">
+            <label for="nombre_usuario-usuario">Nombre de usuario</label>
+            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" id="nombre_usuario-usuario">
+            <label for="correo-usuario">Correo</label>
+            <input type="email" name="correo" id="correo-usuario">
+            <label for="num_telefono-usuario">Número de telefono</label>
+            <input type="number" name="num_telefono" id="num_telefono-usuario">
+            <div class="botones_editar">
+                <button type="button" id="editar_usuario" onclick="editar('usuario')">Editar</button>
+                <button type="button" id="cancelar_usuario" style="display: none;"
+                    onclick="cancelar('usuario')">Cancelar</button>
+                <button type="button" id="guardar_usuario" style="display: none;"
+                    onclick="guardar('usuario')">Guardar</button>
+            </div>
+        </div>
+        <div>
+            <h2>Cambiar contraseña</h2>
+            <button type="button" id="btn_cambiar_contra">Cambiar contraseña</button>
+
+            <div class="ingresar_contra" style="display: none;">
+                <label for="input_contra_actual">Confirme su contraseña actual</label> <br>
+                <input type="password" id="input_contra_actual" placeholder="Contraseña">
+                <div id="botones_de_contra">
+                    <button type="button" id="btn_cancelar_1">Cancelar</button>
+                    <button type="button" id="btn_siguiente">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="nueva_contra" style="display: none;">
+                <label for="nueva_contra">Ingrese su nueva contraseña</label> <br>
+                <input type="password" name="nueva_contra" id="nueva_contra" placeholder="Su nueva contraseña"> <br>
+                <label for="confirmar_contra">Confirmar contraseña</label> <br>
+                <input type="password" name="confirmar_contra" id="confirmar_contra" placeholder="Confirmar contraseña">
+                <div id="botones_de_contra">
+                    <button type="button" id="btn_cancelar_2">Cancelar</button>
+                    <button type="button" id="btn_cambiar_final">Cambiar contraseña</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="direccion_usuario">
+            <h2>Direccion</h2>
+            <input type="hidden" id="usuario_id" value="">
+            <label for="cp-direccion">Codígo Postal</label>
+            <input type="number" id="cp-direccion">
+            <label for="calle-direccion">Calle</label>
+            <input type="text" name="calle" id="calle-direccion">
+            <label for="colonia-direccion">Colonia</label>
+            <input type="text" name="colonia" id="colonia-direccion">
+            <label for="municipio-direccion">Municipio</label>
+            <input type="text" name="municipio" id="municipio-direccion">
+            <label for="estado-direccion">Estado</label>
+            <input type="text" name="estado" id="estado-direccion">
+            <label for="instrucciones_adicionales-direccion">Instrucciones adicionales</label>
+            <textarea id="instrucciones_adicionales-direccion" name="instrucciones_adicionales" rows="10" cols="50"
+                placeholder="Escribe aquí..."></textarea>
+            <div class="botones_editar">
+                <button type="button" id="editar_direccion" onclick="editar('direccion')">Editar</button>
+                <button type="button" id="cancelar_direccion" style="display: none;"
+                    onclick="cancelar('direccion')">Cancelar</button>
+                <button type="button" id="guardar_direccion" style="display: none;"
+                    onclick="guardar('direccion')">Guardar</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p>Contáctanos</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

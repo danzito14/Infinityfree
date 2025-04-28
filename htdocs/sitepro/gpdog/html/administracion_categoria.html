@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/administracion_producto.css">
     <script src="../js/clases/cargar_estilos.js"></script>
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
-    <script type="module" src="../js/home.js"></script>
+    <script type="module" src="../js/administracaion_categoria.js"></script>
     <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -18,12 +18,7 @@
     <header>
         <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
         <div id="barradebuscar">
-            <form class="buscarplatillo" method="GET">
-                <input type="search" id="buscador" placeholder="Buscar...">
-                <button id="buscar" type="submit">
-                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-                </button>
-            </form>
+
         </div>
         <div class="icons">
             <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
@@ -37,31 +32,36 @@
 
 
     <main>
-        <aside class="sidebar">
-            <h2>Productos</h2>
-            <h3>Filtrar por:</h3>
-            <label>Precio:</label>
-            <form class="buscarporprecio">
-                <input type="number" placeholder="Mínimo" id="precio_min">
-                <input type="number" placeholder="Máximo" id="precio_max">
-                <button type="submit" id="precio-buton">Buscar por precio</button>
-            </form>
-            <h3>Categoría</h3>
-            <input type="hidden" id="claseabuscar" name="Buscar">
-            <ul id="categorias">
-            </ul>
-
-            <h3>Promociones</h3>
-            <button id="filter-button" class="filter-button">Borrar filtros</button>
-        </aside>
-
-        <section class="products">
-            <div id="productos">
-
+        <form class="agregar_producto">
+            <div id="datos">
+                <h2>Agregar productos</h2>
+                <div id="primeros_datos">
+                    <div id="id_productos">
+                        <label for="id_producto">ID de la categoria</label>
+                        <label type="text" id="id_producto"></label>
+                    </div>
+                    <div id="estatus_producto">
+                        <label for="estatus_producto">Estatus</label>
+                        <select name="estatus_producto" id="estatus_producto">
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="nombre_del_producto">
+                    <label for="nombre_producto">Nombre de la categoria</label>
+                    <input type="text" id="nombre_producto" placeholder="Nombre del producto">
+                </div>
+                <div id="botones_agregar">
+                    <button type="button" id="boton_regresar">Regresar</button>
+                    <button type="button" id="cancelar">Cancelar</button>
+                    <button type="button" id="botones_agregar-agregar">Guardar cambios</button>
+                </div>
             </div>
-            <div id="paginacion"></div>
-
-        </section>
+            <div id="foto">
+            </div>
+            </div>
+        </form>
     </main>
     <footer>
         <div class="footer-content">

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function validatePassword(password) {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const regex = /^[A-Za-z\d@$!%*?&]{4,}$/;
         return regex.test(password);
     }
 
@@ -45,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
             input.classList.remove('input-error');
         });
     }
-
     // Enviar el formulario de login
-    loginForm.querySelector('form').addEventListener('submit', function (event) {
+    loginForm.querySelector('form').addEventListener('submit', async function (event) {
         event.preventDefault();
         removeErrorStyles(loginForm);
 
@@ -55,17 +54,46 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('login-password');
 
         if (user.value.trim() === '') return showError(user, 'Rellena el campo de usuario.');
-        if (user.value.trim().length < 3) return showError(user, 'El usuario debe tener al menos 3 caracteres.');
         if (password.value.trim() === '') return showError(password, 'Rellena el campo de contraseña.');
-        if (!validatePassword(password.value.trim()))
-            return showError(password, 'La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.');
 
-        // Después de la validación, dejamos que el formulario se envíe al servidor.
-        this.submit(); // Enviar el formulario
+        const formData = new FormData();
+        formData.append('username', user.value.trim());
+        formData.append('password', password.value.trim());
+        formData.append('action', 'login');
+
+        try {
+            const response = await fetch('../php/login_registro.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                Swal.fire({
+                    title: "Accediendo",
+                    icon: "success",
+                    draggable: true,
+                    confirmButtonColor: "#A6762A"
+                }).then(() => {
+                    window.location.href = '../html/home.html';
+                });
+            } else {
+                Swal.fire({
+                    title: "Usuario o contraseña incorrectos",
+                    icon: "error",
+                    draggable: true,
+                    confirmButtonColor: "#A6762A"
+                });
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Ocurrió un error al conectar con el servidor.');
+        }
     });
 
     // Enviar el formulario de registro
-    registerForm.querySelector('form').addEventListener('submit', function (event) {
+    registerForm.querySelector('form').addEventListener('submit', async function (event) {
         event.preventDefault();
         removeErrorStyles(registerForm);
 
@@ -84,8 +112,41 @@ document.addEventListener('DOMContentLoaded', function () {
         if (password.value.trim() !== confirmPassword.value.trim())
             return showError(confirmPassword, 'Las contraseñas no coinciden.');
 
-        // Después de la validación, dejamos que el formulario se envíe al servidor.
-        this.submit(); // Enviar el formulario
+        const formData = new FormData();
+        formData.append('username', name.value.trim());
+        formData.append('nickname', user.value.trim());
+        formData.append('password', password.value.trim());
+        formData.append('action', 'register');
+
+        try {
+            const response = await fetch('../php/login_registro.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                Swal.fire({
+                    title: "Usuario Registrado existosamente",
+                    icon: "success",
+                    draggable: true,
+                    confirmButtonColor: "#A6762A"
+                }).then(() => {
+                    window.location.href = '../html/home.html';
+                });
+            } else {
+                Swal.fire({
+                    title: "Los datos no cumplen con los paremetros",
+                    icon: "error",
+                    draggable: true,
+                    confirmButtonColor: "#A6762A"
+                });
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Ocurrió un error al conectar con el servidor.');
+        }
     });
 
     resetButtons.forEach(button => {

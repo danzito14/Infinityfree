@@ -142,87 +142,6 @@ header {
     filter: invert(58%) sepia(88%) saturate(690%) hue-rotate(-5deg);
 }
 
-/* Sidebar de filtros */
-.sidebar {
-    width: 250px;
-    background-color: rgb(255, 240, 215);
-    padding: 20px;
-    overflow-y: auto;
-    max-height: 100vh;
-    align-self: flex-start;
-    width: 15%;
-}
-
-.sidebar h2,
-.sidebar h3 {
-    margin: 10px 0;
-}
-
-.sidebar input {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 5px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar li {
-    margin: 5px 0;
-}
-
-.sidebar label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.sidebar input[type="radio"] {
-    margin: 0;
-    width: 16px;
-    height: 16px;
-}
-
-.sidebar input[type="text"] {
-    width: calc(100% - 10px);
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.filter-button {
-    background-color: #004080;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    border: transparent solid 3px;
-}
-
-.filter-button:hover {
-    cursor: pointer;
-    background-color: #FFFFFF;
-    border: #004080 solid 3px;
-    color: #004080;
-    transition: 300ms;
-    cursor: pointer;
-
-}
-
-#precio-button {
-    background-color: #004080;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-}
-
 main {
     display: flex;
     align-items: stretch;
@@ -232,50 +151,9 @@ main {
     flex-direction: row;
     position: relative;
     margin-top: 60px;
+    flex-direction: column;
 }
 
-/* Ajustar el ancho del contenido principal */
-.main-container {
-    display: flex;
-    width: 100%;
-    margin: 0;
-}
-
-
-.products {
-    width: 75%;
-}
-
-#productos {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    height: max-content;
-}
-
-.product {
-    background-color: white;
-    padding: 15px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.product:hover {
-    cursor: pointer;
-}
-
-.product img {
-    width: 100%;
-    max-height: 150px;
-    object-fit: contain;
-}
-
-.price {
-    font-weight: bold;
-    color: #333;
-}
 
 button {
     background-color: #a67c00;
@@ -284,8 +162,107 @@ button {
     padding: 10px;
     cursor: pointer;
     width: 100%;
+}
 
-    border: transparent solid 3px;
+.agregar_producto {
+    width: 80%;
+    margin-left: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    gap: 5px;
+}
+
+#numeros {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que los elementos se ajusten en varias líneas */
+    gap: 20px;
+    /* Espacio entre cada grupo de input */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    /* Coloca el label encima del input */
+    width: 200px;
+    /* Ancho fijo para cada grupo */
+}
+
+label {
+    margin-bottom: 5px;
+    /* Espacio entre el label y el input */
+}
+
+#primeros_datos {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#seleccion_producto {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#nombre_del_producto {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+}
+
+#nombre_del_producto input[type="text"] {
+    width: 70%;
+    margin-left: 5px;
+}
+
+#botones_agregar,
+#botones_agregar2 {
+    display: flex;
+    gap: 10px;
+}
+
+
+#botones_agregar button,
+#botones_agregar2 button {
+    width: 90px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 550;
+    padding: 10px 10px;
+}
+
+#botones_agregar button:hover,
+#botones_agregar2 button:hover {
+    background-color: white;
+    border: #a67c00 solid 1px;
+    transition: 300ms;
+    color: #a67c00;
+}
+
+.agregar_categoria {
+    width: 80%;
+    margin-left: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    gap: 5px;
+}
+
+.agregar_producto img {
+    width: 200px;
 }
 
 /* Footer alineado con la sidebar */
@@ -330,46 +307,69 @@ footer a:hover {
     text-decoration: underline;
 }
 
-#agregar_al_carrito {
-    cursor: pointer;
+#tabla_productos,
+#tabla_categorias {
+    overflow-x: auto;
+
 }
 
-#agregar_al_carrito:hover {
-    cursor: pointer;
-    border: #a67c00 3px solid;
-    background-color: #FFFFFF;
-    color: #a67c00;
-    transition: 300ms;
-}
-
-#precio-buton:hover {
-    cursor: pointer;
-    border: #a67c00 3px solid;
-    background-color: #FFFFFF;
-    color: #a67c00;
-    transition: 300ms;
-}
-
-#paginacion {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-collapse: collapse;
     margin-left: 30px;
-
 }
 
-#paginacion button {
-    width: 30px;
-    text-align: center;
-    border: transparent 1px solid;
-    cursor: pointer;
+#btn_editar,
+#btn_eliminar {
+    width: 100px;
+    gap: 5px;
 }
 
-#paginacion button:hover {
+#btn_editar:hover,
+#btn_eliminar:hover {
     background-color: white;
-    border: #a67c00 1px solid;
-    color: #a67c00;
+    border: #a67c00 solid 1px;
     transition: 300ms;
+    color: #a67c00;
+}
+
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-right: #333 solid 1px;
+    border-top: #333 solid 1px;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+th {
+    background-color: #004080;
+
+    border: none;
+    color: white;
+}
+
+th:first-child {
+    border-top-left-radius: 5px;
+}
+
+th:last-child {
+    border-top-right-radius: 5px;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
     cursor: pointer;
 }
