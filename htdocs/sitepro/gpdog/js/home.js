@@ -4,7 +4,6 @@ import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
     cargar_categorias();
     cargardatos();
-    alert("asas");
     const ver_sesion = new Verificar_Inicio_de_Sesion();
     ver_sesion.ver_sesion_actual("usuario");
     Sidebar.cargarSidebar();
@@ -27,26 +26,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        if (btnCerrarSesion) {
-            btnCerrarSesion.addEventListener('click', () => {
-                alert("Cerrando sesión...");
-                const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
-                if (confirmacion) {
-                    fetch('../php/cerrar_sesion.php')
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.logueado === false) {
-                                window.location.href = '../html/login.html';
-                            }
-                        })
-                        .catch(err => console.error('Error cerrando sesión:', err));
-                }
-            });
-        } else {
-            console.warn("btnCerrarSesion no encontrado.");
-        }
-
     }, 0);
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
 });
 
 
@@ -215,7 +216,6 @@ async function buscarProductosporClase(tipo, valor) {
         } else {
             if (producto && !e.target.closest("button")) {
                 let id_producto = producto.getAttribute("data-id");
-                alert("HOLA SOY GOKU, ID del producto: " + id_producto);
                 seleccionarId_producto(id_producto);
             }
         }
@@ -315,7 +315,6 @@ async function agregar_al_carrito(id_producto) {
 
         const user_id = data.user_id;
         console.log("usuario", user_id);
-        alert(user_id);
 
         const formData = new FormData();
         formData.append("id_producto", id_producto);

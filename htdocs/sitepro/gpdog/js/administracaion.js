@@ -45,6 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }, 0);
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
 });
 
 
@@ -502,9 +523,18 @@ document.querySelector("#botones_agregar-agregar").addEventListener("click", asy
         });
 
         const data = await response.text(); // o usa .json() si tu PHP devuelve JSON
-        alert("Producto agregado con éxito: " + data);
+        Swal.fire({
+            text: "Producto agregado con exito",
+            icon: "success",
+            confirmButtonColor: "#A6762A",
+            confirmButtonText: "OK"
+        })
         document.querySelector(".agregar_producto").reset();
         document.getElementById("imagen_a_agregar").innerHTML = "";
+        cargar_categorias();
+        cargardatos();
+        cargar_categorias_para_combobox();
+
     } catch (err) {
         console.error('Error al enviar el formulario:', err);
         alert('Ocurrió un error al conectar con el servidor.');

@@ -23,27 +23,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        if (btnCerrarSesion) {
-            btnCerrarSesion.addEventListener('click', () => {
-                alert("Cerrando sesión...");
-                const confirmacion = confirm('¿Estás seguro de que quieres cerrar sesión?');
-                if (confirmacion) {
-                    fetch('../php/cerrar_sesion.php')
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.logueado === false) {
-                                window.location.href = '../html/login.html';
-                            }
-                        })
-                        .catch(err => console.error('Error cerrando sesión:', err));
-                }
-            });
-        } else {
-            console.warn("btnCerrarSesion no encontrado.");
-        }
-
     }, 0);
 
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
 
     document.querySelector("#boton_regresar").addEventListener("click", function () {
         if (confirm("¿Estas seguro de que deseas regresar, los cambios que aún no se han guardado se perderan?")) {
@@ -98,7 +99,6 @@ async function recuperar_id() {
     const id = sessionStorage.getItem('id_producto_seleccionado'); // <- este es el que usaste antes
     if (id) {
         const url = `../php/administracion_obtener_datos.php?accion=producto&idproducto=${encodeURIComponent(id)}`;
-        alert("ID es: " + id);
         try {
             const response = await fetch(url);
             const data = await response.json();
@@ -139,9 +139,7 @@ async function agregar_al_carrito() {
 
         const user_id = data.user_id;
         console.log("usuario", user_id);
-        alert(user_id);
         let id_producto = sessionStorage.getItem('id_producto_seleccionado');
-        alert(id_producto);
         const formData = new FormData();
         formData.append("id_producto", id_producto);
         formData.append("id_usuario", user_id);

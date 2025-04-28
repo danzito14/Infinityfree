@@ -20,6 +20,27 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.warn("No se encontró el nombre de la cookie.");
     }
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+                incializar_eventos(nombredelacookie2);
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
 });
 
 

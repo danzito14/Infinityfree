@@ -1,6 +1,5 @@
 class Verificar_Inicio_de_Sesion {
     constructor() {
-        // No llames ver_sesion_actual aquí directamente
     }
 
     ver_sesion_actual(origen) {
@@ -8,11 +7,19 @@ class Verificar_Inicio_de_Sesion {
             .then(res => res.json())
             .then(data => {
                 if (data.logueado && data.nvl_usuario == 1 && origen == "administracion") {
-                    alert("Administrador autenticado");
+                    console.log("Administrador autenticado");
                 } else if (data.logueado && origen === "usuario" && (data.nvl_usuario == 1 || data.nvl_usuario == 2)) {
-                    alert("Usuario autenticado");
+                    console.log("Usuario autenticado");
                 } else {
-                    alert("No autorizado: " + data.username + "  " + data.nvl_usuario + "  " + origen);
+                    //  alert("No autorizado: " + data.username + "  " + data.nvl_usuario + "  " + origen);
+                    Swal.fire({
+                        title: "Lo sientimos, no ha iniciado sesión",
+                        text: "Para acceder al sitio web, necesita iniciar sesión",
+                        icon: "error",
+                        cancelButtonColor: "#004080",
+                        confirmButtonText: "OK"
+                    })
+
                     window.location.href = "login.html";
                 }
             })

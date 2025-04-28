@@ -43,6 +43,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }, 0);
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
 });
 
 
@@ -67,9 +88,8 @@ window.addEventListener("scroll", function () {
 document.querySelector("#botones_agregar-agregar").addEventListener("click", async function () {
     const estatus = document.getElementById("estatus_producto").value;
     const nombre = document.getElementById("nombre_producto").value;
-    const id = sessionStorage.getItem('idSeleccionado');
+    const id = sessionStorage.getItem('idSeleccionadoCategoria');
 
-    alert("estatus es:" + estatus);
     if (!nombre) {
         alert("Por favor completa todos los campos antes de agregar el producto.");
         return;
@@ -80,17 +100,22 @@ document.querySelector("#botones_agregar-agregar").addEventListener("click", asy
     formData.append("estatus", estatus);
     formData.append("id", id);
     formData.append("action", "categoria");
-
     try {
         const response = await fetch("../php/editar_producto.php", {
             method: "POST",
             body: formData,
         });
 
-        const data = await response.text(); // o usa .json() si tu PHP devuelve JSON
-        alert("Producto editado con éxito: " + data);
+        const data = await response.json(); // o usa .json() si tu PHP devuelve JSON
+        Swal.fire({
+            text: "Categoria editada con exito",
+            icon: "success",
+            confirmButtonColor: "#A6762A",
+            confirmButtonText: "OK"
+        });
+        console.log(data);
         document.querySelector(".agregar_producto").reset();
-        document.getElementById("imagen_a_agregar").innerHTML = "";
+        inicializar();
     } catch (err) {
         console.error('Error al enviar el formulario:', err);
         alert('Ocurrió un error al conectar con el servidor.');
@@ -102,7 +127,6 @@ document.querySelector("#cancelar").addEventListener("click", function () {
     console.log("hola");
     if (confirm("¿Estás seguro de que deseas cancelar y limpiar el formulario?")) {
         document.querySelector(".agregar_producto").reset();
-        document.getElementById("imagen_a_agregar").innerHTML = "";
     }
 });
 
@@ -119,7 +143,7 @@ async function recuperar_id() {
     const id = sessionStorage.getItem('idSeleccionadoCategoria');
     if (id) {
         const url = `../php/administracion_obtener_datos.php?accion=clase&idcategoria=${encodeURIComponent(id)}`;
-        alert("ID es aaaaa: " + id);
+
         try {
             const response = await fetch(url);
             const data = await response.json();

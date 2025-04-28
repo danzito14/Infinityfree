@@ -42,7 +42,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }, 0);
-}); document.addEventListener('DOMContentLoaded', () => {
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
+});
+
+document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.cart-section')) {
         const cartGroup = document.querySelector('.cart-group'); // ✅ Declarar aquí
 
