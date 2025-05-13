@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
     <link rel="stylesheet" href="../css/administracion.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/clases/cargar_estilos.js"></script>
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
@@ -16,18 +17,10 @@
 
 <body>
     <header>
-        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
-        <div id="barradebuscar">
-            <form class="buscarplatillo" method="GET">
-                <input type="search" id="buscador" placeholder="Buscar...">
-                <button id="buscar" type="submit">
-                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-                </button>
-            </form>
-        </div>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
         <div class="icons">
-            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
-            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon ubi-btn">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
             <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
         </div>
     </header>
@@ -37,75 +30,311 @@
 
 
     <main>
-        <form class="agregar_producto">
-            <h2>Agregar productos</h2>
-            <p>El ID se pone agrega de forma automatica, como el estatus para cada producto nuevo siempre sera Activo en
-                la tabla se representa como A, los demás datos se tienen que ingresar manualmente.</p>
-            <div id="primeros_datos">
-                <div id="seleccion_producto">
-                    <label for="tipo_producto">Tipo producto</label>
-                    <select id="combobox_tipo_producto">
+        <aside class="sidebar">
+            <h2 id="titulo_username">Administración</h2>
+            <h4>Productos</h4>
+            <button type="submit" onclick='mostrar_div("agregar_producto",1)'>Agregar producto</button>
+            <button type="submit" onclick='mostrar_div("tabla_productos2",2)'>Administrar productos</button>
+            <h4>Categorias</h4>
+            <button type="submit" onclick='mostrar_div("agregar_categoria",3)'>Agregar categorias</button>
+            <button type="submit" onclick='mostrar_div("tabla_categorias",4)'>Administrar categorias</button>
+            <h4>Ventas</h4>
+            <button type="submit" onclick='mostrar_div("ventas",5)'>Reporte de ventas</button>
+            <button type="submit" onclick='mostrar_div("mostrar_ventas",6)'>Mostrar ventas</button>
+            <h4>Usuarios</h4>
+            <button type="submit" onclick='mostrar_div("agregar_usuario",7)'>Agregar usuario</button>
+            <button type="submit" onclick='mostrar_div("administrar_usuarios",8)'>Administrar usuarios</button>
 
-                    </select>
+
+
+        </aside>
+        <div id="contenido">
+            <form class="agregar_producto" id="agregar_producto" style="display: none;">
+                <div>
+                    <h2>Agregar productos</h2>
+                    <p>El ID se pone agrega de forma automatica, como el estatus para cada producto nuevo siempre sera
+                        Activo en
+                        la tabla se representa como A, los demás datos se tienen que ingresar manualmente.</p>
                 </div>
-                <div id="nombre_del_producto">
-                    <label for="nombre_producto">Nombre del producto</label>
-                    <input type="text" id="nombre_producto" placeholder="Nombre del producto">
+                <div>
+                    <div id="primeros_datos">
+                        <div id="seleccion_producto">
+                            <label for="tipo_producto">Tipo producto</label>
+                            <select id="combobox_tipo_producto">
+
+                            </select>
+                        </div>
+                        <div id="nombre_del_producto">
+                            <label for="nombre_producto">Nombre del producto</label>
+                            <input type="text" id="nombre_producto" placeholder="Nombre del producto">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <label for="descripcion_producto">Descripción del producto</label><br>
+                    <input type="text" id="descripcion_producto" name="descripcion_producto"
+                        placeholder="Descripcion del producto" style="width: 97.7%;">
+                </div>
+                <br>
+                <div>
+                    <label for="foto_producto">Foto del producto</label><br>
+                    <input type="file" id="foto_producto" accept=".jpg, .jpeg, .png" />
+                </div>
+                <br>
+                <div id="imagen_a_agregar">
+                </div>
+
+                <br>
+                <div id="numeros">
+                    <div class="input-group">
+                        <label for="cantidad_actual">Cantidad actual</label>
+                        <input type="number" id="cantidad_actual" placeholder="10">
+                    </div>
+                    <div class="input-group">
+                        <label for="cantidad_minima">Cantidad mínima</label>
+                        <input type="number" id="cantidad_minima" placeholder="11">
+                    </div>
+                    <div class="input-group">
+                        <label for="cantidad_maxima">Cantidad máxima</label>
+                        <input type="number" id="cantidad_maxima" placeholder="12">
+                    </div>
+                    <div class="input-group">
+                        <label for="precio_compra">Precio de compra</label>
+                        <input type="number" id="precio_compra" placeholder="90">
+                    </div>
+                    <div class="input-group">
+                        <label for="precio_venta">Precio de venta</label>
+                        <input type="number" id="precio_venta" placeholder="180">
+                    </div>
+                </div>
+                <br>
+
+                <div id="botones_agregar">
+                    <button type="button">Cancelar</button>
+                    <button type="button" id="botones_agregar-agregar">Agregar</button>
+                </div>
+            </form>
+
+            <form class="agregar_categoria" id="agregar_categoria" style="display: none;">
+                <div>
+                    <h2>Agregar categoria de producto</h2>
+                    <label for="nombre_clase">Ingrese el nombre de la categoria</label>
+                    <br>
+                    <input type="text" name="nombre_clase" id="nombre_clase" style="width: 90%;">
+                </div>
+                <div id="botones_agregar2">
+                    <button type="button">Cancelar</button>
+                    <button type=" button" id="botones_agregar-clase">Agregar</button>
+                </div>
+            </form>
+
+            <div id="tabla_productos2" style="display: none;">
+                <div id="contenedor_de_barra">
+                    <div id="barra_y_filtros">
+                        <div id="barradebuscar">
+                            <form class="buscarplatillo" method="GET">
+                                <input type="search" id="buscador" placeholder="Buscar...">
+                                <button id="buscar2" type="submit">
+                                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
+                                </button>
+                            </form>
+                            <div>
+                                <label for="columna_producto">Columna a buscar</label>
+                                <br>
+                                <select name="columna_producto" id="columna_producto">
+                                    <option value="id_producto">ID</option>
+                                    <option value="nombre">Nombre</option>
+                                    <option value="descripcion">Descripción</option>
+                                    <option value="cantidad_act">Cantidad actual</option>
+                                    <option value="cantidad_min">Cantidad minima</option>
+                                    <option value="cantidad_max">Cantidad maxima</option>
+                                    <option value="precio_compra">Precio de compra</option>
+                                    <option value="precio_venta">Precio de venta</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="filtros_tabla_usuario">
+                            <label for="filtro_categoria">Filtrar por tipo de producto</label>
+                            <select name="filtro_categoria" id="filtro_categoria">
+
+                            </select>
+                            <label for="filtro_estatus_producto">Filtrar por estatus</label>
+                            <select name="filtro_estatus_producto" id="filtro_estatus_producto">
+                                <option value="A">Activo</option>
+                                <option value="I">Inactivo</option>
+
+                            </select>
+                            <button id="boton_reiniciar" type="submit" onclick="reiniciartabla()">Reiniciar
+                                tabla</button>
+                        </div>
+                    </div>
+                    <div id="contador_productos">
+                        <h4>Total Productos:</h4>
+                        <h4 id="total_productos"></h4>
+                    </div>
+                </div>
+                <div id="tabla_productos"></div>
+            </div>
+            <div id="tabla_categorias" style="display: none;">
+
+            </div>
+            <div id="mostrar_ventas" style="display: none;">
+                <div id="cabecera_de_tabla">
+                    <h2 id="titulo_reporte_ventas">REGISTROS DE VENTAS POR </h2>
+                    <div>
+                        <div id="div_seleccionar_consulta">
+                            <select name="seleccionar_consulta" id="seleccionar_consulta">
+                                <option value="cargar_ventas_dia">Cargar por dia</option>
+                                <option value="cargar_ventas_semana">Cargar por semana</option>
+                                <option value="cargar_ventas_mes">Cargar por mes</option>
+                            </select>
+                        </div>
+                        <h5> O Seleccionar un rango de fechas</h5>
+                        <div id="seleccionar_fecha">
+                            <input type="date" id="fecha_inicio">
+                            <input type="date" id="fecha_final">
+                            <button type="button" id="rango_de_fechas">Buscar entre este rango</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="contenido_ventas">
+                    <div id="tabla_ventas"></div>
+                    <div id="paginacion_ventas"></div>
                 </div>
             </div>
-            <label for="descripcion_producto">Descripción del producto</label>
-            <input type="text" id="descripcion_producto" name="descripcion_producto"
-                placeholder="Descripcion del producto">
-            <label for="foto_producto">Foto del producto</label>
-            <input type="file" id="foto_producto" accept=".jpg, .jpeg, .png" />
-
-            <div id="imagen_a_agregar">
+            <div id="ventas" style="display: none;">
+                <div id="informe_productos_vendidos">
+                    <h2>Productos más y menos vendidos</h2>
+                    <div id="graficas_productos_vendidos">
+                        <div>
+                            <h3>Productos mas vendidos</h3>
+                            <canvas id="grafica_productos_mas_vendidos" width="400" height="300"></canvas>
+                        </div>
+                        <div>
+                            <h3>Productos menos vendidos</h3>
+                            <canvas id="grafica_productos_menos_vendidos" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div id="informe_ingresos">
+                    <h2>Ingresos generados por la venta de productos</h2>
+                    <div id="graficas_ingresos">
+                        <h3>Productos que generan mas ingresos</h3>
+                        <div>
+                            <canvas id="grafica_productos_que_generan_mas_ingresos" width="400" height="300"></canvas>
+                            <div id="tabla_productos_que_generan_mas_ingresos"></div>
+                        </div>
+                        <h3>Productos que generan mas ingresos</h3>
+                        <div>
+                            <canvas id="grafica_productos_que_generan_menos_ingresos" width="400" height="300"></canvas>
+                            <div id="tabla_productos_que_generan_menos_ingresos"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="informe_clientes">
+                    <h2>Informe de clientes más activos</h2>
+                    <div id="graficas_clientes">
+                        <div>
+                            <h3>Clientes que compran más</h3>
+                            <canvas id="grafica_clientes_que_compran_mas" width="400" height="300"></canvas>
+                        </div>
+                        <div>
+                            <h3>Clientes que generan más ingresos</h3>
+                            <canvas id="grafica_clientes_que_generan_mas_ingresos" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="numeros">
-                <div class="input-group">
-                    <label for="cantidad_actual">Cantidad actual</label>
-                    <input type="number" id="cantidad_actual" placeholder="10">
-                </div>
-                <div class="input-group">
-                    <label for="cantidad_minima">Cantidad mínima</label>
-                    <input type="number" id="cantidad_minima" placeholder="11">
-                </div>
-                <div class="input-group">
-                    <label for="cantidad_maxima">Cantidad máxima</label>
-                    <input type="number" id="cantidad_maxima" placeholder="12">
-                </div>
-                <div class="input-group">
-                    <label for="precio_compra">Precio de compra</label>
-                    <input type="number" id="precio_compra" placeholder="90">
-                </div>
-                <div class="input-group">
-                    <label for="precio_venta">Precio de venta</label>
-                    <input type="number" id="precio_venta" placeholder="180">
+            <div id="agregar_usuario" style="display: none;">
+                <div class="form-container" id="register-form">
+                    <div class="form-header">Registrarse</div>
+                    <form action="../php/login_registro.php" method="POST">
+                        <div>
+                            <label for="nvl_usuario">Nivel usuario</label>
+                            <select name="nvl_usuario" id="nvl_usuario">
+                                <option value="1">Administración</option>
+                                <option value="2">Cliente</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="register-name">Nombre</label>
+                            <input type="text" id="register-name" placeholder="Nombre" name="username" required>
+
+                        </div>
+                        <div class="inline-inputs">
+                            <label for="Nombre de usuario">Nombre de usuario</label>
+                            <input type="text" id="register-user" placeholder="Usuario" name="nickname" required>
+                        </div>
+                        <div>
+                            <label for="register-correo">Correo</label>
+                            <input type="text" id="register-correo" placeholder="Correo" name="correo" required>
+                        </div>
+                        <div>
+                            <label for="register-password">Contraseña</label>
+                            <input type="password" id="register-password" placeholder="Contraseña" required>
+                        </div>
+                        <div>
+                            <label for="register-password">Registrar contraseña</label>
+                            <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña"
+                                name="password" required>
+                        </div>
+                        <div>
+                            <input type="hidden" name="action" value="register">
+                            <button type="submit">Registrarme</button>
+                            <button type="button" class="reset-button">Reiniciar campos</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-
-            <div id="botones_agregar">
-                <button type="button">Cancelar</button>
-                <button type="button" id="botones_agregar-agregar">Agregar</button>
+            <div id="administrar_usuarios" style="display: none;">
+                <div id="contenedor_de_barra">
+                    <div id="barra_y_filtros">
+                        <div id="barradebuscar2">
+                            <form class="buscarplatillo2" method="GET">
+                                <input type="search" id="buscador2" placeholder="Buscar...">
+                                <button id="buscar" type="submit">
+                                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
+                                </button>
+                            </form>
+                            <div>
+                                <label for="columna">Columna a buscar</label>
+                                <br>
+                                <select name="columna" id="columna">
+                                    <option value="id_usu">ID</option>
+                                    <option value="nombre">Nombre</option>
+                                    <option value="nombre_usuario">Nombre de usuario</option>
+                                    <option value="correo">Correo</option>
+                                    <option value="num_tel">Num de telefono</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="filtros_tabla_usuario">
+                            <label for="filtro_nvl_usuario">Filtrar por nvl de usuario</label>
+                            <select name="filtro_nvl_usuario" id="filtro_nvl_usuario">
+                                <option value="1">Administrador</option>
+                                <option value="2">Cliente</option>
+                            </select>
+                            <label for="filtro_estatus">Filtrar por estatus</label>
+                            <select name="filtro_estatus" id="filtro_estatus">
+                                <option value="A">Activo</option>
+                                <option value="I">Inactivo</option>
+                                <option value="P">Pendiente</option>
+                            </select>
+                            <button id="boton_reiniciar" type="submit" onclick="reiniciartabla()">Reiniciar
+                                tabla</button>
+                        </div>
+                    </div>
+                    <div id="contador_usuarios">
+                        <h4>Total Usuarios:</h4>
+                        <h4 id="total_usuarios"></h4>
+                    </div>
+                </div>
+                <div id="tabla_usuarios">
+                </div>
             </div>
-        </form>
-
-        <form class="agregar_categoria">
-            <label for="nombre_clase">Ingrese el nombre de la clase</label>
-            <input type="text" name="nombre_clase" id="nombre_clase">
-            <div id="botones_agregar2">
-                <button type="button">Cancelar</button>
-                <button type=" button" id="botones_agregar-clase">Agregar</button>
-            </div>
-        </form>
-
-        <div id="tabla_productos">
-
         </div>
-        <div id="tabla_categorias">
 
-        </div>
     </main>
     <footer>
         <div class="footer-content">

@@ -6,21 +6,28 @@ function cargarproductos()
 {
     global $conn;
     $sql = "SELECT 
-        id_producto AS 'ID',
-        estatus AS 'Estatus',
-        tipo_producto AS 'Tipo de Producto',
-        nombre AS 'Nombre',
-        descripcion AS 'Descripción',
-        direccion_foto AS 'Foto',
-        cantidad_act AS 'Cantidad Actual',
-        cantidad_min AS 'Cantidad Mínima',
-        cantidad_max AS 'Cantidad Máxima',
-        precio_compra AS 'Precio de Compra',
-        precio_venta AS 'Precio de Venta'
-    FROM 
-        productos
-    ORDER BY 
-        id_producto ASC;";
+    p.id_producto AS 'ID',
+    CASE 
+        WHEN p.estatus = 'A' THEN 'Activo'
+        WHEN p.estatus = 'I' THEN 'Inactivo'
+        WHEN p.estatus = 'P' THEN 'Pendiente de activar'
+        ELSE 'Otro'
+    END AS 'Estatus', 
+    tp.descripcion AS 'Tipo de Producto',
+    p.nombre AS 'Nombre',
+    p.descripcion AS 'Descripción',
+    p.direccion_foto AS 'Foto',
+    p.cantidad_act AS 'Cantidad Actual',
+    p.cantidad_min AS 'Cantidad Mínima',
+    p.cantidad_max AS 'Cantidad Máxima',
+    p.precio_compra AS 'Precio de Compra',
+    p.precio_venta AS 'Precio de Venta'
+FROM 
+    productos p
+JOIN 
+    tipo_producto tp ON p.tipo_producto = tp.id_tipo_producto
+ORDER BY 
+    p.id_producto ASC;";
 
     $result = $conn->query($sql);
 
@@ -41,7 +48,12 @@ function cargar_categorias()
 
     $sql = "SELECT 
         id_tipo_producto AS 'ID',
-        estatus AS 'Estatus',
+       CASE 
+        WHEN estatus = 'A' THEN 'Activo'
+        WHEN estatus = 'I' THEN 'Inactivo'
+        WHEN estatus = 'P' THEN 'Pendiente de activar'
+        ELSE 'Otro'
+    END AS 'Estatus', 
         descripcion AS 'Descripción'
     FROM 
         tipo_producto;";

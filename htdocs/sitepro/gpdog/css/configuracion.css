@@ -149,11 +149,11 @@ main {
     min-height: 98.1vh;
     width: 100%;
     overflow: hidden;
-    flex-direction: column;
     position: relative;
-    margin-top: 80px;
+    margin-top: 60px;
+    flex-direction: row;
+    /* <-- CAMBIA ESTO */
 }
-
 
 
 main div {
@@ -161,13 +161,22 @@ main div {
     width: 90%;
     display: flex;
     flex-direction: column;
-    padding: 20px 20px;
+
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 10px;
     gap: 5px;
+}
+
+.contenido {
+    margin-top: 0%;
 
 }
+
+.contenido div {
+    margin-top: 0%;
+    background-color: rgba(237, 227, 200);
+}
+
 
 main div input {
     width: 60%;
@@ -183,6 +192,37 @@ main div button {
     border-radius: 5px;
     font-size: medium;
     font-weight: 500;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: rgb(255, 240, 215);
+}
+
+.sidebar h2,
+.sidebar h4 {
+    padding-left: 40px;
+}
+
+.sidebar button {
+    background-color: transparent;
+    color: #a67c00;
+    border-bottom: #a67c00 solid 1px;
+    font-size: 15;
+    text-align: left;
+    padding-left: 40px;
+}
+
+
+
+.sidebar button:first-of-type {
+    border-top: #a67c00 solid 1px;
+}
+
+.sidebar button:hover {
+    transition: 300ms;
+    color: #ffffff;
+    background-color: #a67c00;
 }
 
 .ingresar_contra,
@@ -225,6 +265,22 @@ button {
     width: 100%;
 }
 
+#datos_usuario h2,
+#direccion_usuario h2,
+#historial_compras h2,
+#administrar_gps h2 {
+    padding-left: 5%;
+}
+
+.botones_editar {
+    padding-left: 5%;
+}
+
+#btn_cambiar_contra {
+    width: 200px;
+}
+
+
 /* Footer alineado con la sidebar */
 /* Footer */
 footer {
@@ -265,4 +321,10 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+.home-btn {
+    height: 40px;
+    filter: invert(1);
+
 }

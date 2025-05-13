@@ -99,3 +99,71 @@ function obtenerTodasLasCookies() {
 
     return cookieObj;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});
+
+import Sidebar from "./clases/Sidebar.js";
+document.addEventListener("DOMContentLoaded", () => {
+    cargar_categorias();
+    cargardatos();
+    const ver_sesion = new Verificar_Inicio_de_Sesion();
+    ver_sesion.ver_sesion_actual("usuario");
+    Sidebar.cargarSidebar();
+    setTimeout(() => {
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebarMenu = document.querySelector('.sidebar-menu');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+
+        if (menuBtn && sidebarMenu) {
+            menuBtn.addEventListener('click', () => {
+                sidebarMenu.classList.toggle('active');
+            });
+        }
+
+        if (closeMenuBtn && sidebarMenu) {
+            closeMenuBtn.addEventListener('click', () => {
+                sidebarMenu.classList.remove('active');
+            });
+        }
+
+    }, 0);
+
+    fetch('../php/sesion.php')
+        .then(res => res.json())
+        .then(data => {
+            let nombredelacookie = data.user_id; // Asignar el valor de la cookie
+
+            console.log(nombredelacookie);
+            console.log("asasas");
+
+            if (nombredelacookie) {
+                let nombredelacookie2 = "estilo_" + nombredelacookie; // Definir aquí
+
+                const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
+                cargarCookies.cargarEstilosCookies(nombredelacookie2);
+
+                // Mostrar el nombre del usuario cargado
+                console.log("Nombre de la cookie cargado:", nombredelacookie);
+            } else {
+                console.warn("No se encontró el nombre de la cookie.");
+            }
+        })
+});

@@ -89,7 +89,7 @@ cantidad = cantidad + 1;
         $producto = $result_stock->fetch_assoc();
         $stmt->close();
 
-        if ($producto && $nueva_cantidad <= $producto['cantidad_disponible']) {
+        if ($producto && $nueva_cantidad <= $producto['cantidad_act']) {
             // 3. Actualizar cantidad en el carrito
             $sql_update = "UPDATE carrito_de_compra SET cantidad = ? WHERE id_usuario = ? AND id_producto = ?";
             $stmt = $conn->prepare($sql_update);

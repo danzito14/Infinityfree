@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Tienda</title>
-    <link rel="stylesheet" href="../css/administracion_producto.css">
+    <link rel="stylesheet" href="../css/producto_informacion.css">
     <script src="../js/clases/cargar_estilos.js"></script>
     <script src="../js/clases/clase_sesion.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
@@ -16,13 +16,13 @@
 
 <body>
     <header>
-        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
         <div id="barradebuscar">
 
         </div>
         <div class="icons">
-            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
-            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon ubi-btn">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
             <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
         </div>
     </header>
@@ -41,33 +41,45 @@
                 <h2 id="nombre_producto">Hueso de bambú</h2>
                 <div id="primeros_datos">
                     <div class="input-group">
-                        <h2 id="precio_venta">$500 MXN</h2>
+                        <label for="">Precio:</label>
+                        <h1 id="precio_venta">$500 MXN</h1>
+                        <h5 id="precio_venta2" for="">IVA incluido</h5>
                     </div>
                 </div>
                 <div id="descripcion_p">
 
-                    <label for="descripcion_producto"> <strong> Descripción del producto</strong></label>
+                    <label for="descripcion_producto"> <strong> Descripción del producto:</strong></label>
                     <label id="descripcion_producto">La flindesmender es aca un juguete bien chido te lo aseguro me
                         lo
                         dijo un primo</label>
                 </div>
+                <div id="boton_regresar_div">
+                    <button type="button" id="boton_regresar">Volver a productos</button>
 
+                </div>
+            </div>
+            <div id="botones_agregar">
                 <div id="numeros">
                     <div class="input-group">
-                        <label id="cantidad_actual">10</label>
+                        <h3><b>Stock Disponible</b></h3>
+                        <label id="cantidad_actual">Cantidad: 10</label>
                     </div>
 
                 </div>
 
 
-                <div id="botones_agregar">
-                    <button type="button" id="boton_regresar">Regresar</button>
-                    <button type="button" id="boton_agregar_al_carrito">Agregar al carrito</button>
-                    <button type="button" id="comprar">Comprar Ahora</button>
-                </div>
+                <button type="button" id="boton_agregar_al_carrito">Agregar al carrito</button>
+                <button type="button" id="comprar">Comprar Ahora</button>
             </div>
 
         </form>
+
+        <div id="productos_aleatorios">
+            <h2>También te podria interesar:</h2>
+            <div id="productos_interesados">
+
+            </div>
+        </div>
     </main>
     <footer>
         <div class="footer-content">

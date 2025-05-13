@@ -1,0 +1,92 @@
+/* ============ GPS PAGE ============ */
+
+/* Contenedor principal para la sección GPS */
+.gps-section {
+    display: flex;
+    margin-top: 60px; /* Evita tapar el header fijo */
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden; /* Evita scroll extra, si lo deseas */
+  }
+  
+  /* La parte del mapa, ocupa la mayor parte */
+  .map-container {
+    flex: 1;
+    min-width: 0; /* Para que el iframe se adapte */
+    height: 100%;
+  }
+  
+  /* Panel derecho para rastreadores */
+  .tracker-panel {
+    width: 320px; /* Ajusta a tu gusto */
+    background-color: #f9f9f9;
+    border-left: 1px solid #ccc;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  
+  /* Título del panel */
+  .tracker-panel h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Lista de rastreadores */
+  .tracker-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Cada rastreador */
+  .tracker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  /* Punto de color */
+  .tracker-item .dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+  }
+  
+  /* Botones del panel */
+  .tracker-panel .add-btn,
+  .tracker-panel .manage-btn {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .tracker-panel .add-btn {
+    background-color: #0d5297;
+    color: #fff;
+  }
+  
+  .tracker-panel .add-btn:hover {
+    background-color: #084072;
+  }
+  
+  .tracker-panel .manage-btn {
+    background-color: #ffb60c;
+    color: #000;
+  }
+  
+  .tracker-panel .manage-btn:hover {
+    background-color: #d1970a;
+  }
+  

@@ -13,7 +13,7 @@ class Sidebar {
                         <li id="btnInicio"><img src="../gallery/GPDog Logos/svg/Puro Logo.svg" alt="" > Inicio</li>
                         <li id="btnRastrear"><img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
                         <li id="btnCarrito"><img src="../gallery/GPDog Logos/svg/Carro.svg" alt=""> Ver carrito de compras</li>
-                        <li id="btnAdministracion"><img src="../gallery/GPDog Logos/svg/archivos.svg" alt=""> Archivos</li>
+                        <li id="btnAdministracion"><img src="../gallery/GPDog Logos/svg/archivos.svg" alt=""> Administración</li>
                         <li id="btnPerfil"><img src="../gallery/GPDog Logos/svg/perfil.svg" alt=""> Perfil</li>
                         <li id="btnConfig"><img src="../gallery/GPDog Logos/svg/config.svg" alt=""> Configuración</li>
                         <li id="btnContacto"><img src="../gallery/GPDog Logos/svg/contacto.svg" alt=""> Contáctanos</li>

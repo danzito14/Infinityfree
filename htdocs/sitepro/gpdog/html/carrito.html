@@ -16,13 +16,13 @@
 
 <body>
     <header>
-        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
         <div id="barradebuscar">
 
         </div>
         <div class="icons">
-            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
-            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon ubi-btn">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
             <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
         </div>
     </header>
@@ -56,8 +56,13 @@
                     <span>Total</span>
                     <span class="total-price">$0</span>
                 </div>
-                <button class="checkout-btn">Continuar compra</button>
-                <button onclick="window.location.href='home.html'">Ver más productos</button>
+                <div class="button-group">
+                    <!--                   <a href="metodo_entrega.html" class="checkout-btn">Continuar compra</a>-->
+                    <a class="checkout-btn" id="boton_comprar">Continuar compra</a>
+                    <a href="home.html" class="ver-mas-btn">Ver más productos</a>
+                </div>
+
+
 
             </div>
         </div>

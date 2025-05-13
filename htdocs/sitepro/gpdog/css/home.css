@@ -251,8 +251,10 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
     height: max-content;
+
 }
 
 .product {
@@ -264,6 +266,7 @@ main {
 
 .product:hover {
     cursor: pointer;
+    background-color: rgba(237, 227, 200);
 }
 
 .product img {
@@ -372,4 +375,10 @@ footer a:hover {
     color: #a67c00;
     transition: 300ms;
     cursor: pointer;
+}
+
+.home-btn {
+    height: 40px;
+    filter: invert(1);
+
 }

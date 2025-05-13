@@ -32,8 +32,205 @@ header {
     flex-direction: row;
     justify-content: stretch;
     width: 50vw;
+    padding-left: 30px;
 }
 
+#barradebuscar2 .buscarplatillo2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    width: 50vw;
+    padding-left: 30px;
+}
+
+#barradebuscar2,
+#barradebuscar {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.buscarplatillo2 input,
+.buscarplatillo input {
+    width: 90%;
+}
+
+[id^="filtros_tabla_usuario"] {
+    padding-left: 4%;
+    margin-top: 10px;
+}
+
+[id^="boton_reiniciar"] {
+    width: 120px;
+    margin-left: 22%;
+}
+
+.form-container {
+    background: #F8E5CB;
+    padding: 30px;
+    border-radius: 5px;
+
+    width: 80%;
+    margin-left: 30px;
+}
+
+.form-container form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.form-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Inputs y Botones */
+.form-container>form div input,
+.form-container>form select {
+    width: 80%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-container form div {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.inline-inputs input {
+    flex: 1;
+}
+
+
+#contenedor_de_barra {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+#contador_usuarios {
+    margin-top: -20px;
+}
+
+#total_usuarios {
+    text-align: end;
+}
+
+
+
+[id^="informe_"] {
+    background-color: rgb(255, 240, 215);
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: 3%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+[id^="graficas_"] {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#graficas_ingresos {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+#graficas_ingresos>div {
+    display: flex;
+    flex-direction: row;
+}
+
+#tabla_productos_que_generan_mas_ingresos,
+#tabla_productos_que_generan_menos_ingresos {
+    font-size: 13px;
+}
+
+
+#mostrar_ventas {
+    margin-left: 3%;
+    padding-left: 3%;
+    width: 90%;
+    border-radius: 5px;
+    background-color: rgb(255, 240, 215);
+}
+
+#paginacion_ventas {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 30px;
+    margin-top: 10px;
+
+}
+
+#paginacion_ventas button {
+    width: 30px;
+    text-align: center;
+    border: transparent 1px solid;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#paginacion_ventas button:hover {
+    background-color: white;
+    border: #a67c00 1px solid;
+    color: #a67c00;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+#cabecera_de_tabla {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+}
+
+
+#cabecera_de_tabla div {
+    display: flex;
+    flex-direction: row;
+    height: min-content;
+
+    gap: 10px;
+}
+
+#cabecera_de_tabla div div {
+    padding-top: 10px;
+}
+
+#div_seleccionar_consulta {
+    margin-top: 10px;
+
+}
+
+#seleccionar_consulta {
+    font-size: 18px;
+    width: 350;
+    height: min-content;
+}
+
+#seleccionar_fecha {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+}
+
+#seleccionar_fecha button {
+    width: 200px;
+}
 
 #buscador {
     flex-grow: 1;
@@ -43,7 +240,8 @@ header {
     border: none;
 }
 
-#buscar {
+#buscar,
+#buscar2 {
     background-color: #ffffff;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -52,7 +250,8 @@ header {
     border-left: #ccc solid 2px;
 }
 
-#buscar img {
+#buscar img,
+#buscar2 img {
     width: 20px;
 }
 
@@ -151,9 +350,42 @@ main {
     flex-direction: row;
     position: relative;
     margin-top: 60px;
-    flex-direction: column;
+    flex-direction: row;
 }
 
+.sidebar {
+    width: 20%;
+    background-color: rgb(255, 240, 215);
+}
+
+.sidebar h2,
+.sidebar h4 {
+    padding-left: 40px;
+}
+
+.sidebar button {
+    background-color: transparent;
+    color: #a67c00;
+    border-bottom: #a67c00 solid 1px;
+    font-size: 15;
+    text-align: left;
+    padding-left: 40px;
+}
+
+
+
+.sidebar button:first-of-type,
+.sidebar button:nth-of-type(3),
+.sidebar button:nth-of-type(5),
+.sidebar button:nth-of-type(6) {
+    border-top: #a67c00 solid 1px;
+}
+
+.sidebar button:hover {
+    transition: 300ms;
+    color: #ffffff;
+    background-color: #a67c00;
+}
 
 button {
     background-color: #a67c00;
@@ -170,7 +402,6 @@ button {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px 20px;
     border-radius: 5px;
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
     font-size: medium;
@@ -254,7 +485,7 @@ label {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px 20px;
     border-radius: 5px;
-    margin-top: 30px;
+
     display: flex;
     flex-direction: column;
     font-size: medium;
@@ -264,6 +495,18 @@ label {
 .agregar_producto img {
     width: 200px;
 }
+
+
+#contenido {
+
+    width: 80%;
+}
+
+#agregar_producto {
+    width: 92%;
+    gap: 10px;
+}
+
 
 /* Footer alineado con la sidebar */
 /* Footer */
@@ -330,8 +573,9 @@ table {
 #btn_editar,
 #btn_eliminar {
     width: 100px;
-    gap: 5px;
+    margin-bottom: 5px;
 }
+
 
 #btn_editar:hover,
 #btn_eliminar:hover {
@@ -372,4 +616,10 @@ th:last-child {
 tr:hover {
     background-color: #f9f9f9;
     cursor: pointer;
+}
+
+.home-btn {
+    height: 40px;
+    filter: invert(1);
+
 }

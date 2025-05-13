@@ -4,6 +4,7 @@ import Sidebar from "./clases/Sidebar.js";
 document.addEventListener("DOMContentLoaded", () => {
     ver_sesion.ver_sesion_actual("usuario");
     let id_usu1 = null;
+    mostrar_div("datos_usuario");
     obtener_id_usuario()
         .then(id_usu => {
             id_usu1 = id_usu;
@@ -235,12 +236,15 @@ window.addEventListener("scroll", function () {
         sidebar.style.bottom = "auto";
     }
 });
+
+
 function obtener_id_usuario() {
     return fetch('../php/sesion.php')
         .then(res => res.json())
         .then(data => {
             if (data.logueado) {
                 console.log("ID de usuario:", data.user_id);
+                document.querySelector("#titulo_username").textContent = data.username;
                 return data.user_id;
             } else {
                 throw new Error("Usuario no logueado");
@@ -446,3 +450,40 @@ async function actualizar_contraseña(id_usu1) {
         alert('Ocurrió un error al conectar con el servidor.');
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+
+window.mostrar_div = function mostrar_div(id) {
+    // Oculta todos los divs controlados
+    const secciones = ['datos_usuario', 'datos_contraseña', 'direccion_usuario', 'historial_compras', 'administrar_gps'];
+    secciones.forEach(function (seccion) {
+        const elemento = document.getElementById(seccion);
+        if (elemento) {
+            elemento.style.display = 'none';
+        }
+    });
+
+    // Muestra solo el div solicitado
+    const divMostrar = document.getElementById(id);
+    if (divMostrar) {
+        divMostrar.style.display = 'block';
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});

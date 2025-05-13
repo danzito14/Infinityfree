@@ -53,9 +53,14 @@
                 <p><b>Link: </b><a href="/sitepro/html/registro.html">Enlace a la tarea 1</a></p>
             </div>
             <div>
+                <h2>Segundo Avance</h2>
+                <p>Segundo avance donde se incluyen lo que se indica en el documento</p>
+                <p><b>Link: </b><a href="/sitepro/gpdog/html/login.html">Enlace a la tarea 1</a></p>
+            </div>
+            <div>
                 <h2>Gatito</h2>
                 <p>Se a diseñado un juego de tres en raya</p>
-                <p><b>Link: </b><a href="/gatito.html">Enlace a la tarea 1</a></p>
+                <p><b>Link: </b><a href="/gatito.html">Enlace al segundo avance</a></p>
             </div>
 
         </div>

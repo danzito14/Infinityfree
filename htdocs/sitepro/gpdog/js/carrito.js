@@ -81,6 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     eliminar_carrito(id_producto);
                 }
 
+                if (btn.matches('.btn-link.comprar')) {
+                    comprar_ahora(id_producto);
+                }
+
                 if (btn.matches('.qty-btn.plus')) {
                     sumar_carrito(id_producto);
                 }
@@ -94,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         cargar_carrito(); // Esto puede ir fuera del if(cartGroup) si estás seguro de que existe
     }
 });
-
-
+window.id_usuario = "";
+window.carrito_cargado = false;
 async function cargar_carrito() {
     const cartGroup = document.querySelector('.cart-group');
 
@@ -104,7 +108,7 @@ async function cargar_carrito() {
         .then(data => {
             if (data.logueado) {
                 const user_id = data.user_id;
-
+                window.id_usuario = user_id;
                 const formData = new FormData();
                 formData.append('action', 'cargar_carrito');
                 formData.append('id_usuario', user_id);
@@ -123,6 +127,7 @@ async function cargar_carrito() {
 
                             if (carrito.length === 0) {
                                 cartGroup.innerHTML += '<p>No has agregado productos al carrito.</p>';
+                                window.carrito_cargado = false;
                             } else {
                                 let total = 0;
                                 let totalProductos = 0;
@@ -151,6 +156,7 @@ async function cargar_carrito() {
                                                 </div>
                                             </div>
                                         `;
+                                    window.carrito_cargado = true;
                                 });
 
                                 // Actualizar resumen
@@ -236,6 +242,7 @@ async function restar_carrito(id_producto) {
         if (result.success) {
             cargar_carrito();
 
+
         } else {
             alert("No se pudo agregar el producto al carrito." + result.error);
         }
@@ -245,6 +252,50 @@ async function restar_carrito(id_producto) {
     }
 }
 
+async function comprar_ahora(id_producto) {
+    try {
+
+
+        const formdata = new FormData();
+        formdata.append("id_usuario", window.id_usuario);
+        formdata.append("id_producto", id_producto);
+        formdata.append("action", "comprar_ahora");
+
+        const response = await fetch("../php/comprar.php", {
+            method: 'POST',
+            body: formdata
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            cargar_carrito();
+            Swal.fire({
+                title: "LISTO",
+                text: "Sus productos le llegaran hasta su casa",
+                icon: "success",
+                showCancelButton: true,
+                cancelButtonText: "Entendido",
+                confirmButtonColor: "#A6762A",
+                cancelButtonColor: "#004080",
+                confirmButtonText: "Ir a productos"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                } else {
+                    window.location.href = "../html/home.html";
+                }
+            });
+
+        } else {
+            alert("No se pudo efectuar la compra");
+        }
+    }
+    catch (err) {
+        console.error('Error:', err);
+        alert('Ocurrió un error al conectar con el servidor.');
+    }
+}
 
 async function eliminar_carrito(id_producto) {
     try {
@@ -280,3 +331,84 @@ async function eliminar_carrito(id_producto) {
         alert('Ocurrió un error al conectar con el servidor.');
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("#boton_comprar").addEventListener("click", async function () {
+        if (!window.carrito_cargado) {
+            Swal.fire({
+                title: "No tiene nada agregado",
+                text: "No tiene nada agregado a su carrito aún, si quiere comprar agrege cosas a su carrito.",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Ir a productos",
+                confirmButtonColor: "#A6762A",
+                cancelButtonColor: "#004080",
+                confirmButtonText: "Entendido"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../html/home.html";
+                }
+            });
+        } else {
+            try {
+
+
+                const formdata = new FormData();
+                formdata.append("id_usuario", window.id_usuario);
+                formdata.append("action", "comprar");
+
+                const response = await fetch("../php/comprar.php", {
+                    method: 'POST',
+                    body: formdata
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    cargar_carrito();
+                    Swal.fire({
+                        title: "LISTO",
+                        text: "Sus productos le llegaran hasta su casa",
+                        icon: "success",
+                        showCancelButton: true,
+                        cancelButtonText: "Entendido",
+                        confirmButtonColor: "#A6762A",
+                        cancelButtonColor: "#004080",
+                        confirmButtonText: "Ir a productos"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                        } else {
+                            window.location.href = "../html/home.html";
+                        }
+                    });
+
+                } else {
+                    alert("No se pudo efectuar la compra");
+                }
+            }
+            catch (err) {
+                console.error('Error:', err);
+                alert('Ocurrió un error al conectar con el servidor.');
+            }
+        }
+    });
+});

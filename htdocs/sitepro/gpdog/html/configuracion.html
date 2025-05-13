@@ -13,18 +13,13 @@
 
 <body>
     <header>
-        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="logo">
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
         <div id="barradebuscar">
-            <form class="buscarplatillo" method="GET">
-                <input type="search" id="buscador" placeholder="Buscar...">
-                <button id="buscar" type="submit">
-                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
-                </button>
-            </form>
+
         </div>
         <div class="icons">
             <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
-            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
             <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
         </div>
     </header>
@@ -33,72 +28,115 @@
     </nav>
 
     <main>
-        <div class="datos_usuario" id="datos_usuario">
-            <h2>Datos usuario</h2>
-            <label for="nombre_completo-usuario">Nombre completo</label>
-            <input type="text" name="nombre_completo" placeholder="Nombre completo" id="nombre_completo-usuario">
-            <label for="nombre_usuario-usuario">Nombre de usuario</label>
-            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" id="nombre_usuario-usuario">
-            <label for="correo-usuario">Correo</label>
-            <input type="email" name="correo" id="correo-usuario">
-            <label for="num_telefono-usuario">Número de telefono</label>
-            <input type="number" name="num_telefono" id="num_telefono-usuario">
-            <div class="botones_editar">
-                <button type="button" id="editar_usuario" onclick="editar('usuario')">Editar</button>
-                <button type="button" id="cancelar_usuario" style="display: none;"
-                    onclick="cancelar('usuario')">Cancelar</button>
-                <button type="button" id="guardar_usuario" style="display: none;"
-                    onclick="guardar('usuario')">Guardar</button>
-            </div>
-        </div>
-        <div>
-            <h2>Cambiar contraseña</h2>
-            <button type="button" id="btn_cambiar_contra">Cambiar contraseña</button>
+        <aside class="sidebar">
+            <h2 id="titulo_username">JJ Juanin</h2>
+            <h4>Mi cuenta</h4>
+            <button type="submit" onclick='mostrar_div("datos_usuario")'>Datos usuario</button>
+            <button type="submit" onclick='mostrar_div("datos_contraseña")'>Cambiar contraseña</button>
+            <button type="submit" onclick='mostrar_div("direccion_usuario")'>Dirección</button>
+            <button type="submit" onclick='mostrar_div("historial_compras")'>Historial de compras</button>
+            <button type="submit" onclick='mostrar_div("administrar_gps")'>Administrar GPS</button>
 
-            <div class="ingresar_contra" style="display: none;">
-                <label for="input_contra_actual">Confirme su contraseña actual</label> <br>
-                <input type="password" id="input_contra_actual" placeholder="Contraseña">
-                <div id="botones_de_contra">
-                    <button type="button" id="btn_cancelar_1">Cancelar</button>
-                    <button type="button" id="btn_siguiente">Siguiente</button>
+        </aside>
+        <div class="contenido">
+            <div class="datos_usuario" id="datos_usuario" style="display: none;">
+                <h2>Datos de usuario</h2>
+                <div>
+                    <label for="nombre_completo-usuario">Nombre completo</label>
+                    <input type="text" name="nombre_completo" placeholder="Nombre completo"
+                        id="nombre_completo-usuario">
+                </div>
+                <div>
+                    <label for="nombre_usuario-usuario">Nombre de usuario</label>
+                    <input type="text" name="nombre_usuario" placeholder="Nombre de usuario"
+                        id="nombre_usuario-usuario">
+                </div>
+                <div><label for="correo-usuario">Correo</label>
+                    <input type="email" name="correo" id="correo-usuario">
+                </div>
+                <div><label for="num_telefono-usuario">Número de telefono</label>
+                    <input type="number" name="num_telefono" id="num_telefono-usuario">
+                </div>
+                <div class="botones_editar">
+                    <button type="button" id="editar_usuario" onclick="editar('usuario')">Editar</button>
+                    <button type="button" id="cancelar_usuario" style="display: none;"
+                        onclick="cancelar('usuario')">Cancelar</button>
+                    <button type="button" id="guardar_usuario" style="display: none;"
+                        onclick="guardar('usuario')">Guardar</button>
                 </div>
             </div>
 
-            <div class="nueva_contra" style="display: none;">
-                <label for="nueva_contra">Ingrese su nueva contraseña</label> <br>
-                <input type="password" name="nueva_contra" id="nueva_contra" placeholder="Su nueva contraseña"> <br>
-                <label for="confirmar_contra">Confirmar contraseña</label> <br>
-                <input type="password" name="confirmar_contra" id="confirmar_contra" placeholder="Confirmar contraseña">
-                <div id="botones_de_contra">
-                    <button type="button" id="btn_cancelar_2">Cancelar</button>
-                    <button type="button" id="btn_cambiar_final">Cambiar contraseña</button>
+            <div id="datos_contraseña" style="display: none;">
+                <div id="cambiar_contra_inicio">
+                    <h2>Cambiar la contraseña</h2>
+                    <button type="button" id="btn_cambiar_contra">Cambiar contraseña</button>
+                </div>
+                <div class="ingresar_contra" style="display: none;">
+                    <div>
+                        <label for="input_contra_actual">Confirme su contraseña actual</label> <br>
+                        <input type="password" id="input_contra_actual" placeholder="Contraseña">
+                    </div>
+                    <div id="botones_de_contra">
+                        <button type="button" id="btn_cancelar_1">Cancelar</button>
+                        <button type="button" id="btn_siguiente">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="nueva_contra" style="display: none;">
+                    <div>
+                        <label for="nueva_contra">Ingrese su nueva contraseña</label> <br>
+                        <input type="password" name="nueva_contra" id="nueva_contra" placeholder="Su nueva contraseña">
+                        <br>
+                        <label for="confirmar_contra">Confirmar contraseña</label> <br>
+                        <input type="password" name="confirmar_contra" id="confirmar_contra"
+                            placeholder="Confirmar contraseña">
+                    </div>
+                    <div id="botones_de_contra">
+                        <button type="button" id="btn_cancelar_2">Cancelar</button>
+                        <button type="button" id="btn_cambiar_final">Cambiar contraseña</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <div id="direccion_usuario" class="direccion_usuario" style="display: none;">
 
-        <div class="direccion_usuario">
-            <h2>Direccion</h2>
-            <input type="hidden" id="usuario_id" value="">
-            <label for="cp-direccion">Codígo Postal</label>
-            <input type="number" id="cp-direccion">
-            <label for="calle-direccion">Calle</label>
-            <input type="text" name="calle" id="calle-direccion">
-            <label for="colonia-direccion">Colonia</label>
-            <input type="text" name="colonia" id="colonia-direccion">
-            <label for="municipio-direccion">Municipio</label>
-            <input type="text" name="municipio" id="municipio-direccion">
-            <label for="estado-direccion">Estado</label>
-            <input type="text" name="estado" id="estado-direccion">
-            <label for="instrucciones_adicionales-direccion">Instrucciones adicionales</label>
-            <textarea id="instrucciones_adicionales-direccion" name="instrucciones_adicionales" rows="10" cols="50"
-                placeholder="Escribe aquí..."></textarea>
-            <div class="botones_editar">
-                <button type="button" id="editar_direccion" onclick="editar('direccion')">Editar</button>
-                <button type="button" id="cancelar_direccion" style="display: none;"
-                    onclick="cancelar('direccion')">Cancelar</button>
-                <button type="button" id="guardar_direccion" style="display: none;"
-                    onclick="guardar('direccion')">Guardar</button>
+                <h2>Datos de direccion</h2>
+                <div>
+                    <input type="hidden" id="usuario_id" value="">
+                </div>
+                <div>
+                    <label for="cp-direccion">Codígo Postal</label>
+                    <input type="number" id="cp-direccion">
+                </div>
+                <div><label for="calle-direccion">Calle</label>
+                    <input type="text" name="calle" id="calle-direccion">
+                </div>
+                <div><label for="colonia-direccion">Colonia</label>
+                    <input type="text" name="colonia" id="colonia-direccion">
+                </div>
+                <div><label for="municipio-direccion">Municipio</label>
+                    <input type="text" name="municipio" id="municipio-direccion">
+                </div>
+                <div><label for="estado-direccion">Estado</label>
+                    <input type="text" name="estado" id="estado-direccion">
+                </div>
+                <div><label for="instrucciones_adicionales-direccion">Instrucciones adicionales</label>
+                    <textarea id="instrucciones_adicionales-direccion" name="instrucciones_adicionales" rows="10"
+                        cols="50" placeholder="Escribe aquí..."></textarea>
+                </div>
+                <div class="botones_editar">
+                    <button type="button" id="editar_direccion" onclick="editar('direccion')">Editar</button>
+                    <button type="button" id="cancelar_direccion" style="display: none;"
+                        onclick="cancelar('direccion')">Cancelar</button>
+                    <button type="button" id="guardar_direccion" style="display: none;"
+                        onclick="guardar('direccion')">Guardar</button>
+                </div>
+            </div>
+            <div id="historial_compras" style="display: none;">
+                <h2>Historial de compras</h2>
+            </div>
+            <div id="administrar_gps" style="display: none;">
+                <h2>Administrar GPS</h2>
             </div>
         </div>
 

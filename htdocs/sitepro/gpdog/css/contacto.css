@@ -344,3 +344,9 @@ contact-form input[type="email"],
 .submit-btn:hover {
     background-color: #ffb60c;
 }
+
+.home-btn {
+    height: 40px;
+    filter: invert(1);
+
+}

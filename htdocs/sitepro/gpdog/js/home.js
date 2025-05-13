@@ -351,3 +351,21 @@ async function agregar_al_carrito(id_producto) {
         alert('Ocurrió un error al conectar con el servidor.');
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});

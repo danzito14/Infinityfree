@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const result = await response.json();
 
+
             if (result.success) {
                 Swal.fire({
                     title: "Accediendo",
@@ -101,6 +102,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const user = document.getElementById('register-user');
         const password = document.getElementById('register-password');
         const confirmPassword = document.getElementById('register-confirm-password');
+        const correo = document.getElementById('register-correo');
+        let nvl_usuario;
+        if (document.getElementById('nvl_usuario')) {
+            nvl_usuario = document.getElementById('nvl_usuario').value;
+        } else {
+            nvl_usuario = 2;
+        }
 
         if (name.value.trim() === '') return showError(name, 'Rellena el campo de nombre.');
         if (user.value.trim() === '') return showError(user, 'Rellena el campo de usuario.');
@@ -116,8 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('username', name.value.trim());
         formData.append('nickname', user.value.trim());
         formData.append('password', password.value.trim());
+        formData.append('correo', correo.value.trim());
+        formData.append('nvl_usuario', nvl_usuario);
         formData.append('action', 'register');
-
+        let json1 = "";
         try {
             const response = await fetch('../php/login_registro.php', {
                 method: 'POST',
@@ -125,19 +135,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const result = await response.json();
-
+            console.log("hola, soy goku,", result);
             if (result.success) {
                 Swal.fire({
-                    title: "Usuario Registrado existosamente",
+                    title: "TODO LISTO, AHORA ACTIVE SU CUENTA PRIMERO",
+                    text: "PARA PODER ENTRAR AL SITIO NECESITA ACTIVAR SU CUENTA, SE LE ENVIO UN CORREO A SU CORREO ELECTRONICO, PRESIONE EL BOTON PARA PODER ACTIVARLA",
                     icon: "success",
                     draggable: true,
                     confirmButtonColor: "#A6762A"
-                }).then(() => {
-                    window.location.href = '../html/home.html';
                 });
             } else {
                 Swal.fire({
-                    title: "Los datos no cumplen con los paremetros",
+                    title: result.message,
                     icon: "error",
                     draggable: true,
                     confirmButtonColor: "#A6762A"
@@ -145,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (err) {
             console.error('Error:', err);
-            alert('Ocurrió un error al conectar con el servidor.');
+            alert(err);
+
         }
     });
 

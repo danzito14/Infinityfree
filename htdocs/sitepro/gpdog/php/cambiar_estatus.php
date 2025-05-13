@@ -67,6 +67,30 @@ if ($action == "producto") {
     $stmt->close();
     $conn->close();
     echo json_encode($response);
+} else if ($action == "usuario") {
+    $id_producto = $_POST['id_producto'];
+    $estatus = $_POST['estatus'];
+
+    if ($estatus == 'A') {
+        $estatus = 'I';
+    } else {
+        $estatus = 'A';
+    }
+
+    $sql = "UPDATE usuarios SET estatus = ? WHERE id_usu = ? ";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $estatus, $id_producto);
+
+    if ($stmt->execute()) {
+        $response['success'] = true;
+    } else {
+        $response['success'] = false;
+        $response['error'] = $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+    echo json_encode($response);
 }
 
 ?>

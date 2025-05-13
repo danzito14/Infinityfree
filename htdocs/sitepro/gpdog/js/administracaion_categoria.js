@@ -163,3 +163,21 @@ async function recuperar_id() {
         console.log('No se encontró ningún ID en sessionStorage');
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});

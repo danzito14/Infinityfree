@@ -9,12 +9,13 @@ if ($action == "datos_usuario") {
     $nombre_usuario = $_POST['nombre_usuario'];
     $correo = $_POST['correo'];
     $num_telefono = $_POST['num_telefono'];
+    $estatus = $_POST['estatus'];
     $id_usu = $_POST['id_usu'];
 
     // Preparar y ejecutar el UPDATE
-    $sql = "UPDATE usuarios SET nombre = ?, nombre_usuario = ?, correo = ?, num_tel = ? WHERE id_usu = ?";
+    $sql = "UPDATE usuarios SET  estatus = ?, nombre = ?, nombre_usuario = ?, correo = ?, num_tel = ? WHERE id_usu = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $nombre_completo, $nombre_usuario, $correo, $num_telefono, $id_usu);
+    $stmt->bind_param("ssssss", $estatus, $nombre_completo, $nombre_usuario, $correo, $num_telefono, $id_usu);
 
     $response = [];
 
@@ -58,4 +59,5 @@ if ($action == "datos_usuario") {
 
     echo json_encode($response);
 }
+
 ?>

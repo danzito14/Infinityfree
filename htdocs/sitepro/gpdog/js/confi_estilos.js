@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const cargarCookies = new CargarCookiesAlIniciar(nombredelacookie2);
                 cargarCookies.cargarEstilosCookies(nombredelacookie2);
-
+                incializar_eventos(nombredelacookie2);
                 // Mostrar el nombre del usuario cargado
                 console.log("Nombre de la cookie cargado:", nombredelacookie);
             } else {
@@ -249,3 +249,21 @@ function incializar_eventos(nombredelacookie2) {
         location.reload();
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".carrito-btn").addEventListener("click", function () {
+        window.location.href = "carrito.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".ubi-btn").addEventListener("click", function () {
+        window.location.href = "ubicacion.html";
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".home-btn").addEventListener("click", function () {
+        window.location.href = "home.html";
+    });
+});

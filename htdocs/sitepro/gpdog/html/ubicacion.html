@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPDog - Rastrear Mascota</title>
+  
+  <!-- Reutilizamos tus mismos estilos y scripts -->
+  <link rel="stylesheet" href="../css/home.css" />
+  <link rel="stylesheet" href="../css/gps.css" />
+  <script src="../js/clases.js"></script>
+  <script src="../js/home.js"></script>
+  <script src="../js/confi_estilos.js"></script>
+  <script src="../js/gps.js"></script>
+  <script type="module" src="../js/clases/Sidebar.js"></script>
+  <script type="module" src="../js/home.js"></script>
+  
+  <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <!-- HEADER (mismo que home) -->
+  <header>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
+        <div id="barradebuscar">
+            <form class="buscarplatillo" method="GET">
+                <input type="search" id="buscador" placeholder="Buscar...">
+                <button id="buscar" type="submit">
+                    <img src="../gallery/GPDog Logos/svg/buscar.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <div class="icons">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon ubi-btn">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
+            <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+  <!-- SIDEBAR MENU (mismo que home) -->
+  <nav class="sidebar-menu">
+    <div class="user-info">
+      <img src="img/GPDog Logos/Puro Logo.svg" alt="Usuario" />
+      <div id="nombreusuarioloegado">
+        <span><strong>JJ Juanin</strong></span>
+      </div>
+    </div>
+    <ul>
+      <li id="btnInicio"><img src="img/GPDog Logos/Puro Logo.svg" alt=""> Inicio</li>
+      <li id="btngps"><img src="img/GPDog Logos/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
+      <li id="btnCarrito"><img src="img/GPDog Logos/Carro.svg" alt=""> Ver carrito de compras</li>
+      <li id="btnProductos"><img src="img/GPDog Logos/Productos.svg" alt=""> Productos</li>
+      <li id="btnPerfil"><img src="img/GPDog Logos/perfil.svg" alt=""> Perfil</li>
+      <li id="btnConfig"><img src="img/GPDog Logos/config.svg" alt=""> Configuración</li>
+      <li id="btnCerrarSesion"><img src="img/GPDog Logos/sesion.svg" alt=""> Cerrar sesión</li>
+      <li id="btnContacto"><img src="img/GPDog Logos/contacto.svg" alt=""> Contáctanos</li>
+    </ul>
+  </nav>
+
+  <!-- MAIN: Mapa a la izquierda, lista de rastreadores a la derecha -->
+  <main class="gps-section">
+    <!-- Contenedor del mapa -->
+    <div class="map-container">
+      <!-- Ejemplo: Google Maps centrado en la UAS Los Mochis -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3687.980412154435!2d-109.0103862850474!3d25.79671738361302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86bcd195c2301abf%3A0xfaf6753cd7fdde65!2sUniversidad%20Aut%C3%B3noma%20de%20Sinaloa%20-%20Unidad%20Los%20Mochis!5e0!3m2!1ses-419!2smx!4v1680450255592!5m2!1ses-419!2smx"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- Panel derecho con rastreadores -->
+    <aside class="tracker-panel">
+      <h2>Rastreadores</h2>
+      <ul class="tracker-list">
+        <!-- Ejemplo de items -->
+        <li class="tracker-item">
+          <span class="dot" style="background-color: #c9302c;"></span>
+          <div>
+            <strong>Firulais</strong>
+            <p>Fuentes de Poseidón...</p>
+          </div>
+        </li>
+        <li class="tracker-item">
+          <span class="dot" style="background-color: #5b2dc3;"></span>
+          <div>
+            <strong>Foquito</strong>
+            <p>Fuentes de Poseidón...</p>
+          </div>
+        </li>
+      </ul>
+      <button class="add-btn">Añadir rastreador</button>
+      <button class="manage-btn">Ir a administrar rastreadores</button>
+    </aside>
+  </main>
+
+  <!-- FOOTER (mismo que home) -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <strong>GPDog</strong>
+        <p>Encargado de decirte donde se encuentra tu mascota</p>
+        <p>Contando con tienda de productos en línea</p>
+      </div>
+      <div class="footer-right">
+        <p><strong>¿Tienes alguna sugerencia?</strong></p>
+        <p><a href="contacto.html" class="contact-link">Contáctanos</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

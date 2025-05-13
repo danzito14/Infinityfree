@@ -19,7 +19,7 @@ class CargarCookiesAlIniciar {
             if (c.indexOf(nombreEQ) === 0) {
                 return decodeURIComponent(c.substring(nombreEQ.length));
             }
-            console.log(cookies);
+
         }
         return null;
     }
