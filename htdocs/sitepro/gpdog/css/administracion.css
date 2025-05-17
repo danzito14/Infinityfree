@@ -166,7 +166,7 @@ header {
     background-color: rgb(255, 240, 215);
 }
 
-#paginacion_ventas {
+[id^="paginacion_"] {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -176,7 +176,7 @@ header {
 
 }
 
-#paginacion_ventas button {
+[id^="paginacion_"] button {
     width: 30px;
     text-align: center;
     border: transparent 1px solid;
@@ -184,7 +184,7 @@ header {
     overflow: hidden;
 }
 
-#paginacion_ventas button:hover {
+[id^="paginacion_"] button:hover {
     background-color: white;
     border: #a67c00 1px solid;
     color: #a67c00;

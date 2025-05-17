@@ -13,22 +13,27 @@ function buscar_productos_por_texto($texto, $columna)
         return;
     }
     $stmt = $conn->prepare("SELECT
-        id_producto AS 'ID',
-        CASE
-        WHEN estatus = 'A' THEN 'Activo'
-        WHEN estatus = 'I' THEN 'Inactivo'
+    p.id_producto AS 'ID',
+    CASE
+        WHEN p.estatus = 'A' THEN 'Activo'
+        WHEN p.estatus = 'I' THEN 'Inactivo'
         ELSE 'Otro'
     END AS 'Estatus',
-    tipo_producto AS 'Tipo de Producto',
-        nombre AS 'Nombre',
-        descripcion AS 'Descripción',
-        direccion_foto AS 'Foto',
-        cantidad_act AS 'Cantidad Actual',
-        cantidad_min AS 'Cantidad Mínima',
-        cantidad_max AS 'Cantidad Máxima',
-        precio_compra AS 'Precio de Compra',
-        precio_venta AS 'Precio de Venta' 
-        FROM productos WHERE $columna LIKE ?");
+    tp.descripcion AS 'Tipo de Producto',
+    p.nombre AS 'Nombre',
+    p.descripcion AS 'Descripción',
+    p.direccion_foto AS 'Foto',
+    p.cantidad_act AS 'Cantidad Actual',
+    p.cantidad_min AS 'Cantidad Mínima',
+    p.cantidad_max AS 'Cantidad Máxima',
+    p.precio_compra AS 'Precio de Compra',
+    p.precio_venta AS 'Precio de Venta'
+FROM 
+    productos p
+JOIN 
+    tipo_producto tp ON p.tipo_producto = tp.id_tipo_producto
+WHERE 
+   $columna LIKE ?");
     $texto = "%$texto%";
     $stmt->bind_param("s", $texto);
     $stmt->execute();

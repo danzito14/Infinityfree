@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPDog - Contacto</title>
     <link rel="stylesheet" href="../css/contacto.css">
-    <script type="module" src="../js/home.js"></script>
     <script src="../js/clases/cargar_estilos.js"></script>
     <script src="../js/clases/clase_sesion.js"></script>
+    <script type="module" src="../js/contacto.js"></script>
     <script type="module" src="../js/clases/Sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -46,23 +46,19 @@
 
                 <form>
                     <div class="input-group">
-                        <span class="input-label">Escribe tu nombre</span>
-                        <input type="text" name="Nombrequeja" id="Nombrequeja" placeholder="Nombre..." required>
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-label">Escribe tu correo electrónico</span>
-                        <input type="email" name="emailqueja" id="emailqueja" placeholder="example@gmail.com" required>
+                        <span class="input-label">Asunto:</span>
+                        <input type="text" name="asunto_correo" id="asunto_correo" placeholder="Asunto..." required>
                     </div>
 
                     <div class="input-group">
                         <span class="input-label">Ahora escribe tu queja o duda, sin miedo que no mordemos</span>
-                        <textarea name="queja" id="queja" placeholder="Escribe tu queja o duda..." required></textarea>
+                        <textarea name="cuerpo_correo" id="cuerpo_correo" placeholder="Escribe tu queja o duda..."
+                            required></textarea>
                     </div>
 
                     <div class="form-actions">
                         <button type="reset" class="clear-btn">Limpiar</button>
-                        <button type="submit" id="enviarqueja" class="submit-btn">Enviar</button>
+                        <button type="button" id="enviar_correo" class="submit-btn">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -89,7 +85,6 @@
         </div>
     </footer>
 
-    <script src="../js/contacto.js"></script>
 </body>
 
 </html>

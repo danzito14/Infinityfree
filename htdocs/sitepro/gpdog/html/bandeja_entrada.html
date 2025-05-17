@@ -1,0 +1,98 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPDog - Tienda</title>
+    <link rel="stylesheet" href="../css/bandeja_entrada.css">
+    <script src="../js/clases/cargar_estilos.js"></script>
+    <script src="../js/clases/clase_sesion.js"></script>
+    <script type="module" src="../js/clases/Sidebar.js"></script>
+    <script type="module" src="../js/bandeja_entrada.js"></script>
+    <link rel="icon" href="../gallery/GPDog Logos/ico/Logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <header>
+        <img src="../gallery/GPDog Logos/svg/LogoGP.svg" alt="Logo de GPDog" class="icon home-btn">
+        <div id="barradebuscar">
+
+        </div>
+        <div class="icons">
+            <img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt="Ubicación" class="icon">
+            <img src="../gallery/GPDog Logos/svg/Carro.svg" alt="Carrito" class="icon carrito-btn">
+            <img src="../gallery/GPDog Logos/svg/menu.svg" alt="Menú" class="icon menu-btn">
+        </div>
+    </header>
+
+    <nav class="sidebar-menu">
+    </nav>
+
+    <main>
+        <aside class="sidebar">
+            <h4>Bandeja de entrada</h4>
+            <button type="button" id="todos_los_correos">Todos los correos</button>
+            <button type="button" id="correos_no_leidos">No leídos</button>
+        </aside>
+
+        <div id="seleccionar_correo">
+            <div id="cabecera_contenedor">
+                <h3 id="filtro">Todos los correos</h3>
+                <div id="paginacion_correo">
+                    <h5>1-50 de 100</h5>
+                    <button>
+                        < </button>
+                            <button>></button>
+                </div>
+            </div>
+            <div id="contenedor_correos">
+
+
+            </div>
+        </div>
+        <div id="correo_completo" style="display: none;">
+            <div id="correo_completo_titulo">
+                <h3 id="asunto_correo_completo"></h3>
+            </div>
+            <div id="correo_completo_cuerpo">
+
+            </div>
+            <div id="botones_correo">
+                <button id="responder" type="button"><i class="fa-solid fa-reply"></i> Responder </button>
+                <button id="borrar" type="button"><i class="fa-solid fa-trash"></i> Borrar</button>
+            </div>
+            <form id="responder_correo" style="display: none;">
+                <h4 id="respuesta_destinatario"></h4>
+                <h4 id="respuesta_asunto"></h4>
+
+                <div id="responder_cuerpo" style="white-space: pre-line;">
+                    <textarea id="textarea_cuerpo" name="textarea_cuerpo" rows="10" cols="50"
+                        placeholder="Escribe aquí..."></textarea>
+                </div>
+
+                <div id="botones_responder">
+                    <button id="enviar_respuesta" type="button"><i class="fa-solid fa-paper-plane"></i> Enviar </button>
+                    <button id="borrar_respuesta" type="reset"><i class="fa-solid fa-trash"></i> Descartar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <strong>GPDog</strong>
+                <p>Encargado de decirte donde se encuentra tu mascota</p>
+                <p>Contando con tienda de productos en línea</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>¿Tienes alguna sugerencia?</strong></p>
+                <p>Contáctanos</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

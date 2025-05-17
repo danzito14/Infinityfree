@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const result = await response.json();
-            console.log("hola, soy goku,", result);
+
             if (result.success) {
                 Swal.fire({
                     title: "TODO LISTO, AHORA ACTIVE SU CUENTA PRIMERO",
@@ -154,114 +154,171 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+let productosData = [];  // Variable global para almacenar los productos
+let paginaActual = 1;
+const productosPorPagina = 10;
+
 function cargardatos(url = `../php/administracion_cargar_productos.php?accion=cargarproductos`) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
+            productosData = data; // Guardar todos los productos
             document.getElementById('total_productos').textContent = data.length;
-            const contenedor = document.getElementById("tabla_productos");
-            contenedor.innerHTML = ""; // Limpiar el contenedor si ya hay una tabla
-
-            const tabla = document.createElement("table");
-
-            // Crear cabeceras
-            const thead = document.createElement("thead");
-            const encabezado = document.createElement("tr");
-            const thAcciones = document.createElement("th");
-            thAcciones.textContent = "Acciones";
-            encabezado.appendChild(thAcciones);
-            // Claves + columna extra para acciones
-            const claves = Object.keys(data[0]);
-            claves.forEach(clave => {
-                const th = document.createElement("th");
-                th.textContent = clave.charAt(0).toUpperCase() + clave.slice(1);
-                encabezado.appendChild(th);
-            });
-
-
-
-            thead.appendChild(encabezado);
-            tabla.appendChild(thead);
-
-            // Cuerpo de tabla
-            const tbody = document.createElement("tbody");
-
-            data.forEach(item => {
-                const fila = document.createElement("tr");
-                // Columna de acciones
-                const tdAcciones = document.createElement("td");
-
-                // Botón Editar
-                const btnEditar = document.createElement("button");
-                btnEditar.id = "btn_editar";
-                btnEditar.textContent = "Editar";
-                //  btnEditar.onclick = () => editarProducto(item.id_producto);
-                btnEditar.onclick = () => {
-                    seleccionarId(item.ID);
-                }
-                let estatus_actual = item.Estatus;
-                let boton = '';
-
-                if (estatus_actual == 'Activo') {
-                    boton = "Dar de baja"
-                } else {
-                    boton = "Dar de alta"
-                }
-                // Botón Eliminar
-                const btnEliminar = document.createElement("button");
-                btnEliminar.id = "btn_eliminar";
-                btnEliminar.textContent = boton;
-                btnEliminar.onclick = () => {
-                    let mensaje = estatus_actual === 'A'
-                        ? "Va a cambiar el estado a inactivo y no se mostrará en la ventana de compra"
-                        : "Va a cambiar el estado a activo y se podrá ver en la página de compras";
-
-                    Swal.fire({
-                        title: '¿Está seguro?',
-                        text: mensaje,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, continuar',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonColor: '#a67c00',
-                        cancelButtonColor: '#004080'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            cambiar_estatus(item.ID, item.Estatus, "producto");
-                        }
-                    });
-                };
-
-                tdAcciones.appendChild(btnEditar);
-                tdAcciones.appendChild(btnEliminar);
-                fila.appendChild(tdAcciones);
-                claves.forEach(clave => {
-                    const td = document.createElement("td");
-
-                    if (clave === "Foto") {
-                        const img = document.createElement("img");
-                        img.src = item[clave];
-                        img.alt = "Imagen del producto";
-                        img.style.width = "50px";
-                        img.style.height = "50px";
-                        td.appendChild(img);
-                    } else {
-                        td.textContent = item[clave];
-                    }
-
-                    fila.appendChild(td);
-                });
-
-
-
-                tbody.appendChild(fila);
-            });
-
-            tabla.appendChild(tbody);
-            contenedor.appendChild(tabla);
+            renderizarTabla();
         })
         .catch(error => console.error("Error al cargar datos:", error));
 }
+
+function renderizarTabla() {
+    const contenedor = document.getElementById("tabla_productos");
+    contenedor.innerHTML = ""; // Limpiar el contenedor
+
+    const tabla = document.createElement("table");
+
+    // Cabeceras
+    const thead = document.createElement("thead");
+    const encabezado = document.createElement("tr");
+    const thAcciones = document.createElement("th");
+    thAcciones.textContent = "Acciones";
+    encabezado.appendChild(thAcciones);
+
+    const claves = Object.keys(productosData[0]);
+    claves.forEach(clave => {
+        const th = document.createElement("th");
+        th.textContent = clave.charAt(0).toUpperCase() + clave.slice(1);
+        encabezado.appendChild(th);
+    });
+
+    thead.appendChild(encabezado);
+    tabla.appendChild(thead);
+
+    // Cuerpo
+    const tbody = document.createElement("tbody");
+    const inicio = (paginaActual - 1) * productosPorPagina;
+    const fin = inicio + productosPorPagina;
+    const paginaDatos = productosData.slice(inicio, fin);
+
+    paginaDatos.forEach(item => {
+        const fila = document.createElement("tr");
+        const tdAcciones = document.createElement("td");
+
+        const btnEditar = document.createElement("button");
+        btnEditar.id = "btn_editar";
+        btnEditar.textContent = "Editar";
+        btnEditar.onclick = () => {
+            seleccionarId(item.ID);
+        };
+
+        const estatus_actual = item.Estatus;
+        const botonTexto = estatus_actual == 'Activo' ? "Dar de baja" : "Dar de alta";
+
+        const btnEliminar = document.createElement("button");
+        btnEliminar.id = "btn_eliminar";
+        btnEliminar.textContent = botonTexto;
+        btnEliminar.onclick = () => {
+            let mensaje = estatus_actual === 'A'
+                ? "Va a cambiar el estado a inactivo y no se mostrará en la ventana de compra"
+                : "Va a cambiar el estado a activo y se podrá ver en la página de compras";
+
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: mensaje,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#a67c00',
+                cancelButtonColor: '#004080'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cambiar_estatus(item.ID, item.Estatus, "producto");
+                }
+            });
+        };
+
+        tdAcciones.appendChild(btnEditar);
+        tdAcciones.appendChild(btnEliminar);
+        fila.appendChild(tdAcciones);
+
+        claves.forEach(clave => {
+            const td = document.createElement("td");
+            if (clave === "Foto") {
+                const img = document.createElement("img");
+                img.src = item[clave];
+                img.alt = "Imagen del producto";
+                img.style.width = "50px";
+                img.style.height = "50px";
+                td.appendChild(img);
+            } else {
+                td.textContent = item[clave];
+            }
+            fila.appendChild(td);
+        });
+
+        tbody.appendChild(fila);
+    });
+
+    tabla.appendChild(tbody);
+    contenedor.appendChild(tabla);
+
+    renderizarPaginacion();
+}
+
+function renderizarPaginacion() {
+    let paginacionContenedor = document.getElementById("paginacion_productos");
+    if (!paginacionContenedor) {
+        paginacionContenedor = document.createElement("div");
+        paginacionContenedor.id = "paginacion_producto";
+        document.getElementById("tabla_productos").appendChild(paginacionContenedor);
+    }
+    paginacionContenedor.innerHTML = "";
+
+    const totalPaginas = Math.ceil(productosData.length / productosPorPagina);
+
+    // Botón Anterior
+    const btnAnterior = document.createElement("button");
+    btnAnterior.textContent = "Ant";
+    btnAnterior.disabled = paginaActual === 1;
+    btnAnterior.onclick = () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            renderizarTabla();
+        }
+    };
+    paginacionContenedor.appendChild(btnAnterior);
+
+    // Botones numéricos (máximo 5 visibles con el actual centrado si es posible)
+    let inicio = Math.max(1, paginaActual - 2);
+    let fin = Math.min(totalPaginas, inicio + 4);
+    if (fin - inicio < 4) {
+        inicio = Math.max(1, fin - 4);
+    }
+
+    for (let i = inicio; i <= fin; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.disabled = i === paginaActual;
+        btn.onclick = () => {
+            paginaActual = i;
+            renderizarTabla();
+        };
+        paginacionContenedor.appendChild(btn);
+    }
+
+    // Botón Siguiente
+    const btnSiguiente = document.createElement("button");
+    btnSiguiente.textContent = "Sig";
+    btnSiguiente.disabled = paginaActual === totalPaginas;
+    btnSiguiente.onclick = () => {
+        if (paginaActual < totalPaginas) {
+            paginaActual++;
+            renderizarTabla();
+        }
+    };
+    paginacionContenedor.appendChild(btnSiguiente);
+}
+
+
 
 
 
@@ -459,8 +516,6 @@ async function cargar_datos_tabla_venta(sentencia_sql) {
 }
 
 function mostrar_ventas() {
-
-
     let inicio = (pagina_actual - 1) * cant_tuplas_max;
     let fin = inicio + cant_tuplas_max;
 
@@ -501,93 +556,161 @@ function cargar_datos_usuario() {
     cargar_tabla_usuario(url);
 }
 
+
 async function cargar_tabla_usuario(url) {
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
             document.getElementById('total_usuarios').textContent = data.length;
-            const contenedor = document.getElementById("tabla_usuarios");
-            contenedor.innerHTML = ""; // Limpiar el contenedor si ya hay una tabla
-
-            const tabla = document.createElement("table");
-
-            // Crear cabeceras
-            const thead = document.createElement("thead");
-            const encabezado = document.createElement("tr");
-            const thAcciones = document.createElement("th");
-            thAcciones.textContent = "Acciones";
-            encabezado.appendChild(thAcciones);
-
-            const claves = Object.keys(data[0]);
-            claves.forEach(clave => {
-                const th = document.createElement("th");
-                th.textContent = clave.charAt(0).toUpperCase() + clave.slice(1);
-                encabezado.appendChild(th);
-            });
-
-            thead.appendChild(encabezado);
-            tabla.appendChild(thead);
-
-            // Cuerpo de tabla
-            const tbody = document.createElement("tbody");
-
-            data.forEach(item => {
-                const fila = document.createElement("tr");
-
-                // Columna de acciones
-                const tdAcciones = document.createElement("td");
-
-                const btnEditar = document.createElement("button");
-                btnEditar.id = "btn_editar";
-                btnEditar.textContent = "Editar";
-                btnEditar.onclick = () => {
-                    seleccionarIdcusuario(item.ID);
-                };
-
-                const btnEliminar = document.createElement("button");
-                btnEliminar.id = "btn_eliminar";
-                btnEliminar.textContent = item.Estatus === 'Activo' ? "Dar de baja" : "Dar de alta";
-                btnEliminar.onclick = () => {
-                    const mensaje = item.Estatus === 'A'
-                        ? "Va a cambiar el estado a inactivo el usuario no podra entrar al sitio"
-                        : "Va a cambiar el estado a activo este usuario puede entrar al sitio";
-
-                    Swal.fire({
-                        title: '¿Está seguro?',
-                        text: mensaje,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, continuar',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonColor: '#a67c00',
-                        cancelButtonColor: '#004080'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            cambiar_estatus(item.ID, item.Estatus, "usuario");
-                        }
-                    });
-                };
-
-                tdAcciones.appendChild(btnEditar);
-                tdAcciones.appendChild(btnEliminar);
-                fila.appendChild(tdAcciones);
-
-                claves.forEach(clave => {
-                    const td = document.createElement("td");
-                    td.textContent = item[clave];
-                    fila.appendChild(td);
-                });
-
-                tbody.appendChild(fila);
-            });
-
-            tabla.appendChild(tbody);
-            contenedor.appendChild(tabla);
+            renderizar_tabla_simple(data, "usuarios");
         })
         .catch(error => console.error("Error al cargar datos:", error));
 
 
+}
+
+const estadoPaginacion = {
+    usuarios: { paginaActual: 1 },
+    categorias: { paginaActual: 1 },
+    // puedes agregar más secciones si es necesario
+};
+
+const elementosPorPagina = 10;
+
+function renderizar_tabla_simple(data, seccion) {
+    const paginaActual = estadoPaginacion[seccion]?.paginaActual || 1;
+
+    const contenedor = document.getElementById("tabla_" + seccion);
+    contenedor.innerHTML = "";
+
+    const tabla = document.createElement("table");
+
+    const thead = document.createElement("thead");
+    const encabezado = document.createElement("tr");
+    const thAcciones = document.createElement("th");
+    thAcciones.textContent = "Acciones";
+    encabezado.appendChild(thAcciones);
+
+    const claves = Object.keys(data[0]);
+    claves.forEach(clave => {
+        const th = document.createElement("th");
+        th.textContent = clave.charAt(0).toUpperCase() + clave.slice(1);
+        encabezado.appendChild(th);
+    });
+
+    thead.appendChild(encabezado);
+    tabla.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+
+    const inicio = (paginaActual - 1) * elementosPorPagina;
+    const fin = inicio + elementosPorPagina;
+    const datosPagina = data.slice(inicio, fin);
+
+    datosPagina.forEach(item => {
+        const fila = document.createElement("tr");
+
+        const tdAcciones = document.createElement("td");
+
+        const btnEditar = document.createElement("button");
+        btnEditar.id = "btn_editar";
+        btnEditar.textContent = "Editar";
+        btnEditar.onclick = () => {
+            if (seccion === "usuarios") {
+                seleccionarIdcusuario(item.ID);
+            }
+        };
+
+        const btnEliminar = document.createElement("button");
+        btnEliminar.id = "btn_eliminar";
+        btnEliminar.textContent = item.Estatus === 'Activo' ? "Dar de baja" : "Dar de alta";
+        btnEliminar.onclick = () => {
+            const mensaje = item.Estatus === 'A'
+                ? "Va a cambiar el estado a inactivo. El usuario no podrá entrar al sitio."
+                : "Va a cambiar el estado a activo. Este usuario podrá entrar al sitio.";
+
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: mensaje,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#a67c00',
+                cancelButtonColor: '#004080'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cambiar_estatus(item.ID, item.Estatus, seccion);
+                }
+            });
+        };
+
+        tdAcciones.appendChild(btnEditar);
+        tdAcciones.appendChild(btnEliminar);
+        fila.appendChild(tdAcciones);
+
+        claves.forEach(clave => {
+            const td = document.createElement("td");
+            td.textContent = item[clave];
+            fila.appendChild(td);
+        });
+
+        tbody.appendChild(fila);
+    });
+
+    tabla.appendChild(tbody);
+    contenedor.appendChild(tabla);
+
+    renderizar_paginacion_simple(data, seccion);
+}
+
+function renderizar_paginacion_simple(data, seccion) {
+    const paginaActual = estadoPaginacion[seccion]?.paginaActual || 1;
+    const totalPaginas = Math.ceil(data.length / elementosPorPagina);
+
+    let paginacionContenedor = document.getElementById("paginacion_" + seccion);
+    if (!paginacionContenedor) {
+        paginacionContenedor = document.createElement("div");
+        paginacionContenedor.id = "paginacion_" + seccion;
+        document.getElementById("tabla_" + seccion).appendChild(paginacionContenedor);
+    }
+    paginacionContenedor.innerHTML = "";
+
+    // Botón anterior
+    const btnAnterior = document.createElement("button");
+    btnAnterior.textContent = "« Anterior";
+    btnAnterior.disabled = paginaActual === 1;
+    btnAnterior.onclick = () => {
+        estadoPaginacion[seccion].paginaActual--;
+        renderizar_tabla_simple(data, seccion);
+    };
+    paginacionContenedor.appendChild(btnAnterior);
+
+    // Botones numerados
+    const inicio = Math.max(1, paginaActual - 2);
+    const fin = Math.min(totalPaginas, inicio + 4);
+
+    for (let i = inicio; i <= fin; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.disabled = i === paginaActual;
+        btn.onclick = () => {
+            estadoPaginacion[seccion].paginaActual = i;
+            renderizar_tabla_simple(data, seccion);
+        };
+        paginacionContenedor.appendChild(btn);
+    }
+
+    // Botón siguiente
+    const btnSiguiente = document.createElement("button");
+    btnSiguiente.textContent = "Siguiente »";
+    btnSiguiente.disabled = paginaActual === totalPaginas;
+    btnSiguiente.onclick = () => {
+        estadoPaginacion[seccion].paginaActual++;
+        renderizar_tabla_simple(data, seccion);
+    };
+    paginacionContenedor.appendChild(btnSiguiente);
 }
 
 
@@ -597,84 +720,7 @@ function cargar_categorias() {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const contenedor = document.getElementById("tabla_categorias");
-            contenedor.innerHTML = "";
-
-            const tabla = document.createElement("table");
-
-            // Crear cabeceras
-            const thead = document.createElement("thead");
-            const encabezado = document.createElement("tr");
-            const thAcciones = document.createElement("th");
-            thAcciones.textContent = "Acciones";
-            encabezado.appendChild(thAcciones);
-
-            const claves = Object.keys(data[0]);
-            claves.forEach(clave => {
-                const th = document.createElement("th");
-                th.textContent = clave.charAt(0).toUpperCase() + clave.slice(1);
-                encabezado.appendChild(th);
-            });
-
-            thead.appendChild(encabezado);
-            tabla.appendChild(thead);
-
-            // Cuerpo de tabla
-            const tbody = document.createElement("tbody");
-
-            data.forEach(item => {
-                const fila = document.createElement("tr");
-
-                // Columna de acciones
-                const tdAcciones = document.createElement("td");
-
-                const btnEditar = document.createElement("button");
-                btnEditar.id = "btn_editar";
-                btnEditar.textContent = "Editar";
-                btnEditar.onclick = () => seleccionarIdcategoria(item.ID);
-                tdAcciones.appendChild(btnEditar);
-
-                let estatus_actual = item.Estatus;
-                let botonTexto = estatus_actual === 'A' ? "Dar de baja" : "Dar de alta";
-
-                const btnEliminar = document.createElement("button");
-                btnEliminar.id = "btn_eliminar";
-                btnEliminar.textContent = botonTexto;
-                btnEliminar.onclick = () => {
-                    let mensaje = estatus_actual === 'A'
-                        ? "Va a cambiar el estado a inactivo y no se mostrará en la ventana de compra ninguno  de los productos que pertenezcan a esta categoria"
-                        : "Va a cambiar el estado a activo y se podrá ver en la página de compras los productos relacionados a esta categoria";
-
-                    Swal.fire({
-                        title: '¿Está seguro?',
-                        text: mensaje,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, continuar',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonColor: '#a67c00',
-                        cancelButtonColor: '#004080'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            cambiar_estatus(item.ID, item.Estatus, "categoria");
-                        }
-                    });
-                };
-                tdAcciones.appendChild(btnEliminar);
-                fila.appendChild(tdAcciones);
-
-                // Celdas con los datos de la categoría
-                claves.forEach(clave => {
-                    const td = document.createElement("td");
-                    td.textContent = item[clave];
-                    fila.appendChild(td);
-                });
-
-                tbody.appendChild(fila);
-            });
-
-            tabla.appendChild(tbody);
-            contenedor.appendChild(tabla);
+            renderizar_tabla_simple(data, "categorias");
         })
         .catch(error => console.error("Error al cargar datos:", error));
 }
