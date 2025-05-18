@@ -176,33 +176,20 @@ window.enviarclase = function enviarclase(valor) {
 async function buscarProductosporClase(tipo, valor) {
     let url = `../php/buscarproductos.php?accion=clase&clase=${encodeURIComponent(valor)}`;
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json(); // Agregar await aquí
+    fetch(url) // Verifica la ruta correcta
+        .then(response => response.json()) // Convertimos en JSON
+        .then(data => {
+            productos = data; //pasamos el json que tiene los datos al array productos
+            pagina_actual = 1;
+            mostrar_productos();
+            crear_paginacion();
+        })
+        .catch(error => console.error("Error al cargar datos:", error));
 
-        let resultadosDiv = document.getElementById("productos");
-        resultadosDiv.innerHTML = ""; // Limpiar resultados anteriores
+}
 
-        if (data.length > 0) {
-            data.forEach(producto => {
-                let fila = `
-                    <div class="product" data-id="${producto.id_producto}>
-                        <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
-                        <img src="${producto.direccion_foto}" alt="Placa mascota">
-                        <p id="nombre_producto">${producto.nombre}</p>
-                        <p class="price">$${producto.precio_venta}</p>
-                        <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
-                    </div>
-                `;
-                resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
-            });
-        } else {
-            resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
-        }
-    } catch (e) {
-        console.error("Error en la búsqueda de productos:", e);
-    }
-} document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById("productos");
 
     contenedor.addEventListener("click", (e) => {
@@ -235,33 +222,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const precio_max = document.getElementById('precio_max').value.trim();
         let url = `../php/buscarproductos.php?accion=buscarporprecio&preciomin=${encodeURIComponent(precio_min)}&preciomax=${encodeURIComponent(precio_max)}`;
 
-        try {
-            const response = await fetch(url);
-            const data = await response.json(); // Agregar await aquí
+        fetch(url) // Verifica la ruta correcta
+            .then(response => response.json()) // Convertimos en JSON
+            .then(data => {
+                productos = data; //pasamos el json que tiene los datos al array productos
+                pagina_actual = 1;
+                mostrar_productos();
+                crear_paginacion();
+            })
+            .catch(error => console.error("Error al cargar datos:", error));
 
-            let resultadosDiv = document.getElementById("productos");
-            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
-
-            if (data.length > 0) {
-                data.forEach(producto => {
-                    let fila = `
-                        <div class="product" data-id="${producto.id_producto}>
-                            <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
-                            <img src="${producto.direccion_foto}" alt="Placa mascota">
-                            <p id="nombre_producto">${producto.nombre}</p>
-                            <p class="price">$${producto.precio_venta}</p>
-                            <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
-                        </div>
-                    `;
-                    resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
-                });
-            } else {
-                resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
-            }
-
-        } catch (e) {
-            console.error("Error en la búsqueda de productos:", e);
-        }
     });
 });
 
@@ -274,33 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let url = `../php/buscarproductos.php?accion=buscarPorTexto&query=${encodeURIComponent(buscador)}`;
 
-        try {
-            const response = await fetch(url);
-            const data = await response.json(); // Agregar await aquí
+        fetch(url) // Verifica la ruta correcta
+            .then(response => response.json()) // Convertimos en JSON
+            .then(data => {
+                productos = data; //pasamos el json que tiene los datos al array productos
+                pagina_actual = 1;
+                mostrar_productos();
+                crear_paginacion();
+            })
+            .catch(error => console.error("Error al cargar datos:", error));
 
-            let resultadosDiv = document.getElementById("productos");
-            resultadosDiv.innerHTML = ""; // Limpiar resultados previos
-
-            if (data.length > 0) {
-                data.forEach(producto => {
-                    let fila = `
-                        <div class="product" data-id="${producto.id_producto}>
-                            <input type="hidden" id="id_producto" name="id_producto" value="${producto.id_producto}">
-                            <img src="${producto.direccion_foto}" alt="Placa mascota">
-                            <p id="nombre_producto">${producto.nombre}</p>
-                            <p class="price">$${producto.precio_venta}</p>
-                            <button type="submit"  id="agregar_al_carrito">Agregar al carrito</button>
-                        </div>
-                    `;
-                    resultadosDiv.innerHTML += fila; // Usar resultadosDiv en lugar de datos
-                });
-            } else {
-                resultadosDiv.innerHTML = "<p>No hay productos</p>"; // Corregir variable
-            }
-
-        } catch (e) {
-            console.error("Error en la búsqueda de productos:", e);
-        }
     });
 });
 async function agregar_al_carrito(id_producto) {

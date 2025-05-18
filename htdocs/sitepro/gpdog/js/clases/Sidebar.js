@@ -14,6 +14,7 @@ class Sidebar {
                         <li id="btnRastrear"><img src="../gallery/GPDog Logos/svg/Rastrear_mascota_icon.svg" alt=""> Rastrear mascota</li>
                         <li id="btnCarrito"><img src="../gallery/GPDog Logos/svg/Carro.svg" alt=""> Ver carrito de compras</li>
                         <li id="btnAdministracion"><img src="../gallery/GPDog Logos/svg/archivos.svg" alt=""> Administración</li>
+                        <li id="btnInbox"><img src="../gallery/GPDog Logos/svg/bandeja_entrada.svg" alt=""> Bandeja de entrada</li>
                         <li id="btnPerfil"><img src="../gallery/GPDog Logos/svg/perfil.svg" alt=""> Perfil</li>
                         <li id="btnConfig"><img src="../gallery/GPDog Logos/svg/config.svg" alt=""> Configuración</li>
                         <li id="btnContacto"><img src="../gallery/GPDog Logos/svg/contacto.svg" alt=""> Contáctanos</li>
@@ -25,6 +26,7 @@ class Sidebar {
 
                     if (data.nvl_usuario == 2) {
                         document.getElementById("btnAdministracion").style.display = "none";
+                        document.getElementById("btnInbox").style.display = "none";
                     }
 
                     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
@@ -99,6 +101,15 @@ class Sidebar {
                         });
                     } else {
                         console.warn("btnAdministracion no encontrado (dentro de Sidebar).");
+                    }
+
+                    const btnInbox = document.getElementById('btnInbox');
+                    if (btnInbox) {
+                        btnInbox.addEventListener('click', () => {
+                            window.location.href = '../html/bandeja_entrada.html';
+                        });
+                    } else {
+                        console.warn("btnInbox no encontrado (dentro de Sidebar).");
                     }
 
                     const btnPerfil = document.getElementById('btnPerfil');

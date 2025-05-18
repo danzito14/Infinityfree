@@ -324,12 +324,12 @@ function renderizarPaginacion() {
 
 
 function cargar_ventas() {
-    cargar_grafica('productos_mas_vendidos', 'grafica_productos_mas_vendidos', "Cantidad vendida", false);
-    cargar_grafica('productos_menos_vendidos', 'grafica_productos_menos_vendidos', "Cantidad vendida", false);
+    cargar_grafica('productos_mas_vendidos', 'grafica_productos_mas_vendidos', "Cantidad vendida", true);
+    cargar_grafica('productos_menos_vendidos', 'grafica_productos_menos_vendidos', "Cantidad vendida", true);
     cargar_grafica('productos_que_generan_mas_ingresos', 'grafica_productos_que_generan_mas_ingresos', "Ingresos generados", true);
     cargar_grafica('productos_que_generan_menos_ingresos', 'grafica_productos_que_generan_menos_ingresos', "Ingresos generados", true);
-    cargar_grafica('clientes_que_compran_mas', 'grafica_clientes_que_compran_mas', "Total de productos", false);
-    cargar_grafica('clientes_que_generan_mas_ingresos', 'grafica_clientes_que_generan_mas_ingresos', "Ingresos generados", false);
+    cargar_grafica('clientes_que_compran_mas', 'grafica_clientes_que_compran_mas', "Total de productos", true);
+    cargar_grafica('clientes_que_generan_mas_ingresos', 'grafica_clientes_que_generan_mas_ingresos', "Ingresos generados", true);
 }
 const instanciasGraficos = {};
 

@@ -29,7 +29,7 @@ if ($action == "producto") {
     $stmt->close();
     $conn->close();
     echo json_encode($response);
-} elseif ($action == "categoria") {
+} elseif ($action == "categorias") {
     $id_producto = $_POST['id_producto'];
     $estatus = $_POST['estatus'];
 
@@ -67,7 +67,7 @@ if ($action == "producto") {
     $stmt->close();
     $conn->close();
     echo json_encode($response);
-} else if ($action == "usuario") {
+} else if ($action == "usuarios") {
     $id_producto = $_POST['id_producto'];
     $estatus = $_POST['estatus'];
 

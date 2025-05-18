@@ -350,24 +350,64 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+async function verificar_direccion() {
+    const formData = new FormData();
+    formData.append("id_usuario", window.id_usuario);
+    formData.append("action", "verificar_direccion");
+
+    try {
+        const response = await fetch("../php/verificar_direccion.php", {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = response.json();
+
+        if (result.success) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (e) {
+        console.log("Error", e);
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#boton_comprar").addEventListener("click", async function () {
+        const direccion_valida = await verificar_direccion();
         if (!window.carrito_cargado) {
             Swal.fire({
                 title: "No tiene nada agregado",
                 text: "No tiene nada agregado a su carrito aún, si quiere comprar agrege cosas a su carrito.",
                 icon: "warning",
                 showCancelButton: true,
-                cancelButtonText: "Ir a productos",
+                cancelButtonText: "Entendido",
                 confirmButtonColor: "#A6762A",
                 cancelButtonColor: "#004080",
-                confirmButtonText: "Entendido"
+                confirmButtonText: "Ir a productos"
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = "../html/home.html";
                 }
             });
-        } else {
+        } else if (!direccion_valida) {
+            Swal.fire({
+                title: "No tiene registrada alguna direccion de entrega",
+                text: "¿A dondé le enviamos si no sabemos como llegar?",
+                icon: "question",
+                showCancelButton: true,
+                cancelButtonText: "Entendido",
+                confirmButtonColor: "#A6762A",
+                cancelButtonColor: "#004080",
+                confirmButtonText: "Ir a configuración"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../html/configuracion.html";
+                }
+            });
+        }
+        else {
             try {
 
 
